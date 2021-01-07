@@ -11,12 +11,27 @@ export class CategoryService {
     private readonly categoryModel: Model<CategoryDocument>,
   ) {}
 
-  async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
+  async create(createCategoryDto: CreateCategoryDto): Promise<any> {
     const createdCategory = new this.categoryModel(createCategoryDto);
     return createdCategory.save();
   }
 
-  async findAll(): Promise<Category[]> {
-    return this.categoryModel.find().exec();
+  async findAll(): Promise<any> {
+    return await this.categoryModel.find().exec();
   }
+
+  async update(id, createCategoryDto: CreateCategoryDto): Promise<any> {
+    // return await this.categoryModel.findById(id);
+    const updateCategory = new this.categoryModel(createCategoryDto);
+    return await this.categoryModel.findByIdAndUpdate(
+      id,
+      {
+        category: updateCategory.category,
+        skills_category: updateCategory.skills_category,
+      },
+      { useFindAndModify: false },
+    );
+  }
+
+  // return await this.categoryModel.updateOne(id, updateCategory);
 }

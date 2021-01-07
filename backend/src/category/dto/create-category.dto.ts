@@ -1,7 +1,11 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsMongoId, IsOptional } from 'class-validator';
 
 export class CreateCategoryDto {
   @IsNotEmpty()
   @IsString()
-  readonly name: string;
+  readonly category: string;
+
+  @IsOptional()
+  @IsMongoId()
+  readonly skills_category: string;
 }
