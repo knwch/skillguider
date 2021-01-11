@@ -1,26 +1,33 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Category } from './category.model';
+import { Category, CategoryDocument } from './schema/category.schema';
 import { CreateCategoryDto } from './dto/create-category.dto';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class CategoryService {
-  private categories: Category[] = [];
+  constructor(
+    @InjectModel('Category')
+    private readonly CategoryModel: Model<CategoryDocument>,
+  ) {}
 
-  getAllCategories() {
-    return this.categories;
+  async getAllCategories(): Promise<any> {
+    return await this.CategoryModel.find().exec();
   }
 
-  createCategory(title: string, skillset: []) {
-    const category: Category = {
-      title,
-      skillset,
-    };
+  // getCategoryById(id: string): Category {
+  //   return this.categories.find((category) => category.id === id);
+  // }
 
-    this.categories.push(category);
-    return category;
+  async createCategory(categoryData: CreateCategoryDto): Promise<Category> {
+    const createdCategory = new this.CategoryModel(categoryData);
+    return createdCategory.save();
   }
+
+  // deleteCategory(id: string) {
+  //   this.categories = this.categories.filter((category) => category.id !== id);
+  // }
 
   // constructor(
   //   @InjectModel(Category.name)

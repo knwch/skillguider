@@ -7,35 +7,50 @@ import {
   UsePipes,
   Res,
   Query,
+  Param,
   NotFoundException,
   HttpStatus,
   ValidationPipe,
+  Delete,
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
-import { Category } from './category.model';
+import { Category } from './schema/category.schema';
 
 @Controller('category')
 export class CategoryController {
   constructor(private categoryService: CategoryService) {}
 
   @Get()
-  getAllCategories(): Category[] {
-    return this.categoryService.getAllCategories();
+  async getAllCategories(@Res() res) {
+    const data = await this.categoryService.getAllCategories();
+    return res.status(HttpStatus.OK).json(data);
   }
 
+  // @Get('/:id')
+  // getCategoryById(@Param('id') id: string) {
+  //   return this.categoryService.getCategoryById(id);
+  // }
+
   @Post()
-  createCategory(
-    @Body('title') title: string,
-    @Body('skillset') skillset: [],
-  ): Category {
-    return this.categoryService.createCategory(title, skillset);
+  @UsePipes(ValidationPipe)
+  async createCategory(@Res() res, @Body() categoryData: CreateCategoryDto) {
+    const data = await this.categoryService.createCategory(categoryData);
+    return res.status(HttpStatus.OK).json({
+      message: 'Category has been successfully created',
+      data,
+    });
   }
+
+  // @Delete('/:id')
+  // deleteCategory(@Param('id') id: string) {
+  //   this.categoryService.deleteCategory(id);
+  // }
 
   // @Post()
   // @UsePipes(ValidationPipe)
   // async create(@Body() createCategoryDto: CreateCategoryDto) {
-  //   await this.categoryService.create(createCategoryDto);
+  //   await this.categoryService.createCategory(createCategoryDto);
   // }
 
   // @Post()
