@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsMongoId, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
 
 export class CreateCategoryDto {
   @IsNotEmpty()
@@ -6,6 +6,5 @@ export class CreateCategoryDto {
   readonly title: string;
 
   @IsOptional()
-  @IsMongoId()
-  readonly skillset: string;
+  readonly skillset: [];
 }
