@@ -11,7 +11,7 @@ async function bootstrap() {
     .setTitle('SkillGuider App')
     .setDescription('The SkillGuider API description')
     .setVersion('1.0')
-    // .addBearerAuth()
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('/docs', app, document);
