@@ -5,13 +5,16 @@ import {
   Put,
   Body,
   UsePipes,
+  Req,
   Res,
   Query,
   NotFoundException,
   HttpStatus,
   ValidationPipe,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 
@@ -21,6 +24,7 @@ export class CategoryController {
 
   @Post('create')
   @UsePipes(ValidationPipe)
+  @UseGuards(AuthGuard())
   async createCategory(@Res() res, @Body() categoryData: CreateCategoryDto) {
     const data = await this.categoryService.createCategory(categoryData);
     return res.status(HttpStatus.OK).json({
@@ -43,6 +47,7 @@ export class CategoryController {
   }
 
   @Put('update')
+  @UseGuards(AuthGuard())
   async updateCategory(
     @Res() res,
     @Query('id') id: string,
@@ -57,6 +62,7 @@ export class CategoryController {
   }
 
   @Delete('delete')
+  @UseGuards(AuthGuard())
   async deleteCategory(@Res() res, @Query('id') id: string) {
     const data = await this.categoryService.deleteCategory(id);
     if (!data) throw new NotFoundException('Category does not exist!');
