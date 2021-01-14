@@ -21,7 +21,7 @@ export class AuthService {
     // check uniqueness of email
     const { username, password } = authCredentialsDto;
 
-    const user = await this.UserModel.findOne({ username }).exec();
+    const user = await this.UserModel.findOne({ username });
 
     if (user) {
       const errors = { email: 'Email must be unique.' };
@@ -53,7 +53,7 @@ export class AuthService {
     authCredentialsDto: AuthCredentialsDto,
   ): Promise<{ accessToken: string }> {
     const { username, password } = authCredentialsDto;
-    const user = await this.UserModel.findOne({ username }).exec();
+    const user = await this.UserModel.findOne({ username });
 
     // validate between incoming password and actual password
     if (
