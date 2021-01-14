@@ -112,5 +112,5 @@ data/exports/
 # DS_Store OS
 .DS_Store
 
-# firebase config
-backend/src/auth/firebaseServiceAccount.json
+# SECRETKEY config
+backend/src/config.ts
