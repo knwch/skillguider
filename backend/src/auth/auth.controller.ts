@@ -1,18 +1,12 @@
 import {
   Controller,
-  Get,
   Post,
-  Put,
   Body,
   UsePipes,
-  Req,
   Res,
-  Query,
-  NotFoundException,
   HttpStatus,
-  ValidationPipe,
-  Delete,
   UseGuards,
+  ValidationPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
@@ -23,20 +17,22 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('signup')
-  async signup(@Body() authData: AuthCredentialsDto) {
-    const token = await this.authService.signUp(authData);
-    return token;
+  @UseGuards(AuthGuard())
+  @UsePipes(ValidationPipe)
+  async signup(@Res() res, @Body() authData: AuthCredentialsDto) {
+    const userData = await this.authService.signUp(authData);
+    return res.status(HttpStatus.OK).json({
+      message: 'You have signed up successfully',
+    });
   }
 
   @Post('signin')
-  async signin(@Body() authData: AuthCredentialsDto) {
-    const token = await this.authService.signIn(authData);
-    return token;
-  }
-
-  @Post('test')
-  @UseGuards(AuthGuard())
-  test(@Req() req) {
-    console.log(req);
+  @UsePipes(ValidationPipe)
+  async signin(@Res() res, @Body() authData: AuthCredentialsDto) {
+    const userData = await this.authService.signIn(authData);
+    return res.status(HttpStatus.OK).json({
+      message: 'You have Signed in successfully.',
+      userData,
+    });
   }
 }
