@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Schema as mSchema } from 'mongoose';
-import { Category } from '../../category/schema/category.schema';
+import { Document, Types } from 'mongoose';
 
 export type JobDocument = Job & Document;
 
@@ -12,8 +11,8 @@ export class Job {
   @Prop()
   description: string;
 
-  @Prop({ type: mSchema.Types.ObjectId, ref: 'Category' })
-  category_id: Category;
+  @Prop()
+  category_id: Types.ObjectId;
 
   @Prop()
   skillset: [];
