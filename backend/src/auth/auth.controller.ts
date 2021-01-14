@@ -31,7 +31,7 @@ export class AuthController {
   async signin(@Res() res, @Body() authData: AuthCredentialsDto) {
     const userData = await this.authService.signIn(authData);
     return res.status(HttpStatus.OK).json({
-      message: 'You have Signed in successfully.',
+      message: 'You have signed in successfully.',
       userData,
     });
   }
