@@ -2,6 +2,7 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Category, CategoryDocument } from './schema/category.schema';
+import { JobDocument } from '../job/schema/job.schema';
 import { CreateCategoryDto } from './dto/create-category.dto';
 
 @Injectable()
@@ -9,6 +10,8 @@ export class CategoryService {
   constructor(
     @InjectModel('Category')
     private readonly CategoryModel: Model<CategoryDocument>,
+    @InjectModel('Job')
+    private readonly JobModel: Model<JobDocument>,
   ) {}
 
   async createCategory(categoryData: CreateCategoryDto): Promise<Category> {
@@ -35,6 +38,14 @@ export class CategoryService {
   }
 
   async deleteCategory(id: string): Promise<any> {
-    return await this.CategoryModel.findByIdAndRemove(id);
+    const categoryDeleted = await this.CategoryModel.deleteOne({ _id: id });
+
+    if (categoryDeleted.deletedCount > 0) {
+      await this.JobModel.deleteMany({
+        category_id: id,
+      });
+    }
+
+    return categoryDeleted;
   }
 }
