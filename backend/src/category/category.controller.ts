@@ -5,7 +5,6 @@ import {
   Put,
   Body,
   UsePipes,
-  Req,
   Res,
   Query,
   NotFoundException,
@@ -15,16 +14,16 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
+import { CategoryService } from './category.service';
 
 @Controller('category')
 export class CategoryController {
   constructor(private categoryService: CategoryService) {}
 
   @Post('create')
-  @UsePipes(ValidationPipe)
   @UseGuards(AuthGuard())
+  @UsePipes(ValidationPipe)
   async createCategory(@Res() res, @Body() categoryData: CreateCategoryDto) {
     const data = await this.categoryService.createCategory(categoryData);
     return res.status(HttpStatus.OK).json({
@@ -48,6 +47,7 @@ export class CategoryController {
 
   @Put('update')
   @UseGuards(AuthGuard())
+  @UsePipes(ValidationPipe)
   async updateCategory(
     @Res() res,
     @Query('id') id: string,
