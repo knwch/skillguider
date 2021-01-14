@@ -1,5 +1,5 @@
-import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { Injectable, UnauthorizedException, HttpStatus } from '@nestjs/common';
+import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { JwtService } from '@nestjs/jwt';
@@ -7,7 +7,7 @@ import { User, UserDocument } from './schema/user.schema';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { validate } from 'class-validator';
 import * as bcrypt from 'bcrypt';
-import { JwtPayload } from './jwt-payload.interface';
+import { JwtPayload } from './jwt/jwt-payload.interface';
 
 @Injectable()
 export class AuthService {
@@ -55,14 +55,17 @@ export class AuthService {
     const { username, password } = authCredentialsDto;
     const user = await this.UserModel.findOne({ username }).exec();
 
+    // validate between incoming password and actual password
     if (
       user &&
       (await this.validatePassword(password, user.password, user.salt))
     ) {
       const payload: JwtPayload = { username };
       const accessToken = await this.jwtService.sign(payload);
-
-      return { accessToken };
+      return {
+        ...payload,
+        accessToken,
+      };
     } else {
       throw new UnauthorizedException('Invalid credentials');
     }
