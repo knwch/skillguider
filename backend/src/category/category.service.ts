@@ -17,11 +17,11 @@ export class CategoryService {
   }
 
   async getAllCategories(): Promise<any> {
-    return await this.CategoryModel.find().exec();
+    return await this.CategoryModel.find();
   }
 
   async getCategoryById(id: string): Promise<Category> {
-    const category = await this.CategoryModel.findById(id).exec();
+    const category = await this.CategoryModel.findById(id);
     return category;
   }
 
