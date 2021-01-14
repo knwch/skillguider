@@ -65,10 +65,11 @@ export class CategoryController {
   @UseGuards(AuthGuard())
   async deleteCategory(@Res() res, @Query('id') id: string) {
     const data = await this.categoryService.deleteCategory(id);
-    if (!data) throw new NotFoundException('Category does not exist!');
+    if (!data || data.deletedCount === 0) {
+      throw new NotFoundException('Category does not exist!');
+    }
     return res.status(HttpStatus.OK).json({
       message: 'Category has been deleted',
-      data,
     });
   }
 }
