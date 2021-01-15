@@ -20,11 +20,12 @@ export class CategoryService {
   }
 
   async getAllCategories(): Promise<any> {
-    return await this.CategoryModel.find();
+    const categoriesData = await this.CategoryModel.find().select('title');
+    return categoriesData;
   }
 
   async getCategoryById(id: string): Promise<Category> {
-    const category = await this.CategoryModel.findById(id);
+    const category = await this.CategoryModel.findById(id).select('title');
     return category;
   }
 
