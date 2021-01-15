@@ -106,9 +106,6 @@ dist
 # vscode settings
 .vscode
 
-# vscode settings
-data/exports/
-
 # DS_Store OS
 .DS_Store
 
