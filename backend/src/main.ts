@@ -10,7 +10,7 @@ async function bootstrap() {
   const options = new DocumentBuilder()
     .setTitle('SkillGuider App')
     .setDescription('The SkillGuider API description')
-    .setVersion('1.0')
+    .setVersion('0.1')
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
