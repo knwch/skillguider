@@ -7,7 +7,6 @@ import {
   HttpStatus,
   UseGuards,
   ValidationPipe,
-  NotFoundException,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
