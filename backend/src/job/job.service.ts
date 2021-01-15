@@ -36,8 +36,21 @@ export class JobService {
     return await this.JobModel.find();
   }
 
-  async getJobById(id: string): Promise<any> {
-    const job = await this.JobModel.findById(id);
-    return job;
+  async getJobsByCategory(category_id: string): Promise<any> {
+    const jobs = await this.JobModel.find({ category_id: category_id }).select(
+      'title description category_id',
+    );
+    return jobs;
+  }
+
+  async updateJob(id: string, jobData: CreateJobDto): Promise<Job> {
+    return await this.JobModel.findByIdAndUpdate(id, jobData, {
+      new: true,
+    });
+  }
+
+  async deleteJob(id: string): Promise<any> {
+    const jobDeleted = await this.JobModel.deleteOne({ _id: id });
+    return jobDeleted;
   }
 }
