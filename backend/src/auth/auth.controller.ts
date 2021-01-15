@@ -47,7 +47,6 @@ export class AuthController {
   @UsePipes(ValidationPipe)
   async signin(@Res() res, @Body() authData: AuthCredentialsDto) {
     const userData = await this.authService.signIn(authData);
-    if (!userData) throw new NotFoundException('User does not exist!');
     return res.status(HttpStatus.OK).json({
       message: 'You have signed in successfully.',
       statusCode: HttpStatus.OK,
