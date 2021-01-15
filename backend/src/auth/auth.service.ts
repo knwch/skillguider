@@ -26,7 +26,11 @@ export class AuthService {
     if (user) {
       const errors = { email: 'Email must be unique.' };
       throw new HttpException(
-        { message: 'Input data validation failed', errors },
+        {
+          message: 'Input data validation failed',
+          errors,
+          statusCode: HttpStatus.BAD_REQUEST,
+        },
         HttpStatus.BAD_REQUEST,
       );
     }
@@ -41,7 +45,11 @@ export class AuthService {
     if (errors.length > 0) {
       const _errors = { username: 'User input is not valid.' };
       throw new HttpException(
-        { message: 'Input data validation failed', _errors },
+        {
+          message: 'Input data validation failed',
+          _errors,
+          statusCode: HttpStatus.BAD_REQUEST,
+        },
         HttpStatus.BAD_REQUEST,
       );
     } else {
