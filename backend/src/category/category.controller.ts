@@ -71,6 +71,7 @@ export class CategoryController {
     return res.status(HttpStatus.OK).json({ statusCode: HttpStatus.OK, data });
   }
 
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Update category' })
   @ApiResponse({
     status: 200,
@@ -94,6 +95,7 @@ export class CategoryController {
     });
   }
 
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Delete category' })
   @ApiResponse({
     status: 200,
