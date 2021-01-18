@@ -15,7 +15,7 @@ export class Job {
   category_id: Types.ObjectId;
 
   @Prop()
-  skillset: [];
+  skillset: [{ skill_id: Types.ObjectId; priority: string }];
 }
 
 export const JobSchema = SchemaFactory.createForClass(Job);
