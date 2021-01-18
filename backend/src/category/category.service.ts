@@ -5,7 +5,6 @@ import { Category, CategoryDocument } from './schema/category.schema';
 import { JobDocument } from '../job/schema/job.schema';
 import { SkillDocument } from '../skill/schema/skill.schema';
 import { CreateCategoryDto } from './dto/create-category.dto';
-import { Types } from 'mongoose';
 
 @Injectable()
 export class CategoryService {
@@ -56,14 +55,37 @@ export class CategoryService {
     return category;
   }
 
-  // async updateCategory(
-  //   id: string,
-  //   categoryData: CreateCategoryDto,
-  // ): Promise<Category> {
-  //   return await this.CategoryModel.findByIdAndUpdate(id, categoryData, {
-  //     new: true,
-  //   });
-  // }
+  async updateCategory(
+    id: string,
+    categoryData: CreateCategoryDto,
+  ): Promise<Category> {
+    let modelSkills: any;
+
+    const { skillset } = categoryData;
+
+    if (skillset?.length) {
+      // convert skill_id from object to string array
+      const convertedSkillIds = skillset.map((skill) => {
+        return skill.skill_id;
+      });
+
+      modelSkills = await this.SkillModel.find({
+        _id: { $in: convertedSkillIds },
+      });
+
+      if (skillset?.length !== modelSkills.length) {
+        const errors = { skillset: 'Some skills do not exist.' };
+        throw new HttpException(
+          { message: 'Input data validation failed', errors },
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+    }
+
+    return await this.CategoryModel.findByIdAndUpdate(id, categoryData, {
+      new: true,
+    });
+  }
 
   async deleteCategory(id: string): Promise<any> {
     const categoryDeleted = await this.CategoryModel.deleteOne({ _id: id });

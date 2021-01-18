@@ -1,4 +1,18 @@
-import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsNotEmpty,
+  IsString,
+  IsOptional,
+  IsMongoId,
+  IsArray,
+  ValidateNested,
+} from 'class-validator';
+import { Types } from 'mongoose';
+
+class Skill {
+  @IsMongoId()
+  readonly skill_id: Types.ObjectId;
+}
 
 export class CreateCategoryDto {
   @IsNotEmpty()
@@ -6,5 +20,8 @@ export class CreateCategoryDto {
   readonly title: string;
 
   @IsOptional()
-  readonly skillset: [];
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => Skill)
+  readonly skillset!: [Skill];
 }
