@@ -1,12 +1,12 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import { Document } from 'mongoose';
 
 export type JobDocument = Job & Document;
 
 @Schema({ _id: false })
 class Skill {
   @Prop()
-  skill_id: Types.ObjectId;
+  skill_id: string;
 
   @Prop()
   priority: string;
@@ -22,7 +22,7 @@ export class Job {
   description: string;
 
   @Prop()
-  category_id: Types.ObjectId;
+  category_id: string;
 
   @Prop({ type: [SkillSchema], default: [] })
   skillset: Skill[];
