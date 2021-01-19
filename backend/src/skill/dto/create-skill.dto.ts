@@ -5,5 +5,5 @@ export class CreateSkillDto {
   readonly title: string;
 
   @IsOptional()
-  readonly skillset: [];
+  readonly keywords: [];
 }
