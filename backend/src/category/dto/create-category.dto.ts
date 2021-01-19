@@ -1,3 +1,4 @@
+import { Types } from 'mongoose';
 import { Type } from 'class-transformer';
 import {
   IsNotEmpty,
@@ -7,7 +8,6 @@ import {
   IsArray,
   ValidateNested,
 } from 'class-validator';
-import { Types } from 'mongoose';
 
 class Skill {
   @IsMongoId()
