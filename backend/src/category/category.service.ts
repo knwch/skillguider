@@ -19,8 +19,6 @@ export class CategoryService {
 
   async createCategory(categoryData: CreateCategoryDto): Promise<Category> {
     const createdCategory = new this.CategoryModel(categoryData);
-    let modelSkills: any;
-
     const { skillset } = createdCategory;
 
     if (skillset?.length) {
@@ -29,11 +27,11 @@ export class CategoryService {
         return skill.skill_id;
       });
 
-      modelSkills = await this.SkillModel.find({
+      const skills = await this.SkillModel.find({
         _id: { $in: convertedSkillIds },
       });
 
-      if (skillset?.length !== modelSkills.length) {
+      if (skillset?.length !== skills.length) {
         const errors = { skillset: 'Some skills do not exist.' };
         throw new HttpException(
           { message: 'Input data validation failed', errors },
@@ -59,8 +57,6 @@ export class CategoryService {
     id: string,
     categoryData: CreateCategoryDto,
   ): Promise<Category> {
-    let modelSkills: any;
-
     const { skillset } = categoryData;
 
     if (skillset?.length) {
@@ -69,11 +65,11 @@ export class CategoryService {
         return skill.skill_id;
       });
 
-      modelSkills = await this.SkillModel.find({
+      const skills = await this.SkillModel.find({
         _id: { $in: convertedSkillIds },
       });
 
-      if (skillset?.length !== modelSkills.length) {
+      if (skillset?.length !== skills.length) {
         const errors = { skillset: 'Some skills do not exist.' };
         throw new HttpException(
           { message: 'Input data validation failed', errors },
