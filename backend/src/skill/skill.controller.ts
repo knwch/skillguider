@@ -22,7 +22,7 @@ export class SkillController {
   constructor(private skillService: SkillService) {}
 
   @Post('create')
-  //   @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard())
   @UsePipes(ValidationPipe)
   async createSkill(@Res() res, @Body() skillData: CreateSkillDto) {
     const data = await this.skillService.createSkill(skillData);
@@ -47,7 +47,7 @@ export class SkillController {
   }
 
   @Put('update')
-  //   @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard())
   @UsePipes(ValidationPipe)
   async updateCategory(
     @Res() res,
@@ -63,16 +63,17 @@ export class SkillController {
     });
   }
 
-  //   @Delete('delete')
-  //   //   @UseGuards(AuthGuard())
-  //   async deleteCategory(@Res() res, @Query('id') id: string) {
-  //     const data = await this.skillService.deleteSkill(id);
-  //     if (!data || data.deletedCount === 0) {
-  //       throw new NotFoundException('Skill does not exist!');
-  //     }
-  //     return res.status(HttpStatus.OK).json({
-  //       message: 'Skill has been deleted',
-  //       statusCode: HttpStatus.OK,
-  //     });
-  //   }
+  @Delete('delete')
+  @UseGuards(AuthGuard())
+  async deleteCategory(@Res() res, @Query('id') id: string) {
+    const data = await this.skillService.deleteSkill(id);
+    if (!data || data.deletedCount === 0) {
+      throw new NotFoundException('Skill does not exist!');
+    }
+    return res.status(HttpStatus.OK).json({
+      message: 'Skill has been deleted',
+      statusCode: HttpStatus.OK,
+      data,
+    });
+  }
 }
