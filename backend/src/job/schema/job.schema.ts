@@ -3,6 +3,16 @@ import { Document, Types } from 'mongoose';
 
 export type JobDocument = Job & Document;
 
+@Schema({ _id: false })
+class Skill {
+  @Prop()
+  skill_id: Types.ObjectId;
+
+  @Prop()
+  priority: string;
+}
+export const SkillSchema = SchemaFactory.createForClass(Skill);
+
 @Schema()
 export class Job {
   @Prop()
@@ -14,8 +24,8 @@ export class Job {
   @Prop()
   category_id: Types.ObjectId;
 
-  @Prop()
-  skillset: [{ skill_id: Types.ObjectId; priority: string }];
+  @Prop({ type: [SkillSchema], default: [] })
+  skillset: Skill[];
 }
 
 export const JobSchema = SchemaFactory.createForClass(Job);
