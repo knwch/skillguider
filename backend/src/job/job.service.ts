@@ -52,7 +52,7 @@ export class JobService {
       }
     }
 
-    return createdJob;
+    return createdJob.save();
   }
 
   async getAllJobs(): Promise<any> {
@@ -87,7 +87,6 @@ export class JobService {
         );
       }
     }
-
     return await this.JobModel.findByIdAndUpdate(id, jobData, {
       new: true,
     });
