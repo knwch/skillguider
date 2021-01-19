@@ -10,6 +10,7 @@ import {
 } from 'class-validator';
 
 class Skill {
+  @IsNotEmpty()
   @IsMongoId()
   readonly skill_id: Types.ObjectId;
 }
