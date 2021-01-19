@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Skill, SkillDocument } from './schema/skill.schema';
@@ -38,15 +38,48 @@ export class SkillService {
     });
   }
 
-  //   async deleteSkill(id: string): Promise<any> {
-  //     const skillDeleted = await this.SkillModel.deleteOne({ _id: id });
+  async deleteSkill(id: string): Promise<any> {
+    const skillDeleted = await this.SkillModel.deleteOne({ _id: id });
 
-  //     if (skillDeleted.deletedCount > 0) {
-  //       await this.JobModel.deleteMany({
-  //         category_id: id,
-  //       });
-  //     }
+    if (skillDeleted.deletedCount > 0) {
+      const jobs = await this.JobModel.find({
+        'skillset.skill_id': id,
+      }).select('_id');
 
-  //     return skillDeleted;
-  //   }
+      const jobIdArray = jobs.map((job) => {
+        return job._id;
+      });
+
+      const categories = await this.CategoryModel.find({
+        'skillset.skill_id': id,
+      }).select('_id');
+
+      const categoryIdArray = categories.map((category) => {
+        return category._id;
+      });
+
+      await this.JobModel.updateMany(
+        { _id: { $in: jobIdArray } },
+        {
+          $pull: {
+            skillset: { skill_id: id },
+          },
+        },
+      );
+
+      await this.CategoryModel.updateMany(
+        { _id: { $in: categoryIdArray } },
+        {
+          $pull: {
+            skillset: { skill_id: id },
+          },
+        },
+      );
+    }
+
+    // remove multiple skill id
+    // {$pull: {'skillset': {"skill_id": {$in : [id, id2, id3...]}}}},
+
+    return skillDeleted;
+  }
 }
