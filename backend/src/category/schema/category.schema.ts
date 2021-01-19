@@ -1,12 +1,12 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import { Document } from 'mongoose';
 
 export type CategoryDocument = Category & Document;
 
 @Schema({ _id: false })
 class Skill {
   @Prop()
-  skill_id: Types.ObjectId;
+  skill_id: string;
 }
 export const SkillSchema = SchemaFactory.createForClass(Skill);
 

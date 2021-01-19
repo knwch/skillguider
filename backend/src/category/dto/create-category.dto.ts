@@ -1,4 +1,3 @@
-import { Types } from 'mongoose';
 import { Type } from 'class-transformer';
 import {
   IsNotEmpty,
@@ -12,7 +11,7 @@ import {
 class Skill {
   @IsNotEmpty()
   @IsMongoId()
-  readonly skill_id: Types.ObjectId;
+  readonly skill_id: string;
 }
 
 export class CreateCategoryDto {
