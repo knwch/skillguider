@@ -4,7 +4,6 @@ import {
   Delete,
   Get,
   HttpStatus,
-  NotFoundException,
   Post,
   Put,
   Query,
@@ -35,6 +34,10 @@ export class JobController {
     status: 201,
     description: 'Job has been successfully created.',
   })
+  @ApiResponse({
+    status: 400,
+    description: 'Some of selected skills do not exist.',
+  })
   @Post('create')
   @UseGuards(AuthGuard())
   @UsePipes(ValidationPipe)
@@ -60,6 +63,18 @@ export class JobController {
     });
   }
 
+  @ApiOperation({ summary: 'Get job by id' })
+  @ApiResponse({
+    status: 200,
+    description: 'Return job by id.',
+  })
+  @ApiResponse({ status: 404, description: 'Job not found.' })
+  @Get('id')
+  async getCategoryById(@Res() res, @Query('id') id: string) {
+    const data = await this.jobService.getJobById(id);
+    return res.status(HttpStatus.OK).json({ statusCode: HttpStatus.OK, data });
+  }
+
   @ApiOperation({ summary: 'Get all jobs by category' })
   @ApiResponse({
     status: 200,
@@ -80,6 +95,10 @@ export class JobController {
     status: 200,
     description: 'Job has been successfully updated.',
   })
+  @ApiResponse({
+    status: 400,
+    description: 'Some of selected skills do not exist.',
+  })
   @ApiResponse({ status: 404, description: 'Job not found.' })
   @Put('update')
   @UseGuards(AuthGuard())
@@ -90,7 +109,6 @@ export class JobController {
     @Body() jobData: CreateJobDto,
   ) {
     const data = await this.jobService.updateJob(id, jobData);
-    if (!data) throw new NotFoundException('Job does not exist!');
     return res.status(HttpStatus.OK).json({
       message: 'Job has been successfully updated',
       statusCode: HttpStatus.OK,
@@ -108,10 +126,7 @@ export class JobController {
   @Delete('delete')
   @UseGuards(AuthGuard())
   async deleteJob(@Res() res, @Query('id') id: string) {
-    const data = await this.jobService.deleteJob(id);
-    if (!data || data.deletedCount === 0) {
-      throw new NotFoundException('Job does not exist!');
-    }
+    await this.jobService.deleteJob(id);
     return res.status(HttpStatus.OK).json({
       message: 'Job has been deleted',
       statusCode: HttpStatus.OK,
