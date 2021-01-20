@@ -7,6 +7,7 @@ import {
   IsArray,
   ValidateNested,
 } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 class Skill {
   @IsNotEmpty()
@@ -19,18 +20,22 @@ class Skill {
 }
 
 export class CreateJobDto {
+  @ApiProperty()
   @IsNotEmpty()
   @IsString()
   readonly title: string;
 
+  @ApiProperty()
   @IsNotEmpty()
   @IsString()
   readonly description: string;
 
+  @ApiProperty()
   @IsNotEmpty()
   @IsMongoId()
   readonly category_id: string;
 
+  @ApiProperty()
   @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })
