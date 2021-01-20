@@ -9,7 +9,7 @@ export class Skill {
   title: string;
 
   @Prop()
-  keywords: [];
+  keywords: string[];
 }
 
 export const SkillSchema = SchemaFactory.createForClass(Skill);
