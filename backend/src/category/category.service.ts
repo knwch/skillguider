@@ -49,12 +49,12 @@ export class CategoryService {
   }
 
   async getAllCategories(): Promise<any> {
-    const categoriesData = await this.CategoryModel.find().select('title');
+    const categoriesData = await this.CategoryModel.find();
     return categoriesData;
   }
 
   async getCategoryById(id: string): Promise<Category> {
-    const category = await this.CategoryModel.findById(id).select('title');
+    const category = await this.CategoryModel.findById(id);
 
     if (!category) {
       throw new NotFoundException('Category does not exist!');
@@ -70,7 +70,6 @@ export class CategoryService {
     const { skillset } = categoryData;
 
     if (skillset?.length) {
-      // convert skill_id from object to string array
       const convertedSkillIds = skillset.map((skill) => {
         return skill.skill_id;
       });
