@@ -6,17 +6,26 @@ import {
   IsMongoId,
   IsArray,
   ValidateNested,
+  IsEnum,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-class Skill {
+enum SkillPriorityEnum {
+  Normal = 'Normal',
+  High = 'High',
+}
+
+class JobSkill {
+  @ApiProperty()
   @IsNotEmpty()
   @IsMongoId()
   readonly skill_id: string;
 
+  @ApiProperty({ enum: SkillPriorityEnum })
   @IsNotEmpty()
   @IsString()
-  readonly priority: string;
+  @IsEnum(SkillPriorityEnum)
+  readonly priority: SkillPriorityEnum;
 }
 
 export class CreateJobDto {
@@ -35,10 +44,10 @@ export class CreateJobDto {
   @IsMongoId()
   readonly category_id: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: [JobSkill] })
   @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => Skill)
-  readonly skillset: [Skill];
+  @Type(() => JobSkill)
+  readonly skillset: [JobSkill];
 }
