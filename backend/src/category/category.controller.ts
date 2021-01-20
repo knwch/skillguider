@@ -7,7 +7,6 @@ import {
   UsePipes,
   Res,
   Query,
-  NotFoundException,
   HttpStatus,
   ValidationPipe,
   Delete,
@@ -34,6 +33,10 @@ export class CategoryController {
   @ApiResponse({
     status: 201,
     description: 'Category has been successfully created.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Some of selected skills do not exist.',
   })
   @Post('create')
   @UseGuards(AuthGuard())
@@ -67,7 +70,6 @@ export class CategoryController {
   @Get('id')
   async getCategoryById(@Res() res, @Query('id') id: string) {
     const data = await this.categoryService.getCategoryById(id);
-    if (!data) throw new NotFoundException('Category does not exist!');
     return res.status(HttpStatus.OK).json({ statusCode: HttpStatus.OK, data });
   }
 
@@ -87,7 +89,6 @@ export class CategoryController {
     @Body() categoryData: CreateCategoryDto,
   ) {
     const data = await this.categoryService.updateCategory(id, categoryData);
-    if (!data) throw new NotFoundException('Category does not exist!');
     return res.status(HttpStatus.OK).json({
       message: 'Category has been successfully updated',
       statusCode: HttpStatus.OK,
@@ -105,10 +106,7 @@ export class CategoryController {
   @Delete('delete')
   @UseGuards(AuthGuard())
   async deleteCategory(@Res() res, @Query('id') id: string) {
-    const data = await this.categoryService.deleteCategory(id);
-    if (!data || data.deletedCount === 0) {
-      throw new NotFoundException('Category does not exist!');
-    }
+    await this.categoryService.deleteCategory(id);
     return res.status(HttpStatus.OK).json({
       message: 'Category has been deleted',
       statusCode: HttpStatus.OK,
