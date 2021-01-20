@@ -9,7 +9,8 @@ import {
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-class Skill {
+class CategorySkill {
+  @ApiProperty()
   @IsNotEmpty()
   @IsMongoId()
   readonly skill_id: string;
@@ -21,10 +22,10 @@ export class CreateCategoryDto {
   @IsString()
   readonly title: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: [CategorySkill] })
   @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => Skill)
-  readonly skillset!: [Skill];
+  @Type(() => CategorySkill)
+  readonly skillset: [CategorySkill];
 }

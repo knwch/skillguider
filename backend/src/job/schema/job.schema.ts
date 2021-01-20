@@ -3,15 +3,20 @@ import { Document } from 'mongoose';
 
 export type JobDocument = Job & Document;
 
+export enum SkillPriorityEnum {
+  Normal = 'Normal',
+  High = 'High',
+}
+
 @Schema({ _id: false })
-class Skill {
+class JobSkill {
   @Prop()
   skill_id: string;
 
   @Prop()
-  priority: string;
+  priority: SkillPriorityEnum;
 }
-export const SkillSchema = SchemaFactory.createForClass(Skill);
+export const JobSkillSchema = SchemaFactory.createForClass(JobSkill);
 
 @Schema()
 export class Job {
@@ -24,8 +29,8 @@ export class Job {
   @Prop()
   category_id: string;
 
-  @Prop({ type: [SkillSchema], default: [] })
-  skillset: Skill[];
+  @Prop({ type: [JobSkillSchema], default: [] })
+  skillset: JobSkill[];
 }
 
 export const JobSchema = SchemaFactory.createForClass(Job);
