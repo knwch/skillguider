@@ -4,7 +4,6 @@ import {
   Delete,
   Get,
   HttpStatus,
-  NotFoundException,
   Post,
   Put,
   Query,
@@ -42,7 +41,6 @@ export class SkillController {
   @Get('id')
   async getSkillById(@Res() res, @Query('id') id: string) {
     const data = await this.skillService.getSkillById(id);
-    if (!data) throw new NotFoundException('Skill does not exist!');
     return res.status(HttpStatus.OK).json({ statusCode: HttpStatus.OK, data });
   }
 
@@ -55,7 +53,6 @@ export class SkillController {
     @Body() skillData: CreateSkillDto,
   ) {
     const data = await this.skillService.updateSkill(id, skillData);
-    if (!data) throw new NotFoundException('Skill does not exist!');
     return res.status(HttpStatus.OK).json({
       message: 'Skill has been successfully updated',
       statusCode: HttpStatus.OK,
@@ -66,14 +63,10 @@ export class SkillController {
   @Delete('delete')
   @UseGuards(AuthGuard())
   async deleteCategory(@Res() res, @Query('id') id: string) {
-    const data = await this.skillService.deleteSkill(id);
-    if (!data || data.deletedCount === 0) {
-      throw new NotFoundException('Skill does not exist!');
-    }
+    await this.skillService.deleteSkill(id);
     return res.status(HttpStatus.OK).json({
       message: 'Skill has been deleted',
       statusCode: HttpStatus.OK,
-      data,
     });
   }
 }

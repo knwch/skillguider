@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Skill, SkillDocument } from './schema/skill.schema';
@@ -29,13 +29,28 @@ export class SkillService {
 
   async getSkillById(id: string): Promise<Skill> {
     const skill = await this.SkillModel.findById(id);
+
+    if (!skill) {
+      throw new NotFoundException('Skill does not exist!');
+    }
+
     return skill;
   }
 
   async updateSkill(id: string, skillData: CreateSkillDto): Promise<Skill> {
-    return await this.SkillModel.findByIdAndUpdate(id, skillData, {
-      new: true,
-    });
+    const updatedSkill = await this.SkillModel.findByIdAndUpdate(
+      id,
+      skillData,
+      {
+        new: true,
+      },
+    );
+
+    if (!updatedSkill) {
+      throw new NotFoundException('Skill does not exist!');
+    }
+
+    return updatedSkill;
   }
 
   async deleteSkill(id: string): Promise<any> {
@@ -83,6 +98,10 @@ export class SkillService {
 
     // remove multiple skill id
     // {$pull: {'skillset': {"skill_id": {$in : [id, id2, id3...]}}}},
+
+    if (!skillDeleted || skillDeleted.deletedCount === 0) {
+      throw new NotFoundException('Skill does not exist!');
+    }
 
     return skillDeleted;
   }
