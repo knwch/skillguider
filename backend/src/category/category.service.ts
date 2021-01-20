@@ -1,5 +1,10 @@
 import { Model } from 'mongoose';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Category, CategoryDocument } from './schema/category.schema';
 import { JobDocument } from '../job/schema/job.schema';
@@ -50,6 +55,11 @@ export class CategoryService {
 
   async getCategoryById(id: string): Promise<Category> {
     const category = await this.CategoryModel.findById(id).select('title');
+
+    if (!category) {
+      throw new NotFoundException('Category does not exist!');
+    }
+
     return category;
   }
 
@@ -78,9 +88,19 @@ export class CategoryService {
       }
     }
 
-    return await this.CategoryModel.findByIdAndUpdate(id, categoryData, {
-      new: true,
-    });
+    const updatedCategory = await this.CategoryModel.findByIdAndUpdate(
+      id,
+      categoryData,
+      {
+        new: true,
+      },
+    );
+
+    if (!updatedCategory) {
+      throw new NotFoundException('Category does not exist!');
+    }
+
+    return updatedCategory;
   }
 
   async deleteCategory(id: string): Promise<any> {
@@ -90,6 +110,8 @@ export class CategoryService {
       await this.JobModel.deleteMany({
         category_id: id,
       });
+    } else if (!categoryDeleted || categoryDeleted.deletedCount === 0) {
+      throw new NotFoundException('Category does not exist!');
     }
 
     return categoryDeleted;
