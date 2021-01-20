@@ -46,35 +46,39 @@ export class SkillService {
         'skillset.skill_id': id,
       }).select('_id');
 
-      const jobIdArray = jobs.map((job) => {
-        return job._id;
-      });
+      if (jobs?.length) {
+        const jobIdArray = jobs.map((job) => {
+          return job._id;
+        });
+
+        await this.JobModel.updateMany(
+          { _id: { $in: jobIdArray } },
+          {
+            $pull: {
+              skillset: { skill_id: id },
+            },
+          },
+        );
+      }
 
       const categories = await this.CategoryModel.find({
         'skillset.skill_id': id,
       }).select('_id');
 
-      const categoryIdArray = categories.map((category) => {
-        return category._id;
-      });
+      if (categories?.length) {
+        const categoryIdArray = categories.map((category) => {
+          return category._id;
+        });
 
-      await this.JobModel.updateMany(
-        { _id: { $in: jobIdArray } },
-        {
-          $pull: {
-            skillset: { skill_id: id },
+        await this.CategoryModel.updateMany(
+          { _id: { $in: categoryIdArray } },
+          {
+            $pull: {
+              skillset: { skill_id: id },
+            },
           },
-        },
-      );
-
-      await this.CategoryModel.updateMany(
-        { _id: { $in: categoryIdArray } },
-        {
-          $pull: {
-            skillset: { skill_id: id },
-          },
-        },
-      );
+        );
+      }
     }
 
     // remove multiple skill id
