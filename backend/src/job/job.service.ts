@@ -1,5 +1,10 @@
 import { Model } from 'mongoose';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Job, JobDocument } from './schema/job.schema';
 import { CategoryDocument } from '../category/schema/category.schema';
@@ -56,13 +61,22 @@ export class JobService {
   }
 
   async getAllJobs(): Promise<any> {
-    return await this.JobModel.find();
+    const jobsData = await this.JobModel.find();
+    return jobsData;
+  }
+
+  async getJobById(id: string): Promise<Job> {
+    const job = await this.JobModel.findById(id);
+
+    if (!job) {
+      throw new NotFoundException('Job does not exist!');
+    }
+
+    return job;
   }
 
   async getJobsByCategory(category_id: string): Promise<any> {
-    const jobs = await this.JobModel.find({ category_id: category_id }).select(
-      'title description category_id',
-    );
+    const jobs = await this.JobModel.find({ category_id: category_id });
     return jobs;
   }
 
@@ -70,7 +84,6 @@ export class JobService {
     const { skillset } = jobData;
 
     if (skillset?.length) {
-      // convert skill_id from object to string array
       const convertedSkillIds = skillset.map((skill) => {
         return skill.skill_id;
       });
@@ -87,13 +100,25 @@ export class JobService {
         );
       }
     }
-    return await this.JobModel.findByIdAndUpdate(id, jobData, {
+
+    const updatedJob = await this.JobModel.findByIdAndUpdate(id, jobData, {
       new: true,
     });
+
+    if (!updatedJob) {
+      throw new NotFoundException('Job does not exist!');
+    }
+
+    return updatedJob;
   }
 
   async deleteJob(id: string): Promise<any> {
     const jobDeleted = await this.JobModel.deleteOne({ _id: id });
+
+    if (!jobDeleted || jobDeleted.deletedCount === 0) {
+      throw new NotFoundException('Job does not exist!');
+    }
+
     return jobDeleted;
   }
 }
