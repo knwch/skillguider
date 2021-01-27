@@ -9,6 +9,6 @@ export class CreateSkillDto {
 
   @ApiProperty()
   @IsOptional()
-  @IsString({ each: true })
-  readonly keywords: [];
+  @IsString()
+  readonly keyword_suffix: string;
 }
