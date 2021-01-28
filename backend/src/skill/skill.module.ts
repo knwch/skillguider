@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, HttpModule } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SkillController } from './skill.controller';
 import { SkillService } from './skill.service';
@@ -15,6 +15,7 @@ import { JobSchema } from '../job/schema/job.schema';
       { name: 'Category', schema: CategorySchema },
     ]),
     AuthModule,
+    HttpModule,
   ],
   providers: [SkillService],
   controllers: [SkillController],
