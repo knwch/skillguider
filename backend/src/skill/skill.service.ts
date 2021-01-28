@@ -1,11 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, HttpService } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Skill, SkillDocument } from './schema/skill.schema';
 import { JobDocument } from '../job/schema/job.schema';
 import { CategoryDocument } from '../category/schema/category.schema';
 import { CreateSkillDto } from './dto/create-skill.dto';
-import * as request from 'request';
 import JSSoup from 'jssoup';
 
 @Injectable()
@@ -17,6 +16,7 @@ export class SkillService {
     private readonly JobModel: Model<JobDocument>,
     @InjectModel('Category')
     private readonly CategoryModel: Model<CategoryDocument>,
+    private httpService: HttpService,
   ) {}
 
   async createSkill(skillData: CreateSkillDto): Promise<Skill> {
@@ -108,34 +108,33 @@ export class SkillService {
     return skillDeleted;
   }
 
-  async crawlMediumArticles(): Promise<any> {
+  async crawlMediumArticles(query: string): Promise<any> {
     const results = [] as any;
-
-    await request(
-      'https://medium.com/search?q=python',
-      async (error, response, body) => {
-        console.error('error:', error); // Print the error if one occurred
-        console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-
-        const bodyData = await body.toString();
-
-        const soup = await new JSSoup(bodyData);
-
-        const result_containers = await soup.findAll(
-          'div',
-          'postArticle-content',
-        );
-
-        await result_containers.forEach((container) => {
-          const title = container.find('h3').text;
-          const url = container.find('a').attrs.href;
-          const img = container.find('img').attrs.src;
-          const data = { title: title, url: url, img: img };
-          results.push(data);
-        });
-
-        return results;
+    const config = {
+      headers: {
+        Accept: 'text/html',
       },
-    );
+    };
+
+    const response = await this.httpService
+      .get(`https://medium.com/search?q=${query}`, config)
+      .toPromise();
+
+    const html = await response.data.toString();
+
+    const soup = await new JSSoup(html);
+
+    const result_containers = await soup.findAll('div', 'postArticle-content');
+
+    await result_containers.forEach((container) => {
+      const title = container.find('h3').text;
+      const url = container.find('a').attrs.href;
+      const img = container.find('img')?.attrs.src;
+      const data = { title: title, url: url, img: img };
+
+      results.push(data);
+    });
+
+    return results;
   }
 }
