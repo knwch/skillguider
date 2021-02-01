@@ -15,6 +15,7 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { SkillService } from './skill.service';
 import { CreateSkillDto } from './dto/create-skill.dto';
+import { SubmitSkillDto } from './dto/submit-skill.dto';
 
 import {
   ApiBearerAuth,
@@ -106,6 +107,22 @@ export class SkillController {
     return res.status(HttpStatus.OK).json({
       message: 'Skill has been deleted',
       statusCode: HttpStatus.OK,
+    });
+  }
+
+  @ApiOperation({ summary: 'Submit skill' })
+  @ApiResponse({
+    status: 200,
+    description: 'Skill has been successfully submit.',
+  })
+  @Post('submit')
+  @UsePipes(ValidationPipe)
+  async submitSkill(@Res() res, @Body() skillData: SubmitSkillDto) {
+    const data = await this.skillService.submitSkill(skillData);
+    return res.status(HttpStatus.CREATED).json({
+      message: 'Skill has been successfully submit',
+      statusCode: HttpStatus.CREATED,
+      data,
     });
   }
 }
