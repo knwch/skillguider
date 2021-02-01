@@ -5,6 +5,7 @@ import { Skill, SkillDocument } from './schema/skill.schema';
 import { JobDocument } from '../job/schema/job.schema';
 import { CategoryDocument } from '../category/schema/category.schema';
 import { CreateSkillDto } from './dto/create-skill.dto';
+import { SubmitSkillDto } from './dto/submit-skill.dto';
 import JSSoup from 'jssoup';
 
 @Injectable()
@@ -106,6 +107,36 @@ export class SkillService {
     }
 
     return skillDeleted;
+  }
+
+  async submitSkill(skillData: SubmitSkillDto): Promise<any> {
+    const { job_title } = skillData;
+
+    const job = await this.JobModel.findOne({ title: job_title });
+    const category = await this.CategoryModel.findOne({ _id: job.category_id });
+
+    const userSkill: any = skillData.skillset;
+    const jobSkill: any = job.skillset;
+    let categorySkill: any = category.skillset;
+
+    categorySkill = categorySkill.map((skill) => {
+      return {
+        skill_id: skill.skill_id,
+        priority: 'category',
+      };
+    });
+
+    let matchedSkill: any = categorySkill.concat(jobSkill);
+
+    matchedSkill = matchedSkill.map((skill) => {
+      return {
+        skill_id: skill.skill_id,
+        priority: skill.priority,
+        matched: userSkill.includes(skill.skill_id),
+      };
+    });
+
+    console.log(matchedSkill);
   }
 
   async crawlMediumArticles(query: string): Promise<any> {
