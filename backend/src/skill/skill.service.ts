@@ -115,28 +115,39 @@ export class SkillService {
     const job = await this.JobModel.findOne({ title: job_title });
     const category = await this.CategoryModel.findOne({ _id: job.category_id });
 
-    const userSkill: any = skillData.skillset;
+    const userSkill: any = skillData.skillset ? skillData.skillset : [];
     const jobSkill: any = job.skillset;
     let categorySkill: any = category.skillset;
 
     categorySkill = categorySkill.map((skill) => {
       return {
+        priority: 'Category',
         skill_id: skill.skill_id,
-        priority: 'category',
       };
     });
 
-    let matchedSkill: any = categorySkill.concat(jobSkill);
+    let matchSkillArray: any = categorySkill.concat(jobSkill);
 
-    matchedSkill = matchedSkill.map((skill) => {
-      return {
-        skill_id: skill.skill_id,
-        priority: skill.priority,
-        matched: userSkill.includes(skill.skill_id),
-      };
-    });
+    matchSkillArray = matchSkillArray
+      .filter((skill, index, array) => {
+        if (skill.priority === 'Category') {
+          // filter it out when the same skill_id is found in the array and the index isn't the same as current item you are looking at
+          return !array.some(
+            (i, idx) => i.skill_id === skill.skill_id && idx > index,
+          );
+        }
+        return true;
+      })
+      .map((skill) => {
+        return {
+          skill_id: skill.skill_id,
+          priority: skill.priority,
+          matched: userSkill.includes(skill.skill_id),
+        };
+      })
+      .sort((curr, next) => (curr.skill_id > next.skill_id ? 1 : -1));
 
-    console.log(matchedSkill);
+    return matchSkillArray;
   }
 
   async crawlMediumArticles(query: string): Promise<any> {
