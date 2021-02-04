@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsMongoId, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class SubmitSkillDto {
@@ -9,6 +9,6 @@ export class SubmitSkillDto {
 
   @ApiProperty()
   @IsOptional()
-  @IsString({ each: true })
+  @IsMongoId({ each: true })
   readonly skillset: [string];
 }
