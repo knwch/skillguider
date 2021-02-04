@@ -1,4 +1,10 @@
-import { Injectable, NotFoundException, HttpService } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  HttpService,
+  HttpStatus,
+  HttpException,
+} from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Skill, SkillDocument } from './schema/skill.schema';
@@ -110,14 +116,33 @@ export class SkillService {
   }
 
   async submitSkill(skillData: SubmitSkillDto): Promise<any> {
-    const { job_title } = skillData;
+    const { job_title, skillset } = skillData;
+
+    if (skillset?.length) {
+      const skills = await this.SkillModel.find({
+        _id: { $in: skillset },
+      });
+
+      if (skillset?.length !== skills.length) {
+        const errors = { skillset: 'Some skills do not exist.' };
+        throw new HttpException(
+          { message: 'Input data validation failed', errors },
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+    }
 
     const job = await this.JobModel.findOne({ title: job_title });
+
+    if (!job) {
+      throw new NotFoundException('Job does not exist!');
+    }
+
     const category = await this.CategoryModel.findOne({ _id: job.category_id });
 
-    const userSkill: any = skillData.skillset ? skillData.skillset : [];
-    const jobSkill: any = job.skillset;
-    let categorySkill: any = category.skillset;
+    const userSkill: any = skillset ? skillset : [];
+    const jobSkill: any = job.skillset ? job.skillset : [];
+    let categorySkill: any = category.skillset ? category.skillset : [];
 
     categorySkill = categorySkill.map((skill) => {
       return {
@@ -126,9 +151,9 @@ export class SkillService {
       };
     });
 
-    let matchSkillArray: any = categorySkill.concat(jobSkill);
+    const mergeSkillArray: any = categorySkill.concat(jobSkill);
 
-    matchSkillArray = matchSkillArray
+    const filterSkillArray = mergeSkillArray
       .filter((skill, index, array) => {
         if (skill.priority === 'Category') {
           // filter it out when the same skill_id is found in the array and the index isn't the same as current item you are looking at
@@ -138,14 +163,25 @@ export class SkillService {
         }
         return true;
       })
-      .map((skill) => {
-        return {
-          skill_id: skill.skill_id,
-          priority: skill.priority,
-          matched: userSkill.includes(skill.skill_id),
-        };
-      })
       .sort((curr, next) => (curr.skill_id > next.skill_id ? 1 : -1));
+
+    const filterSkillIds = filterSkillArray.map((skill) => {
+      return skill.skill_id;
+    });
+
+    const modelSkill = await this.SkillModel.find({
+      _id: { $in: filterSkillIds },
+    });
+
+    const matchSkillArray = filterSkillArray.map((skill, index) => {
+      return {
+        skill_id: skill.skill_id,
+        title: modelSkill[index].title,
+        keyword_suffix: modelSkill[index].keyword_suffix,
+        priority: skill.priority,
+        matched: userSkill.includes(skill.skill_id),
+      };
+    });
 
     return matchSkillArray;
   }
