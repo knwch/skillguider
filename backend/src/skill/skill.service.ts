@@ -13,6 +13,7 @@ import { CategoryDocument } from '../category/schema/category.schema';
 import { CreateSkillDto } from './dto/create-skill.dto';
 import { SubmitSkillDto } from './dto/submit-skill.dto';
 import JSSoup from 'jssoup';
+import Fuse from 'fuse.js';
 
 @Injectable()
 export class SkillService {
@@ -113,6 +114,18 @@ export class SkillService {
     }
 
     return skillDeleted;
+  }
+
+  async searchSkills(term: string): Promise<any> {
+    const skills = await this.SkillModel.find();
+
+    const fuse = new Fuse(skills, {
+      keys: ['title'],
+    });
+
+    const results = fuse.search(term).slice(0, 10);
+
+    return results;
   }
 
   async submitSkill(skillData: SubmitSkillDto): Promise<any> {
