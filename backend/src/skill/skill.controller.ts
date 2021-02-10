@@ -110,6 +110,17 @@ export class SkillController {
     });
   }
 
+  @ApiOperation({ summary: 'Search skills by keyword' })
+  @ApiResponse({
+    status: 200,
+    description: 'Return skills.',
+  })
+  @Get('search')
+  async searchSkills(@Res() res, @Query('title') title: string) {
+    const data = await this.skillService.searchSkills(title);
+    return res.status(HttpStatus.OK).json({ statusCode: HttpStatus.OK, data });
+  }
+
   @ApiOperation({ summary: 'Submit skill' })
   @ApiResponse({
     status: 200,
