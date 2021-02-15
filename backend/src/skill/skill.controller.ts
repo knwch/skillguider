@@ -116,8 +116,8 @@ export class SkillController {
     description: 'Return skills.',
   })
   @Get('search')
-  async searchSkills(@Res() res, @Query('title') title: string) {
-    const data = await this.skillService.searchSkills(title);
+  async searchSkills(@Res() res, @Query('query') query: string) {
+    const data = await this.skillService.searchSkills(query);
     return res.status(HttpStatus.OK).json({ statusCode: HttpStatus.OK, data });
   }
 
@@ -135,5 +135,16 @@ export class SkillController {
       statusCode: HttpStatus.CREATED,
       data,
     });
+  }
+
+  @ApiOperation({ summary: 'Get articles by keyword' })
+  @ApiResponse({
+    status: 200,
+    description: 'Return articles.',
+  })
+  @Get('article')
+  async getSuggestedArticles(@Res() res, @Query('query') query: string) {
+    const data = await this.skillService.getSuggestedArticles(query);
+    return res.status(HttpStatus.OK).json({ statusCode: HttpStatus.OK, data });
   }
 }
