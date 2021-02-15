@@ -10,6 +10,7 @@ import { Job, JobDocument } from './schema/job.schema';
 import { CategoryDocument } from '../category/schema/category.schema';
 import { CreateJobDto } from './dto/create-job.dto';
 import { SkillDocument } from 'src/skill/schema/skill.schema';
+import Fuse from 'fuse.js';
 
 @Injectable()
 export class JobService {
@@ -121,4 +122,17 @@ export class JobService {
 
     return jobDeleted;
   }
+
+  async searchJobs(term: string): Promise<any> {
+    const jobs = await this.JobModel.find();
+
+    const fuse = new Fuse(jobs, {
+      keys: ['title'],
+    });
+
+    const results = fuse.search(term).slice(0, 10);
+
+    return results;
+  }
+
 }
