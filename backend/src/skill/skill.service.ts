@@ -116,14 +116,14 @@ export class SkillService {
     return skillDeleted;
   }
 
-  async searchSkills(term: string): Promise<any> {
+  async searchSkills(query: string): Promise<any> {
     const skills = await this.SkillModel.find();
 
     const fuse = new Fuse(skills, {
       keys: ['title'],
     });
 
-    const results = fuse.search(term).slice(0, 10);
+    const results = fuse.search(query).slice(0, 10);
 
     return results;
   }
@@ -199,6 +199,10 @@ export class SkillService {
     return matchSkillArray;
   }
 
+  async getSuggestedArticles(query: string): Promise<any> {
+    return await this.crawlMediumArticles(query);
+  }
+
   async crawlMediumArticles(query: string): Promise<any> {
     const results = [] as any;
     const config = {
@@ -218,12 +222,16 @@ export class SkillService {
     const result_containers = await soup.findAll('div', 'postArticle-content');
 
     await result_containers.forEach((container) => {
-      const title = container.find('h3').text;
+      const title = container.find('h3')
+        ? container.find('h3').text
+        : container.find('h2')?.text;
       const url = container.find('a').attrs.href;
       const img = container.find('img')?.attrs.src;
       const data = { title: title, url: url, img: img };
 
-      results.push(data);
+      if (title != null) {
+        results.push(data);
+      }
     });
 
     return results;
