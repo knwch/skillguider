@@ -132,4 +132,15 @@ export class JobController {
       statusCode: HttpStatus.OK,
     });
   }
+
+  @ApiOperation({ summary: 'Search jobs by keyword' })
+  @ApiResponse({
+    status: 200,
+    description: 'Return jobs.',
+  })
+  @Get('search')
+  async searchJobs(@Res() res, @Query('title') title: string) {
+    const data = await this.jobService.searchJobs(title);
+    return res.status(HttpStatus.OK).json({ statusCode: HttpStatus.OK, data });
+  }
 }
