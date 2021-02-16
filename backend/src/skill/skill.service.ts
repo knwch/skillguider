@@ -12,6 +12,7 @@ import { JobDocument } from '../job/schema/job.schema';
 import { CategoryDocument } from '../category/schema/category.schema';
 import { CreateSkillDto } from './dto/create-skill.dto';
 import { SubmitSkillDto } from './dto/submit-skill.dto';
+import { UDEMY_SECRET } from '../config';
 import JSSoup from 'jssoup';
 import Fuse from 'fuse.js';
 
@@ -200,7 +201,13 @@ export class SkillService {
   }
 
   async getSuggestedArticles(query: string): Promise<any> {
-    return await this.crawlMediumArticles(query);
+    const articles = await this.crawlMediumArticles(query);
+    return articles;
+  }
+
+  async getSuggestedCourses(query: string): Promise<any> {
+    const courses = await this.fetchUdemyCourses(query);
+    return courses;
   }
 
   async crawlMediumArticles(query: string): Promise<any> {
@@ -225,11 +232,44 @@ export class SkillService {
       const title = container.find('h3')
         ? container.find('h3').text
         : container.find('h2')?.text;
-      const url = container.find('a').attrs.href;
+      const url = container.find('a')?.attrs.href;
       const img = container.find('img')?.attrs.src;
       const data = { title: title, url: url, img: img };
 
-      if (title != null) {
+      if (Object.keys(data).length === 3) {
+        results.push(data);
+      }
+    });
+
+    return results;
+  }
+
+  async fetchUdemyCourses(query: string): Promise<any> {
+    const results = [] as any;
+    const clientId = UDEMY_SECRET.clientId;
+    const clientSecret = UDEMY_SECRET.clientSecret;
+    const basicAuth =
+      'Basic ' + Buffer.from(clientId + ':' + clientSecret).toString('base64');
+
+    const config = {
+      headers: {
+        Accept: 'application/json',
+        Authorization: basicAuth,
+      },
+    };
+
+    const response = await this.httpService
+      .get(
+        `https://www.udemy.com/api-2.0/courses?page=1&page_size=5&search=${query}`,
+        config,
+      )
+      .toPromise();
+
+    await response.data.results.forEach((course) => {
+      const { title, headline, url, img, price } = course;
+      const data = { title, headline, url, img, price };
+
+      if (Object.keys(data).length === 5) {
         results.push(data);
       }
     });
