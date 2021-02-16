@@ -147,4 +147,15 @@ export class SkillController {
     const data = await this.skillService.getSuggestedArticles(query);
     return res.status(HttpStatus.OK).json({ statusCode: HttpStatus.OK, data });
   }
+
+  @ApiOperation({ summary: 'Get courses by keyword' })
+  @ApiResponse({
+    status: 200,
+    description: 'Return courses.',
+  })
+  @Get('course')
+  async getSuggestedCourses(@Res() res, @Query('query') query: string) {
+    const data = await this.skillService.getSuggestedCourses(query);
+    return res.status(HttpStatus.OK).json({ statusCode: HttpStatus.OK, data });
+  }
 }
