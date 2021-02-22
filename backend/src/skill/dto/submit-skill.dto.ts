@@ -1,11 +1,11 @@
-import { IsMongoId, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsMongoId, IsNotEmpty, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class SubmitSkillDto {
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
-  readonly job_title: string;
+  @IsMongoId()
+  readonly job_id: string;
 
   @ApiProperty()
   @IsOptional()
