@@ -134,5 +134,4 @@ export class JobService {
 
     return results;
   }
-
 }
