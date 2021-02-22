@@ -121,6 +121,18 @@ export class SkillController {
     return res.status(HttpStatus.OK).json({ statusCode: HttpStatus.OK, data });
   }
 
+  @ApiOperation({ summary: 'Get suggested skills by job' })
+  @ApiResponse({
+    status: 200,
+    description: 'Return skills.',
+  })
+  @ApiResponse({ status: 404, description: 'Job not found.' })
+  @Get('job')
+  async getSkillsByJob(@Res() res, @Query('id') id: string) {
+    const data = await this.skillService.getSkillsByJob(id);
+    return res.status(HttpStatus.OK).json({ statusCode: HttpStatus.OK, data });
+  }
+
   @ApiOperation({ summary: 'Submit skill' })
   @ApiResponse({
     status: 200,
