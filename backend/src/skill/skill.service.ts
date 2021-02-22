@@ -129,8 +129,46 @@ export class SkillService {
     return results;
   }
 
+  async getSkillsByJob(id: string): Promise<any> {
+    const job = await this.JobModel.findById(id);
+    let skillIdArray: any = [];
+    let skills: any;
+
+    if (!job) {
+      throw new NotFoundException('Job does not exist!');
+    }
+
+    const category = await this.CategoryModel.findById(job.category_id);
+
+    job.skillset.map((skill) => {
+      skillIdArray.push(skill.skill_id);
+    });
+
+    category.skillset.map((skill) => {
+      skillIdArray.push(skill.skill_id);
+    });
+
+    skillIdArray = [...new Set(skillIdArray)];
+
+    if (skillIdArray?.length) {
+      skills = await this.SkillModel.find({
+        _id: { $in: skillIdArray },
+      });
+
+      if (skillIdArray?.length !== skills.length) {
+        const errors = { skillset: 'Some skills do not exist.' };
+        throw new HttpException(
+          { message: 'Input data validation failed', errors },
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+    }
+
+    return skills;
+  }
+
   async submitSkill(skillData: SubmitSkillDto): Promise<any> {
-    const { job_title, skillset } = skillData;
+    const { job_id, skillset } = skillData;
 
     if (skillset?.length) {
       const skills = await this.SkillModel.find({
@@ -146,13 +184,13 @@ export class SkillService {
       }
     }
 
-    const job = await this.JobModel.findOne({ title: job_title });
+    const job = await this.JobModel.findById(job_id);
 
     if (!job) {
       throw new NotFoundException('Job does not exist!');
     }
 
-    const category = await this.CategoryModel.findOne({ _id: job.category_id });
+    const category = await this.CategoryModel.findById(job.category_id);
 
     const userSkill: any = skillset ? skillset : [];
     const jobSkill: any = job.skillset ? job.skillset : [];
