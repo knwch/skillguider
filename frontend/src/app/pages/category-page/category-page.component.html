@@ -1,1 +1,19 @@
-<p>category-page works!</p>
+<div>
+  <div *ngIf="categories">
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of categories | async">
+          <td>{{ category._id }}</td>
+          <td>{{ category.title }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
