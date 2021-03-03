@@ -4,6 +4,7 @@ import { Category } from '../../models/category.model';
 import { GetCategories } from '../../actions/category.action';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'app-category-page',
@@ -11,16 +12,17 @@ import { Observable } from 'rxjs';
   styleUrls: ['./category-page.component.sass'],
 })
 export class CategoryPageComponent implements OnInit {
-  @Select(CategoryState.getCategoryList) categories:
-    | Observable<Category[]>
-    | any;
+  @Select(CategoryState.getCategoryList)
+  categories: Observable<any> | undefined;
 
-  constructor(private store: Store) {
-    console.log('asf', this.store.select((state) => state));
+  constructor(private store: Store, private primengConfig: PrimeNGConfig) {
     // this.categories = this.store.select((state) => state.categories.data);
   }
 
+  items: any = [];
+
   ngOnInit(): void {
     this.store.dispatch(new GetCategories());
+    this.primengConfig.ripple = true;
   }
 }
