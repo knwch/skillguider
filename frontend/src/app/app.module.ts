@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import { MaterialModule } from './material.module';
+import { PrimeNgModule } from './primeng.module';
 import { TopbarComponent } from './components/topbar/topbar.component';
 
 import { NgxsModule } from '@ngxs/store';
@@ -21,12 +21,12 @@ import { CategoryState } from './states/category.state';
   declarations: [AppComponent, CategoryPageComponent, TopbarComponent],
   imports: [
     BrowserModule,
+    PrimeNgModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     NgxsModule.forRoot([CategoryState]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
-    BrowserAnimationsModule,
-    MaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
   ],
