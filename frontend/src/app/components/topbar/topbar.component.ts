@@ -4,7 +4,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
-  styleUrls: ['./topbar.component.sass'],
+  styleUrls: ['./topbar.component.scss'],
 })
 export class TopbarComponent implements OnInit {
   items: MenuItem[] = [];
@@ -12,8 +12,8 @@ export class TopbarComponent implements OnInit {
   ngOnInit(): any {
     this.items = [
       {
-        label: 'Dashboard',
-        routerLink: '/dashboard',
+        label: 'Home',
+        routerLink: '/',
       },
       // {
       //   icon: 'pi pi-fw pi-user',
