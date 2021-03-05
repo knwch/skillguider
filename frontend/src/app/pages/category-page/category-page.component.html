@@ -1,9 +1,11 @@
-<div>
-  <p-dataView [value]="categories | async">
-    <ng-template let-category pTemplate="listItem">
-      <div>
-        {{ category.title }}
-      </div>
-    </ng-template>
-  </p-dataView>
+<div class="p-grid p-jc-center">
+  <div class="p-sm-12 p-md-6 p-lg-4">
+    <p-dataView [value]="categories | async" layout="list">
+      <ng-template let-category pTemplate="listItem">
+        <div class="category-list-item">
+          {{ category.title }}
+        </div>
+      </ng-template>
+    </p-dataView>
+  </div>
 </div>
