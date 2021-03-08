@@ -57,7 +57,6 @@ export class CategoryController {
   })
   @Get('all')
   async getAllCategories(@Res() res) {
-    console.log('gotcha')
     const data = await this.categoryService.getAllCategories();
     return res.status(HttpStatus.OK).json({ statusCode: HttpStatus.OK, data });
   }
