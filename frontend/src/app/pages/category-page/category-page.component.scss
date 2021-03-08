@@ -1,37 +1,31 @@
+.search-bar {
+  margin: 1.5rem 1.5rem 1rem 1.5rem;
+}
+
+.category-header {
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 1.5rem 1.5rem 0rem 1.5rem;
+}
+
+.category-name {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
 .category-list-item {
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    width: 100%;
-  
-    img {
-      width: 150px;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-      margin-right: 2rem;
-    }
-  
-    .product-list-detail {
-      flex: 1 1 0;
-    }
-  
-    .p-rating {
-      margin: 0 0 0.5rem 0;
-    }
-  
-    .product-price {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      align-self: flex-end;
-    }
-  
-    .product-list-action {
-      display: flex;
-      flex-direction: column;
-    }
-  
-    .p-button {
-      margin-bottom: 0.5rem;
-    }
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  width: 100%;
+
+  img {
+    width: 150px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    margin-right: 2rem;
   }
-  
+
+  .category-list-detail {
+    flex: 1 1 0;
+  }
+}

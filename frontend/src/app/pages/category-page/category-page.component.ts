@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryState } from '../../states/category.state';
+import { JobState } from '../../states/job.state';
 import { Category } from '../../models/category.model';
 import { GetCategories } from '../../actions/category.action';
+import { GetJobs, SearchJobs } from '../../actions/job.action';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'app-category-page',
@@ -15,14 +16,32 @@ export class CategoryPageComponent implements OnInit {
   @Select(CategoryState.getCategoryList)
   categories: Observable<any> | undefined;
 
-  constructor(private store: Store, private primengConfig: PrimeNGConfig) {
-    // this.categories = this.store.select((state) => state.categories.data);
-  }
+  @Select(JobState.getJobList)
+  jobs: Observable<any> | undefined;
 
-  items: any = [];
+  text: any;
+
+  // results: any;
+
+  displayModal = false;
+
+  selectedResult: any = {};
+
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(new GetCategories());
-    this.primengConfig.ripple = true;
+  }
+
+  onSearch(event: string): any {
+    const { query }: any = event;
+    this.store.dispatch(new SearchJobs(query));
+    // this.jobs?.subscribe((data) => (this.results = data));
+  }
+
+  onSelect(event: any): any {
+    this.text = '';
+    this.displayModal = true;
+    this.selectedResult = event.item;
   }
 }

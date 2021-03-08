@@ -8,7 +8,7 @@ import { Category } from '../models/category.model';
 export class CategoryService {
   constructor(private http: HttpClient) {}
 
-  allEmployees: Array<Category> = [];
+  allCategories: Array<Category> = [];
 
   fetchCategories(): any {
     return this.http.get<Category[]>(
