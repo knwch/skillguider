@@ -5,6 +5,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { OrderListModule } from 'primeng/orderlist';
 import { DataViewModule } from 'primeng/dataview';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   imports: [CommonModule],
@@ -14,6 +16,8 @@ import { DataViewModule } from 'primeng/dataview';
     ButtonModule,
     OrderListModule,
     DataViewModule,
+    AutoCompleteModule,
+    DialogModule,
   ],
 })
 export class PrimeNgModule {}
