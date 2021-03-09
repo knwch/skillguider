@@ -1,45 +1,56 @@
 <div class="p-grid p-jc-center">
-  <div class="p-sm-12 p-md-6 p-lg-4">
-    <div class="p-fluid search-bar">
-      <p-autoComplete
-        [(ngModel)]="text"
-        [suggestions]="jobs | async"
-        (completeMethod)="onSearch($event)"
-        (onSelect)="onSelect($event)"
-        [delay]="800"
-        scrollHeight="250"
-        type="search"
-        placeholder="ค้นหาอาชีพ"
-      >
-        <ng-template let-job pTemplate="item">
-          <div>{{ job.item.title }}</div>
-        </ng-template>
-      </p-autoComplete>
-    </div>
+  <div class="p-col-11 p-sm-9 p-md-7 p-lg-5">
+    <p-card>
+      <div class="p-text-left p-ml-4 header">ค้นหาอาชีพที่สนใจ</div>
 
-    <div class="p-text-left category-header">เลือกสายงานที่สนใจ</div>
+      <div class="p-fluid p-mx-4 p-my-3">
+        <p-autoComplete
+          [(ngModel)]="text"
+          [suggestions]="jobs | async"
+          (completeMethod)="onSearch($event)"
+          (onSelect)="displayDialog($event)"
+          [delay]="800"
+          scrollHeight="250"
+          type="search"
+          placeholder="อาชีพ"
+        >
+          <ng-template let-job pTemplate="item">
+            <div>{{ job.item.title }}</div>
+          </ng-template>
+        </p-autoComplete>
+      </div>
+    </p-card>
 
-    <p-dataView [value]="categories | async" layout="list">
-      <ng-template let-category pTemplate="listItem">
-        <div class="category-list-item">
-          <div class="category-list-detail">
-            <div class="category-name">{{ category.title }}</div>
+    <p-divider align="center">
+      <div class="p-my-2">หรือ</div>
+    </p-divider>
+
+    <p-card>
+      <div class="p-text-left p-ml-4 header">เลือกสายงานที่สนใจ</div>
+
+      <p-dataView [value]="categories | async" layout="list">
+        <ng-template let-category pTemplate="listItem">
+          <div class="category-list-item category-list-link">
+            <div class="category-list-detail">
+              <div class="category-name">{{ category.title }}</div>
+            </div>
+            <!-- <div class="product-list-action"> -->
+            <p-button
+              pRipple
+              icon="pi pi-chevron-right"
+              styleClass="p-button-rounded p-button-text"
+            ></p-button>
+            <!-- </div> -->
           </div>
-          <!-- <div class="product-list-action"> -->
-          <p-button
-            pRipple
-            icon="pi pi-chevron-right"
-            styleClass="p-button-rounded p-button-text"
-          ></p-button>
-          <!-- </div> -->
-        </div>
-      </ng-template>
-    </p-dataView>
+        </ng-template>
+      </p-dataView>
+    </p-card>
   </div>
 </div>
 
 <span *ngIf="selectedResult">
   <p-dialog
+    [header]="selectedResult.title"
     [(visible)]="displayModal"
     [modal]="true"
     [style]="{ width: '50vw' }"
@@ -47,17 +58,21 @@
     [draggable]="false"
     [resizable]="false"
   >
-    <ng-template pTemplate="header">
-      <div>
-        {{ selectedResult.title }}
-      </div>
-    </ng-template>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </p>
     <ng-template pTemplate="footer">
       <p-button
-        icon="pi pi-check"
-        (click)="displayModal = false"
-        label="Ok"
-        styleClass="p-button-text"
+        icon="pi pi-chevron-right"
+        (click)="onSelect(selectedResult)"
+        label="เลือก"
+        iconPos="right"
       ></p-button>
     </ng-template>
   </p-dialog>

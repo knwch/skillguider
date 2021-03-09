@@ -36,12 +36,16 @@ export class CategoryPageComponent implements OnInit {
   onSearch(event: string): any {
     const { query }: any = event;
     this.store.dispatch(new SearchJobs(query));
-    // this.jobs?.subscribe((data) => (this.results = data));
   }
 
-  onSelect(event: any): any {
+  displayDialog(event: any): any {
     this.text = '';
     this.displayModal = true;
     this.selectedResult = event.item;
+  }
+
+  onSelect(job: any): any {
+    this.displayModal = false;
+    console.log(job);
   }
 }

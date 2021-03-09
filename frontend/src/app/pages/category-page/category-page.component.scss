@@ -1,11 +1,18 @@
-.search-bar {
-  margin: 1.5rem 1.5rem 1rem 1.5rem;
+::ng-deep .p-autocomplete .p-inputtext {
+  border-radius: 12px;
 }
 
-.category-header {
+::ng-deep .p-divider .p-divider-content {
+  background-color: #ededf2;
+}
+
+::ng-deep .p-card {
+  border-radius: 16px;
+}
+
+.header {
   font-size: 1.5rem;
   font-weight: 500;
-  padding: 1.5rem 1.5rem 0rem 1.5rem;
 }
 
 .category-name {
@@ -19,11 +26,17 @@
   padding: 1rem;
   width: 100%;
 
-  img {
-    width: 150px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    margin-right: 2rem;
+  &:hover {
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.025);
+    border-radius: 5px;
   }
+
+  // img {
+  //   width: 150px;
+  //   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  //   margin-right: 2rem;
+  // }
 
   .category-list-detail {
     flex: 1 1 0;
