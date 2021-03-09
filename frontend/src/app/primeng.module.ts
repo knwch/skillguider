@@ -7,6 +7,8 @@ import { OrderListModule } from 'primeng/orderlist';
 import { DataViewModule } from 'primeng/dataview';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DialogModule } from 'primeng/dialog';
+import { DividerModule } from 'primeng/divider';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   imports: [CommonModule],
@@ -18,6 +20,8 @@ import { DialogModule } from 'primeng/dialog';
     DataViewModule,
     AutoCompleteModule,
     DialogModule,
+    DividerModule,
+    CardModule,
   ],
 })
 export class PrimeNgModule {}
