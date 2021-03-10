@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryState } from '../../states/category.state';
 import { JobState } from '../../states/job.state';
 import { Category } from '../../models/category.model';
-import { GetCategories } from '../../actions/category.action';
+import {
+  GetCategories,
+  SetSelectedCategory,
+} from '../../actions/category.action';
 import { GetJobs, SearchJobs } from '../../actions/job.action';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -44,7 +47,11 @@ export class CategoryPageComponent implements OnInit {
     this.selectedResult = event.item;
   }
 
-  onSelect(job: any): any {
+  onSelectCategory(category: any): any {
+    this.store.dispatch(new SetSelectedCategory(category));
+  }
+
+  onSelectJob(job: any): any {
     this.displayModal = false;
     console.log(job);
   }

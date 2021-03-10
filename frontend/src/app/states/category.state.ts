@@ -101,15 +101,15 @@ export class CategoryState {
   //     );
   //   }
 
-  //   @Action(SetSelectedTodo)
-  //   setSelectedTodoId(
-  //     { getState, setState }: StateContext<TodoStateModel>,
-  //     { payload }: SetSelectedTodo
-  //   ) {
-  //     const state = getState();
-  //     setState({
-  //       ...state,
-  //       selectedTodo: payload,
-  //     });
-  //   }
+  @Action(SetSelectedCategory)
+  setSelectedCategory(
+    { getState, setState }: StateContext<CategoryStateModel>,
+    { payload }: SetSelectedCategory
+  ): any {
+    const state = getState();
+    setState({
+      ...state,
+      selectedCategory: payload,
+    });
+  }
 }
