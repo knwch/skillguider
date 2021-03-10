@@ -30,7 +30,10 @@
 
       <p-dataView [value]="categories | async" layout="list">
         <ng-template let-category pTemplate="listItem">
-          <div class="category-list-item category-list-link">
+          <div
+            class="category-list-item category-list-link"
+            (click)="onSelectCategory(category)"
+          >
             <div class="category-list-detail">
               <div class="category-name">{{ category.title }}</div>
             </div>
@@ -70,7 +73,7 @@
     <ng-template pTemplate="footer">
       <p-button
         icon="pi pi-chevron-right"
-        (click)="onSelect(selectedResult)"
+        (click)="onSelectJob(selectedResult)"
         label="เลือก"
         iconPos="right"
       ></p-button>
