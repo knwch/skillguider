@@ -14,6 +14,12 @@ export class JobService {
     return this.http.get<Job[]>('http://localhost:3000/api/job/all/');
   }
 
+  getJobsByCategory(query: string): any {
+    return this.http.get<Job[]>(
+      `http://localhost:3000/api/job/all/category?id=${query}`
+    );
+  }
+
   searchJobs(query: string): any {
     return this.http.get<Job[]>(
       `http://localhost:3000/api/job/search?title=${query}`
