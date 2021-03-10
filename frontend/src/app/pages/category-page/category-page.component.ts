@@ -9,6 +9,7 @@ import {
 import { GetJobs, SearchJobs } from '../../actions/job.action';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-category-page',
@@ -24,13 +25,11 @@ export class CategoryPageComponent implements OnInit {
 
   text: any;
 
-  // results: any;
-
   displayModal = false;
 
   selectedResult: any = {};
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private router: Router) {}
 
   ngOnInit(): void {
     this.store.dispatch(new GetCategories());
@@ -42,13 +41,14 @@ export class CategoryPageComponent implements OnInit {
   }
 
   displayDialog(event: any): any {
-    this.text = '';
+    this.text = event.item.title;
     this.displayModal = true;
     this.selectedResult = event.item;
   }
 
   onSelectCategory(category: any): any {
     this.store.dispatch(new SetSelectedCategory(category));
+    this.router.navigate(['/category', category._id]);
   }
 
   onSelectJob(job: any): any {
