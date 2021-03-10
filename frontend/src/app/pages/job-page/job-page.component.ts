@@ -1,15 +1,60 @@
 import { Component, OnInit } from '@angular/core';
+import { CategoryState } from '../../states/category.state';
+import { JobState } from '../../states/job.state';
+import { GetJobsByCategory } from '../../actions/job.action';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-job-page',
   templateUrl: './job-page.component.html',
-  styleUrls: ['./job-page.component.scss']
+  styleUrls: ['./job-page.component.scss'],
 })
 export class JobPageComponent implements OnInit {
+  @Select(CategoryState.getSelectedCategory)
+  selectedCategory: Observable<any> | undefined | any;
 
-  constructor() { }
+  @Select(JobState.getJobList)
+  jobs: Observable<any> | undefined;
 
-  ngOnInit(): void {
+  categoryId: any;
+
+  constructor(private store: Store, private route: ActivatedRoute) {
+    this.categoryId = route.snapshot.params.id;
   }
 
+  sliceOptions: any = {
+    start: 0,
+    end: 100,
+    default: 100,
+  };
+
+  details = {
+    desc:
+      // tslint:disable-next-line:quotemark
+      "Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It's also called placeholder (or filler) text. It's a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero. Its words and letters have been changed by addition or removal, so to deliberately render its content nonsensical; it's not genuine, correct, or comprehensible Latin anymore. While lorem ipsum's still resembles classical Latin, it actually has no meaning whatsoever. As Cicero's text doesn't contain the letters K, W, or Z, alien to latin, these, and others are often inserted randomly to mimic the typographic appearence of European languages, as are digraphs not to be found in the original.sdfsdfdatsdgh",
+  };
+
+  displayModal = false;
+
+  selectedResult: any = {};
+
+  category: any;
+
+  ngOnInit(): void {
+    this.store.dispatch(new GetJobsByCategory(this.categoryId));
+    // this.category = this.selectedCategory.subscribe((x: any) => x);
+  }
+
+  displayDialog(job: any): any {
+    this.displayModal = true;
+    this.selectedResult = job;
+  }
+
+  onExpandText(evt: any): void {
+    this.sliceOptions.end = this.sliceOptions.end
+      ? undefined
+      : this.sliceOptions.default;
+  }
 }

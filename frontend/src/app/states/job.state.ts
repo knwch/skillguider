@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Job } from '../models/job.model';
-import { GetJobs, SearchJobs } from '../actions/job.action';
+import { GetJobs, GetJobsByCategory, SearchJobs } from '../actions/job.action';
 import { JobService } from '../services/job.service';
 import { tap } from 'rxjs/operators';
 
@@ -34,6 +34,22 @@ export class JobState {
   @Action(GetJobs)
   getCategories({ getState, setState }: StateContext<JobStateModel>): any {
     return this.jobService.fetchJobs().pipe(
+      tap((result) => {
+        const state = getState();
+        setState({
+          ...state,
+          jobs: result,
+        });
+      })
+    );
+  }
+
+  @Action(GetJobsByCategory)
+  getJobsByCategory(
+    { getState, setState }: StateContext<JobStateModel>,
+    { query }: GetJobsByCategory
+  ): any {
+    return this.jobService.getJobsByCategory(query).pipe(
       tap((result) => {
         const state = getState();
         setState({
