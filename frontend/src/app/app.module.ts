@@ -22,9 +22,10 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { CategoryState } from './states/category.state';
 import { JobState } from './states/job.state';
 import { NotfoundPageComponent } from './pages/notfound-page/notfound-page.component';
+import { MyskillPageComponent } from './pages/myskill-page/myskill-page.component';
 
 @NgModule({
-  declarations: [AppComponent, TopbarComponent, CategoryPageComponent, JobPageComponent, FooterComponent, NotfoundPageComponent],
+  declarations: [AppComponent, TopbarComponent, CategoryPageComponent, JobPageComponent, FooterComponent, NotfoundPageComponent, MyskillPageComponent],
   imports: [
     BrowserModule,
     PrimeNgModule,
