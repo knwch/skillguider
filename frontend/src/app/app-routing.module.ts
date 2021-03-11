@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 import { CategoryPageComponent } from './pages/category-page/category-page.component';
 import { JobPageComponent } from './pages/job-page/job-page.component';
+import { MyskillPageComponent } from './pages/myskill-page/myskill-page.component';
 import { NotfoundPageComponent } from './pages/notfound-page/notfound-page.component';
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
       { path: '', component: CategoryPageComponent, pathMatch: 'full' },
     ],
   },
+  { path: 'myskill', component: MyskillPageComponent },
   { path: '**', component: NotfoundPageComponent },
 ];
 
