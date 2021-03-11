@@ -12,7 +12,8 @@ import { AppComponent } from './app.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CategoryPageComponent } from './pages/category-page/category-page.component';
-
+import { NotfoundPageComponent } from './pages/notfound-page/notfound-page.component';
+import { MyskillPageComponent } from './pages/myskill-page/myskill-page.component';
 import { JobPageComponent } from './pages/job-page/job-page.component';
 
 import { NgxsModule } from '@ngxs/store';
@@ -21,17 +22,24 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 
 import { CategoryState } from './states/category.state';
 import { JobState } from './states/job.state';
-import { NotfoundPageComponent } from './pages/notfound-page/notfound-page.component';
-import { MyskillPageComponent } from './pages/myskill-page/myskill-page.component';
+import { SkillState } from './states/skill.state';
 
 @NgModule({
-  declarations: [AppComponent, TopbarComponent, CategoryPageComponent, JobPageComponent, FooterComponent, NotfoundPageComponent, MyskillPageComponent],
+  declarations: [
+    AppComponent,
+    TopbarComponent,
+    CategoryPageComponent,
+    JobPageComponent,
+    FooterComponent,
+    NotfoundPageComponent,
+    MyskillPageComponent,
+  ],
   imports: [
     BrowserModule,
     PrimeNgModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    NgxsModule.forRoot([CategoryState, JobState]),
+    NgxsModule.forRoot([CategoryState, JobState, SkillState]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     FormsModule,
