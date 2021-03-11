@@ -77,7 +77,14 @@ export class JobService {
   }
 
   async getJobsByCategory(category_id: string): Promise<any> {
+    const category = await this.CategoryModel.findById(category_id);
+
+    if (!category) {
+      throw new NotFoundException('Category does not exist!');
+    }
+
     const jobs = await this.JobModel.find({ category_id: category_id });
+
     return jobs;
   }
 
