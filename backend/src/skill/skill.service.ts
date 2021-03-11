@@ -124,7 +124,7 @@ export class SkillService {
       keys: ['title'],
     });
 
-    const results = fuse.search(query).slice(0, 10);
+    const results = fuse.search(query).slice(0, 5);
 
     return results;
   }
