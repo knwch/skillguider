@@ -10,6 +10,12 @@ export class GetCategories {
   static readonly type = '[Category] Get';
 }
 
+export class GetCategoryById {
+  static readonly type = '[Category] Get Id';
+
+  constructor(public id: string) {}
+}
+
 export class UpdateCategory {
   static readonly type = '[Category] Update';
 
