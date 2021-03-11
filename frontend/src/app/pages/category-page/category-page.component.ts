@@ -31,8 +31,8 @@ export class CategoryPageComponent implements OnInit {
 
   constructor(private store: Store, private router: Router) {}
 
-  ngOnInit(): void {
-    this.store.dispatch(new GetCategories());
+  async ngOnInit(): Promise<void> {
+    await this.store.dispatch(new GetCategories()).toPromise();
   }
 
   onSearch(event: string): any {

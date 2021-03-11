@@ -11,8 +11,12 @@ export class CategoryService {
   allCategories: Array<Category> = [];
 
   fetchCategories(): any {
+    return this.http.get<Category[]>('http://localhost:3000/api/category/all/');
+  }
+
+  getCategoryById(id: string): any {
     return this.http.get<Category[]>(
-      'http://localhost:3000/api/category/all/'
+      `http://localhost:3000/api/category/id?id=${id}`
     );
   }
 
