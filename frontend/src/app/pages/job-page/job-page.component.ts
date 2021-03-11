@@ -20,7 +20,11 @@ export class JobPageComponent implements OnInit {
 
   categoryId: any;
 
-  constructor(private store: Store, private route: ActivatedRoute) {
+  constructor(
+    private store: Store,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     this.categoryId = route.snapshot.params.id;
   }
 
@@ -44,7 +48,13 @@ export class JobPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(new GetJobsByCategory(this.categoryId));
-    // this.category = this.selectedCategory.subscribe((x: any) => x);
+    this.selectedCategory.subscribe((data: any) => {
+      if (data) {
+        this.category = data;
+      } else {
+        this.router.navigate(['']);
+      }
+    });
   }
 
   displayDialog(job: any): any {

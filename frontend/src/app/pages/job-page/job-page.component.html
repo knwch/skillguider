@@ -1,11 +1,14 @@
 <div class="p-grid p-jc-center">
   <div class="p-col-11 p-sm-9 p-md-7 p-lg-5">
-    <div class="p-text-center p-mb-4 header">Title</div>
+    <div class="p-text-center p-mb-4 header">
+      <span *ngIf="category">สายงาน {{ category.title }}</span>
+    </div>
 
     <div *ngFor="let job of jobs | async; index as i">
       <p-card [header]="job.title" styleClass="p-mb-3 p-p-3">
         {{ details.desc | slice: sliceOptions.start:sliceOptions.end }}
         <span *ngIf="details.desc.length >= sliceOptions.default">
+          <a> ...</a>
           <a class="readmore-link" (click)="displayDialog(job)">
             อ่านเพิ่มเติม
           </a>
