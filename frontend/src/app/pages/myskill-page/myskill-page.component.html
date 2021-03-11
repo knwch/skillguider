@@ -1,1 +1,25 @@
-<p>myskill-page works!</p>
+<div class="p-grid p-jc-center">
+  <div class="p-col-11 p-sm-9 p-md-7 p-lg-5">
+    <p-card styleClass="p-mb-3">
+      <div class="p-text-left p-ml-4 header">เพิ่มสกิลของคุณ</div>
+
+      <div class="p-fluid p-mx-4 p-my-3">
+        <p-autoComplete
+          [(ngModel)]="text"
+          [suggestions]="skills | async"
+          (completeMethod)="onSearch($event)"
+          [delay]="800"
+          field="item.title"
+          scrollHeight="250"
+          type="search"
+          placeholder="ค้นหาสกิล (ex: Javascript)"
+        >
+        </p-autoComplete>
+
+        <p-divider styleClass="p-mt-4"></p-divider>
+      </div>
+
+      <div class="p-text-left p-ml-4 header">สกิลแนะนำ</div>
+    </p-card>
+  </div>
+</div>
