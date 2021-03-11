@@ -137,7 +137,7 @@ export class JobService {
       keys: ['title'],
     });
 
-    const results = fuse.search(term).slice(0, 10);
+    const results = fuse.search(term).slice(0, 5);
 
     return results;
   }
