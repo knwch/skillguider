@@ -7,6 +7,7 @@ import {
   UpdateCategory,
   DeleteCategory,
   SetSelectedCategory,
+  GetCategoryById,
 } from '../actions/category.action';
 import { CategoryService } from '../services/category.service';
 import { tap } from 'rxjs/operators';
@@ -45,6 +46,22 @@ export class CategoryState {
         setState({
           ...state,
           categories: result,
+        });
+      })
+    );
+  }
+
+  @Action(GetCategoryById)
+  getCategoryById(
+    { getState, setState }: StateContext<CategoryStateModel>,
+    { id }: GetCategoryById
+  ): any {
+    return this.categoryService.getCategoryById(id).pipe(
+      tap((result: any) => {
+        const state = getState();
+        setState({
+          ...state,
+          selectedCategory: result?.data,
         });
       })
     );
