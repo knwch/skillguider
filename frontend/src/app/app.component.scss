@@ -6,3 +6,7 @@
   border-radius: 12px;
   // background-color: #3bc681;
 }
+
+::ng-deep .p-autocomplete .p-inputtext {
+  border-radius: 12px;
+}
