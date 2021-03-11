@@ -10,13 +10,11 @@
           (completeMethod)="onSearch($event)"
           (onSelect)="displayDialog($event)"
           [delay]="800"
+          field="item.title"
           scrollHeight="250"
           type="search"
           placeholder="อาชีพ"
         >
-          <ng-template let-job pTemplate="item">
-            <div>{{ job.item.title }}</div>
-          </ng-template>
         </p-autoComplete>
       </div>
     </p-card>
