@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryState } from '../../states/category.state';
+import { GetCategoryById } from '../../actions/category.action';
 import { JobState } from '../../states/job.state';
 import { GetJobsByCategory } from '../../actions/job.action';
 import { Select, Store } from '@ngxs/store';
@@ -46,15 +47,29 @@ export class JobPageComponent implements OnInit {
 
   category: any;
 
-  ngOnInit(): void {
-    this.store.dispatch(new GetJobsByCategory(this.categoryId));
-    this.selectedCategory.subscribe((data: any) => {
+  async ngOnInit(): Promise<void> {
+    await this.store
+      .dispatch(new GetJobsByCategory(this.categoryId))
+      .toPromise();
+
+    await this.selectedCategory.subscribe((data: any) => {
       if (data) {
         this.category = data;
-      } else {
-        this.router.navigate(['']);
       }
     });
+
+    if (!this.category) {
+      await this.store
+        .dispatch(new GetCategoryById(this.categoryId))
+        .toPromise();
+      await this.selectedCategory.subscribe((data: any) => {
+        if (data) {
+          this.category = data;
+        } else {
+          this.router.navigate(['']);
+        }
+      });
+    }
   }
 
   displayDialog(job: any): any {
