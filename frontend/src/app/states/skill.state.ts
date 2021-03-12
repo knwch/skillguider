@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Skill } from '../models/skill.model';
-import { SearchSkills } from '../actions/skill.action';
+import { GetSkillsByJob, SearchSkills } from '../actions/skill.action';
 import { SkillService } from '../services/skill.service';
 import { tap } from 'rxjs/operators';
 
 export class SkillStateModel {
   skills: Skill[] | any;
+  suggestedSkill: Skill[] | any;
   selectedSkill: Skill | any;
 }
 
@@ -15,6 +16,7 @@ export class SkillStateModel {
   name: 'skills',
   defaults: {
     skills: [],
+    suggestedSkill: [],
     selectedSkill: null,
   },
 })
@@ -27,22 +29,30 @@ export class SkillState {
   }
 
   @Selector()
+  static getSuggestSkillList(state: SkillStateModel): any {
+    return state.suggestedSkill.data;
+  }
+
+  @Selector()
   static getSelectedSkill(state: SkillStateModel): any {
     return state.selectedSkill;
   }
 
-  //   @Action(GetJobs)
-  //   getCategories({ getState, setState }: StateContext<SkillStateModel>): any {
-  //     return this.jobService.fetchJobs().pipe(
-  //       tap((result) => {
-  //         const state = getState();
-  //         setState({
-  //           ...state,
-  //           jobs: result,
-  //         });
-  //       })
-  //     );
-  //   }
+  @Action(GetSkillsByJob)
+  getSkillsByJob(
+    { getState, setState }: StateContext<SkillStateModel>,
+    { id }: GetSkillsByJob
+  ): any {
+    return this.skillService.getSkillsByJob(id).pipe(
+      tap((result) => {
+        const state = getState();
+        setState({
+          ...state,
+          suggestedSkill: result,
+        });
+      })
+    );
+  }
 
   @Action(SearchSkills)
   searchSkills(

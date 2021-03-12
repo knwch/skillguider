@@ -20,6 +20,12 @@ export class JobService {
     );
   }
 
+  getJobById(id: string): any {
+    return this.http.get<Job[]>(
+      `http://localhost:3000/api/job/id?id=${id}`
+    );
+  }
+
   searchJobs(query: string): any {
     return this.http.get<Job[]>(
       `http://localhost:3000/api/job/search?title=${query}`
