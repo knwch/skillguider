@@ -19,7 +19,16 @@
         <p-divider styleClass="p-mt-4"></p-divider>
       </div>
 
-      <div class="p-text-left p-ml-4 header">สกิลแนะนำ</div>
+      <div class="p-text-left p-ml-4 header">สกิลแนะนำ {{ job.title }}</div>
+
+      <span *ngFor="let skill of suggestedSkills | async; index as i">
+        <p-button
+          pRipple
+          type="button"
+          [label]="skill.title"
+          styleClass="p-button-raised p-button-text"
+        ></p-button>
+      </span>
     </p-card>
   </div>
 </div>

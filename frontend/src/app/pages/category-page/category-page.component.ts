@@ -6,7 +6,7 @@ import {
   GetCategories,
   SetSelectedCategory,
 } from '../../actions/category.action';
-import { GetJobs, SearchJobs } from '../../actions/job.action';
+import { SearchJobs, SetSelectedJob } from '../../actions/job.action';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -53,6 +53,7 @@ export class CategoryPageComponent implements OnInit {
 
   onSelectJob(job: any): any {
     this.displayModal = false;
-    console.log(job);
+    this.store.dispatch(new SetSelectedJob(job));
+    this.router.navigate(['/myskill'], { queryParams: { job: job._id } });
   }
 }

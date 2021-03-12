@@ -10,8 +10,13 @@ export class SkillService {
 
   allSkills: Array<Skill> = [];
 
+  getSkillsByJob(id: string): any {
+    return this.http.get<Skill[]>(
+      `http://localhost:3000/api/skill/job?id=${id}`
+    );
+  }
+
   searchSkills(query: string): any {
-    console.log('ddddddddd');
     return this.http.get<Skill[]>(
       `http://localhost:3000/api/skill/search?query=${query}`
     );

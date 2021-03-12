@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryState } from '../../states/category.state';
 import { GetCategoryById } from '../../actions/category.action';
 import { JobState } from '../../states/job.state';
-import { GetJobsByCategory } from '../../actions/job.action';
+import { GetJobsByCategory, SetSelectedJob } from '../../actions/job.action';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -75,6 +75,11 @@ export class JobPageComponent implements OnInit {
   displayDialog(job: any): any {
     this.displayModal = true;
     this.selectedResult = job;
+  }
+
+  onSelectJob(job: any): any {
+    this.store.dispatch(new SetSelectedJob(job));
+    this.router.navigate(['/myskill'], { queryParams: { job: job._id } });
   }
 
   onExpandText(evt: any): void {
