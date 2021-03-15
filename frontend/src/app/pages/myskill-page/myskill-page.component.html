@@ -1,13 +1,14 @@
 <div class="p-grid p-jc-center">
   <div class="p-col-11 p-sm-9 p-md-7 p-lg-5">
-    <p-card styleClass="p-mb-3">
-      <div class="p-text-left p-ml-4 header">เพิ่มสกิลของคุณ</div>
+    <p-card styleClass="p-mb-3 p-px-4 p-pb-4 p-pt-2">
+      <div class="p-text-left header">เพิ่มสกิลของคุณ</div>
 
-      <div class="p-fluid p-mx-4 p-my-3">
+      <div class="p-fluid p-my-3">
         <p-autoComplete
           [(ngModel)]="text"
           [suggestions]="skills | async"
           (completeMethod)="onSearch($event)"
+          (onSelect)="onSelectSkill($event.item)"
           [delay]="800"
           field="item.title"
           scrollHeight="250"
@@ -15,20 +16,60 @@
           placeholder="ค้นหาสกิล (ex: Javascript)"
         >
         </p-autoComplete>
-
-        <p-divider styleClass="p-mt-4"></p-divider>
       </div>
 
-      <div class="p-text-left p-ml-4 header">สกิลแนะนำ {{ job.title }}</div>
+      <div>
+        <span *ngFor="let skill of mySkill; index as i">
+          <p-button
+            pRipple
+            icon="pi pi-check"
+            type="button"
+            [label]="skill.title"
+            styleClass="p-button-success p-button-sm p-m-1 selected-button"
+            (click)="onRemoveSkill(skill)"
+          ></p-button>
+        </span>
+      </div>
 
-      <span *ngFor="let skill of suggestedSkills | async; index as i">
-        <p-button
-          pRipple
-          type="button"
-          [label]="skill.title"
-          styleClass="p-button-raised p-button-text"
-        ></p-button>
-      </span>
+      <p-divider></p-divider>
+
+      <div class="p-text-left header">สกิลแนะนำ {{ job.title }}</div>
+
+      <div>
+        <span *ngFor="let skill of suggestSkillArray; index as i">
+          <span *ngIf="i < 6">
+            <p-button
+              pRipple
+              type="button"
+              [label]="skill.title"
+              styleClass="p-button-outlined p-button-sm p-m-1 suggested-button"
+              (click)="onSelectSkill(skill)"
+            ></p-button>
+          </span>
+        </span>
+      </div>
+
+      <ng-template pTemplate="footer">
+        <div style="text-align: right">
+          <span *ngIf="mySkill.length > 0; else skipButton">
+            <p-button
+              icon="pi pi-chevron-right"
+              label="ยืนยัน"
+              iconPos="right"
+              (click)="onSubmit()"
+            ></p-button>
+          </span>
+        </div>
+        <ng-template #skipButton
+          ><p-button
+            icon="pi pi-chevron-right"
+            label="ข้าม"
+            iconPos="right"
+            styleClass="p-button-outlined"
+            (click)="onSubmit()"
+          ></p-button
+        ></ng-template>
+      </ng-template>
     </p-card>
   </div>
 </div>

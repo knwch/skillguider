@@ -2,3 +2,20 @@
   font-size: 1.5rem;
   font-weight: 500;
 }
+
+::ng-deep .p-button.suggested-button {
+  border-radius: 24px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+::ng-deep .p-button.selected-button {
+  border-radius: 24px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: #46ab44;
+
+  &:hover {
+    background-color: #3f9e3e !important;
+  }
+}

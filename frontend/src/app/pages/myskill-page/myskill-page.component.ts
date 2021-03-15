@@ -18,7 +18,7 @@ export class MyskillPageComponent implements OnInit {
   skills: Observable<any> | undefined;
 
   @Select(SkillState.getSuggestSkillList)
-  suggestedSkills: Observable<any> | undefined;
+  suggestedSkills: Observable<any> | undefined | any;
 
   @Select(JobState.getSelectedJob)
   selectedJob: Observable<any> | undefined | any;
@@ -29,13 +29,21 @@ export class MyskillPageComponent implements OnInit {
 
   jobId: any;
 
+  mySkill: any = [];
+
+  suggestSkillArray: any;
+
   constructor(
     private store: Store,
     private router: Router,
     private route: ActivatedRoute
   ) {
     this.route.queryParams.subscribe((params) => {
-      this.jobId = params.job;
+      if (params.job) {
+        this.jobId = params.job;
+      } else {
+        this.router.navigate(['']);
+      }
     });
   }
 
@@ -59,10 +67,42 @@ export class MyskillPageComponent implements OnInit {
         }
       });
     }
+
+    await this.suggestedSkills.subscribe((data: any) => {
+      if (data) {
+        this.suggestSkillArray = data;
+      }
+    });
   }
 
   onSearch(event: string): any {
     const { query }: any = event;
     this.store.dispatch(new SearchSkills(query));
   }
+
+  onSelectSkill(skill: any): any {
+    if (!this.mySkill.some((element: any) => element._id === skill._id)) {
+      this.mySkill.push(skill);
+      this.suggestSkillArray = this.suggestSkillArray.filter((element: any) => {
+        return element._id !== skill._id;
+      });
+    }
+    console.log(this.mySkill);
+  }
+
+  onRemoveSkill(skill: any): any {
+    this.mySkill = this.mySkill.filter((element: any) => {
+      return element._id !== skill._id;
+    });
+
+    this.suggestedSkills.subscribe((data: any) => {
+      if (data) {
+        if (data.some((element: any) => element._id === skill._id)) {
+          this.suggestSkillArray.push(skill);
+        }
+      }
+    });
+  }
+
+  onSubmit(): any {}
 }
