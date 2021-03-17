@@ -5,7 +5,11 @@ import { JobState } from '../../states/job.state';
 import { GetJobById } from '../../actions/job.action';
 import { SkillState } from '../../states/skill.state';
 import { Skill } from '../../models/skill.model';
-import { SearchSkills, GetSkillsByJob } from '../../actions/skill.action';
+import {
+  SearchSkills,
+  GetSkillsByJob,
+  SubmitSkill,
+} from '../../actions/skill.action';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -70,6 +74,7 @@ export class MyskillPageComponent implements OnInit {
 
     await this.suggestedSkills.subscribe((data: any) => {
       if (data) {
+        data = data.sort(() => Math.random() - 0.5);
         this.suggestSkillArray = data;
       }
     });
@@ -104,5 +109,20 @@ export class MyskillPageComponent implements OnInit {
     });
   }
 
-  onSubmit(): any {}
+  async onSubmit(): Promise<any> {
+    const mySkillIds = this.mySkill.map((skill: any) => {
+      return skill._id;
+    });
+
+    await this.store
+      .dispatch(
+        new SubmitSkill({
+          job_id: this.jobId,
+          skillset: mySkillIds,
+        })
+      )
+      .toPromise();
+
+    this.router.navigate(['/result']);
+  }
 }

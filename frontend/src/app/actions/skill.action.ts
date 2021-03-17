@@ -11,3 +11,9 @@ export class GetSkillsByJob {
 
   constructor(public id: string) {}
 }
+
+export class SubmitSkill {
+  static readonly type = '[Skill] Submit Skill';
+
+  constructor(public payload: any) {}
+}
