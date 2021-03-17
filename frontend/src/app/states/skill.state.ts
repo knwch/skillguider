@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Skill } from '../models/skill.model';
-import { GetSkillsByJob, SearchSkills } from '../actions/skill.action';
+import {
+  GetSkillsByJob,
+  SearchSkills,
+  SubmitSkill,
+} from '../actions/skill.action';
 import { SkillService } from '../services/skill.service';
 import { tap } from 'rxjs/operators';
 
@@ -70,20 +74,21 @@ export class SkillState {
     );
   }
 
-  //   @Action(AddCategory)
-  //   addCategory(
-  //     { getState, patchState }: StateContext<TodoStateModel>,
-  //     { payload }: AddTodo
-  //   ) {
-  //     return this.todoService.addTodo(payload).pipe(
-  //       tap((result) => {
-  //         const state = getState();
-  //         patchState({
-  //           todos: [...state.todos, result],
-  //         });
-  //       })
-  //     );
-  //   }
+  @Action(SubmitSkill)
+  submitSkill(
+    { getState, setState }: StateContext<SkillStateModel>,
+    { payload }: SubmitSkill
+  ): any {
+    return this.skillService.submitSkill(payload).pipe(
+      tap((result) => {
+        const state = getState();
+        setState({
+          ...state,
+          skills: result,
+        });
+      })
+    );
+  }
 
   //   @Action(UpdateTodo)
   //   updateTodo(

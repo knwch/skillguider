@@ -21,4 +21,11 @@ export class SkillService {
       `http://localhost:3000/api/skill/search?query=${query}`
     );
   }
+
+  submitSkill(payload: Skill): any {
+    return this.http.post<Skill>(
+      'http://localhost:3000/api/skill/submit',
+      payload
+    );
+  }
 }
