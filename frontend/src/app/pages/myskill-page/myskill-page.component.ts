@@ -123,6 +123,6 @@ export class MyskillPageComponent implements OnInit {
       )
       .toPromise();
 
-    this.router.navigate(['/result']);
+    this.router.navigate(['/result'], { queryParams: { job: this.jobId } });
   }
 }
