@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CategoryPageComponent } from './pages/category-page/category-page.component';
 import { JobPageComponent } from './pages/job-page/job-page.component';
 import { MyskillPageComponent } from './pages/myskill-page/myskill-page.component';
+import { ResultPageComponent } from './pages/result-page/result-page.component';
 import { NotfoundPageComponent } from './pages/notfound-page/notfound-page.component';
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
     ],
   },
   { path: 'myskill', component: MyskillPageComponent },
+  { path: 'result', component: ResultPageComponent },
   { path: '**', component: NotfoundPageComponent },
 ];
 
