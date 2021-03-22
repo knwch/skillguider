@@ -12,6 +12,7 @@ import { tap } from 'rxjs/operators';
 export class SkillStateModel {
   skills: Skill[] | any;
   suggestedSkill: Skill[] | any;
+  resultSkill: Skill[] | any;
   selectedSkill: Skill | any;
 }
 
@@ -21,6 +22,7 @@ export class SkillStateModel {
   defaults: {
     skills: [],
     suggestedSkill: [],
+    resultSkill: [],
     selectedSkill: null,
   },
 })
@@ -35,6 +37,11 @@ export class SkillState {
   @Selector()
   static getSuggestSkillList(state: SkillStateModel): any {
     return state.suggestedSkill.data;
+  }
+
+  @Selector()
+  static getResultSkillList(state: SkillStateModel): any {
+    return state.resultSkill.data;
   }
 
   @Selector()
@@ -84,7 +91,7 @@ export class SkillState {
         const state = getState();
         setState({
           ...state,
-          skills: result,
+          resultSkill: result,
         });
       })
     );
