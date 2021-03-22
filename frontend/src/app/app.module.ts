@@ -15,6 +15,7 @@ import { CategoryPageComponent } from './pages/category-page/category-page.compo
 import { NotfoundPageComponent } from './pages/notfound-page/notfound-page.component';
 import { MyskillPageComponent } from './pages/myskill-page/myskill-page.component';
 import { JobPageComponent } from './pages/job-page/job-page.component';
+import { ResultPageComponent } from './pages/result-page/result-page.component';
 
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
@@ -33,6 +34,7 @@ import { SkillState } from './states/skill.state';
     FooterComponent,
     NotfoundPageComponent,
     MyskillPageComponent,
+    ResultPageComponent,
   ],
   imports: [
     BrowserModule,
