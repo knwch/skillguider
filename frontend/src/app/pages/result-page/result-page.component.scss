@@ -1,0 +1,45 @@
+.header {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.skill-name {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.skill-list-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  width: 100%;
+
+  &:hover {
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.025);
+  }
+
+  .skill-list-detail {
+    flex: 1 1 0;
+  }
+
+  .border-priority-high {
+    border-left: 4px solid red !important;
+  }
+}
+
+.dot-priority-high {
+  color: #f55f20;
+}
+
+.dot-priority-normal {
+  color: #fbb124;
+}
+
+::ng-deep .p-button.checked-button {
+    color: #46ab44 !important;
+  
+    &:hover {
+      color: #3f9e3e !important;
+    }
+  }

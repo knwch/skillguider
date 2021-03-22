@@ -1,0 +1,75 @@
+<div class="p-grid p-jc-center">
+  <div class="p-col-11 p-sm-9 p-md-7 p-lg-5">
+    <div class="p-text-center p-mb-4 header">
+      <span *ngIf="job">สกิลสำหรับ {{ job.title }}</span>
+    </div>
+
+    <p-card>
+      <div class="p-text-left p-ml-4 header">สกิลที่จำเป็น</div>
+
+      <p-dataView [value]="jobSkills" layout="list">
+        <ng-template let-skill pTemplate="listItem">
+          <div
+            class="skill-list-item skill-list-link"
+            (click)="onSelectResult(skill)"
+          >
+            <div class="skill-list-detail">
+              <i
+                class="pi pi-circle-on p-pr-2"
+                style="font-size: 0.5rem"
+                [ngClass]="{
+                  'dot-priority-high': skill.priority === 'High',
+                  'dot-priority-normal': skill.priority === 'Normal'
+                }"
+              ></i>
+              <span class="skill-name">
+                {{ skill.title }}
+              </span>
+            </div>
+            <p-button
+              *ngIf="skill.matched === true"
+              pRipple
+              icon="pi pi-check-circle"
+              styleClass="p-button-rounded p-button-success p-button-text checked-button"
+            ></p-button>
+            <p-button
+              *ngIf="skill.matched === false"
+              pRipple
+              icon="pi pi-chevron-right"
+              styleClass="p-button-rounded p-button-text"
+            ></p-button>
+          </div>
+        </ng-template>
+      </p-dataView>
+    </p-card>
+
+    <p-card styleClass="p-mt-3">
+      <div class="p-text-left p-ml-4 header">สกิลอื่น ๆ ในสายงาน</div>
+
+      <p-dataView [value]="categorySkills" layout="list">
+        <ng-template let-skill pTemplate="listItem">
+          <div
+            class="skill-list-item skill-list-link"
+            (click)="onSelectResult(skill)"
+          >
+            <div class="skill-list-detail">
+              <div class="skill-name">{{ skill.title }}</div>
+            </div>
+            <p-button
+              *ngIf="skill.matched === true"
+              pRipple
+              icon="pi pi-check-circle"
+              styleClass="p-button-rounded p-button-success p-button-text checked-button"
+            ></p-button>
+            <p-button
+              *ngIf="skill.matched === false"
+              pRipple
+              icon="pi pi-chevron-right"
+              styleClass="p-button-rounded p-button-text"
+            ></p-button>
+          </div>
+        </ng-template>
+      </p-dataView>
+    </p-card>
+  </div>
+</div>
