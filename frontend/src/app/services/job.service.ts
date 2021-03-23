@@ -11,24 +11,24 @@ export class JobService {
   allJobs: Array<Job> = [];
 
   fetchJobs(): any {
-    return this.http.get<Job[]>('http://localhost:3000/api/job/all/');
+    return this.http.get<Job[]>('/api/job/all/');
   }
 
   getJobsByCategory(query: string): any {
     return this.http.get<Job[]>(
-      `http://localhost:3000/api/job/all/category?id=${query}`
+      `/api/job/all/category?id=${query}`
     );
   }
 
   getJobById(id: string): any {
     return this.http.get<Job[]>(
-      `http://localhost:3000/api/job/id?id=${id}`
+      `/api/job/id?id=${id}`
     );
   }
 
   searchJobs(query: string): any {
     return this.http.get<Job[]>(
-      `http://localhost:3000/api/job/search?title=${query}`
+      `/api/job/search?title=${query}`
     );
   }
 }
