@@ -11,21 +11,22 @@ export class SkillService {
   allSkills: Array<Skill> = [];
 
   getSkillsByJob(id: string): any {
-    return this.http.get<Skill[]>(
-      `http://localhost:3000/api/skill/job?id=${id}`
-    );
+    return this.http.get<Skill[]>(`/api/skill/job?id=${id}`);
   }
 
   searchSkills(query: string): any {
-    return this.http.get<Skill[]>(
-      `http://localhost:3000/api/skill/search?query=${query}`
-    );
+    return this.http.get<Skill[]>(`/api/skill/search?query=${query}`);
   }
 
   submitSkill(payload: Skill): any {
-    return this.http.post<Skill>(
-      'http://localhost:3000/api/skill/submit',
-      payload
-    );
+    return this.http.post<Skill>('/api/skill/submit', payload);
+  }
+
+  getCoursesBySkill(query: string): any {
+    return this.http.get<Skill[]>(`/api/skill/course?query=${query}`);
+  }
+
+  getArticlesBySkill(query: string): any {
+    return this.http.get<Skill[]>(`/api/skill/article?query=${query}`);
   }
 }

@@ -17,3 +17,21 @@ export class SubmitSkill {
 
   constructor(public payload: any) {}
 }
+
+export class SetSelectedSkill {
+  static readonly type = '[Skill] Set';
+
+  constructor(public payload: Skill) {}
+}
+
+export class GetCourses {
+  static readonly type = '[Skill] Get Courses';
+
+  constructor(public query: string) {}
+}
+
+export class GetArticles {
+  static readonly type = '[Skill] Get Articles';
+
+  constructor(public query: string) {}
+}
