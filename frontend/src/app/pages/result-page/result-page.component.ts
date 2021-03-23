@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { SkillState } from '../../states/skill.state';
+import { SetSelectedSkill, SubmitSkill } from '../../actions/skill.action';
 import { JobState } from '../../states/job.state';
 import { GetJobById } from '../../actions/job.action';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -59,22 +60,36 @@ export class ResultPageComponent implements OnInit {
       });
     }
 
-    await this.skills.subscribe((data: any) => {
-      if (data) {
-        this.categorySkills = data
-          .filter((skill: any) => skill.priority === 'Category')
-          .sort((a: any, b: any) => a.title.localeCompare(b.title));
-
-        this.jobSkills = data
-          .filter(
-            (skill: any) =>
-              skill.priority === 'High' || skill.priority === 'Normal'
+    await this.skills.subscribe(async (data: any) => {
+      if (!data) {
+        await this.store
+          .dispatch(
+            new SubmitSkill({
+              job_id: this.jobId,
+              skillset: [],
+            })
           )
-          .sort((a: any, b: any) => a.title.localeCompare(b.title))
-          .sort((a: any, b: any) => a.priority.localeCompare(b.priority));
+          .toPromise();
       }
+
+      this.categorySkills = data
+        .filter((skill: any) => skill.priority === 'Category')
+        .sort((a: any, b: any) => a.title.localeCompare(b.title));
+
+      this.jobSkills = data
+        .filter(
+          (skill: any) =>
+            skill.priority === 'High' || skill.priority === 'Normal'
+        )
+        .sort((a: any, b: any) => a.title.localeCompare(b.title))
+        .sort((a: any, b: any) => a.priority.localeCompare(b.priority));
     });
   }
 
-  onSelectResult(skill: any): void {}
+  async onSelectResult(skill: any): Promise<void> {
+    await this.store.dispatch(new SetSelectedSkill(skill)).toPromise();
+    this.router.navigate(['/learn'], {
+      queryParams: { skill: skill.title },
+    });
+  }
 }
