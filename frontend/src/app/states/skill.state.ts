@@ -5,6 +5,9 @@ import {
   GetSkillsByJob,
   SearchSkills,
   SubmitSkill,
+  SetSelectedSkill,
+  GetCourses,
+  GetArticles,
 } from '../actions/skill.action';
 import { SkillService } from '../services/skill.service';
 import { tap } from 'rxjs/operators';
@@ -14,6 +17,8 @@ export class SkillStateModel {
   suggestedSkill: Skill[] | any;
   resultSkill: Skill[] | any;
   selectedSkill: Skill | any;
+  courses: any;
+  articles: any;
 }
 
 @Injectable()
@@ -24,6 +29,8 @@ export class SkillStateModel {
     suggestedSkill: [],
     resultSkill: [],
     selectedSkill: null,
+    courses: [],
+    articles: [],
   },
 })
 export class SkillState {
@@ -47,6 +54,16 @@ export class SkillState {
   @Selector()
   static getSelectedSkill(state: SkillStateModel): any {
     return state.selectedSkill;
+  }
+
+  @Selector()
+  static getCourseList(state: SkillStateModel): any {
+    return state.courses.data;
+  }
+
+  @Selector()
+  static getArticleList(state: SkillStateModel): any {
+    return state.articles.data;
   }
 
   @Action(GetSkillsByJob)
@@ -97,6 +114,38 @@ export class SkillState {
     );
   }
 
+  @Action(GetCourses)
+  getCoursesBySkill(
+    { getState, setState }: StateContext<SkillStateModel>,
+    { query }: GetCourses
+  ): any {
+    return this.skillService.getCoursesBySkill(query).pipe(
+      tap((result) => {
+        const state = getState();
+        setState({
+          ...state,
+          courses: result,
+        });
+      })
+    );
+  }
+
+  @Action(GetArticles)
+  getArticlesBySkill(
+    { getState, setState }: StateContext<SkillStateModel>,
+    { query }: GetArticles
+  ): any {
+    return this.skillService.getArticlesBySkill(query).pipe(
+      tap((result) => {
+        const state = getState();
+        setState({
+          ...state,
+          articles: result,
+        });
+      })
+    );
+  }
+
   //   @Action(UpdateTodo)
   //   updateTodo(
   //     { getState, setState }: StateContext<TodoStateModel>,
@@ -133,15 +182,15 @@ export class SkillState {
   //     );
   //   }
 
-  //   @Action(SetSelectedTodo)
-  //   setSelectedTodoId(
-  //     { getState, setState }: StateContext<TodoStateModel>,
-  //     { payload }: SetSelectedTodo
-  //   ) {
-  //     const state = getState();
-  //     setState({
-  //       ...state,
-  //       selectedTodo: payload,
-  //     });
-  //   }
+  @Action(SetSelectedSkill)
+  setSelectedSkill(
+    { getState, setState }: StateContext<SkillStateModel>,
+    { payload }: SetSelectedSkill
+  ): any {
+    const state = getState();
+    setState({
+      ...state,
+      selectedSkill: payload,
+    });
+  }
 }
