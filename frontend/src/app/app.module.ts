@@ -16,6 +16,7 @@ import { NotfoundPageComponent } from './pages/notfound-page/notfound-page.compo
 import { MyskillPageComponent } from './pages/myskill-page/myskill-page.component';
 import { JobPageComponent } from './pages/job-page/job-page.component';
 import { ResultPageComponent } from './pages/result-page/result-page.component';
+import { LearnPageComponent } from './pages/learn-page/learn-page.component';
 
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
@@ -35,6 +36,7 @@ import { SkillState } from './states/skill.state';
     NotfoundPageComponent,
     MyskillPageComponent,
     ResultPageComponent,
+    LearnPageComponent,
   ],
   imports: [
     BrowserModule,
