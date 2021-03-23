@@ -1,0 +1,19 @@
+<div class="p-grid p-jc-center">
+  <div class="p-col-11 p-sm-9 p-md-7 p-lg-5">
+    <div class="p-fluid">
+      <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
+
+      <p-card *ngIf="activeItem.key === 'course'">
+        <div *ngFor="let course of courseList; index as i">
+          {{ course.title }}
+        </div>
+      </p-card>
+
+      <p-card *ngIf="activeItem.key === 'article'">
+        <div *ngFor="let article of articleList; index as i">
+          {{ article.title }}
+        </div>
+      </p-card>
+    </div>
+  </div>
+</div>
