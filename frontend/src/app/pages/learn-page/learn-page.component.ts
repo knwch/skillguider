@@ -33,6 +33,8 @@ export class LearnPageComponent implements OnInit {
 
   activeItem!: any;
 
+  virtualProducts: any;
+
   constructor(
     private store: Store,
     private router: Router,
@@ -53,6 +55,8 @@ export class LearnPageComponent implements OnInit {
         this.skill = data;
       }
     });
+
+    this.virtualProducts = Array.from({ length: 10000 });
 
     this.items = [
       {
