@@ -1,18 +1,61 @@
 <div class="p-grid p-jc-center">
   <div class="p-col-11 p-sm-9 p-md-7 p-lg-5">
-    <div class="p-fluid">
-      <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
+    <p-tabMenu
+      styleClass="p-mb-2"
+      [model]="items"
+      [activeItem]="activeItem"
+    ></p-tabMenu>
 
+    <div class="p-fluid">
       <p-card *ngIf="activeItem.key === 'course'">
-        <div *ngFor="let course of courseList; index as i">
-          {{ course.title }}
-        </div>
+        <p-dataView
+          [value]="courseList"
+          layout="list"
+          [rows]="5"
+          [paginator]="true"
+        >
+          <ng-template let-course pTemplate="listItem" let-i="index">
+            <div class="product-item">
+              <div class="image-container">
+                <img
+                  [src]="course.image_480x270"
+                  [alt]="course.title"
+                  class="product-image"
+                />
+              </div>
+              <div class="product-list-detail">
+                <h5 class="p-mb-2">{{ course.title }}</h5>
+                <small>{{ course.headline }}</small>
+              </div>
+              <div class="product-list-action">
+                <h6 class="p-mb-2">{{ course.price }}</h6>
+              </div>
+            </div>
+          </ng-template>
+        </p-dataView>
       </p-card>
 
       <p-card *ngIf="activeItem.key === 'article'">
-        <div *ngFor="let article of articleList; index as i">
-          {{ article.title }}
-        </div>
+        <p-dataView
+          [value]="articleList"
+          layout="list"
+          [rows]="articleList.length"
+        >
+          <ng-template let-article pTemplate="listItem" let-i="index">
+            <div class="product-item">
+              <div class="image-container">
+                <img
+                  [src]="article.img"
+                  [alt]="article.title"
+                  class="product-image"
+                />
+              </div>
+              <div class="product-list-detail">
+                <h5 class="p-mb-2">{{ article.title }}</h5>
+              </div>
+            </div>
+          </ng-template>
+        </p-dataView>
       </p-card>
     </div>
   </div>
