@@ -304,8 +304,8 @@ export class SkillService {
       .toPromise();
 
     await response.data.results.forEach((course) => {
-      const { title, headline, url, img, price } = course;
-      const data = { title, headline, url, img, price };
+      const { title, headline, url, image_480x270, price } = course;
+      const data = { title, headline, url, image_480x270, price };
 
       if (Object.keys(data).length === 5) {
         results.push(data);
