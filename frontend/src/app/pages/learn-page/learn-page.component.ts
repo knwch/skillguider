@@ -25,15 +25,15 @@ export class LearnPageComponent implements OnInit {
 
   skillTitle: any;
 
-  courseList: any;
+  courseList: any = [];
 
-  articleList: any;
+  articleList: any = [];
 
   items!: any[];
 
   activeItem!: any;
 
-  virtualProducts: any;
+  isLoaded = false;
 
   constructor(
     private store: Store,
@@ -55,8 +55,6 @@ export class LearnPageComponent implements OnInit {
         this.skill = data;
       }
     });
-
-    this.virtualProducts = Array.from({ length: 10000 });
 
     this.items = [
       {
@@ -81,32 +79,40 @@ export class LearnPageComponent implements OnInit {
   }
 
   async fetchCourses(): Promise<void> {
+    this.isLoaded = true;
     await this.store.dispatch(new GetCourses(this.skillTitle)).toPromise();
     await this.courses.subscribe((data: any) => {
       if (data) {
         this.courseList = data;
       }
     });
+    this.isLoaded = false;
   }
 
   async fetchArticles(): Promise<void> {
+    this.isLoaded = true;
     await this.store.dispatch(new GetArticles(this.skillTitle)).toPromise();
     await this.articles.subscribe((data: any) => {
       if (data) {
         this.articleList = data;
       }
     });
+    this.isLoaded = false;
   }
 
   async onChangeTab(item: any): Promise<void> {
     this.activeItem = item;
 
-    if (item.key === 'course' && !this.courseList) {
+    if (item.key === 'course' && this.courseList.length === 0) {
       this.fetchCourses();
     }
 
-    if (item.key === 'article' && !this.articleList) {
+    if (item.key === 'article' && this.articleList.length === 0) {
       this.fetchArticles();
     }
+  }
+
+  goToExternalWebsite(url: any): void {
+    window.open(url, '_blank');
   }
 }

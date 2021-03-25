@@ -6,8 +6,10 @@
       [activeItem]="activeItem"
     ></p-tabMenu>
 
-    <div class="p-fluid">
+    <div *ngIf="isLoaded === false; else loading" class="p-fluid">
       <p-card *ngIf="activeItem.key === 'course'">
+        <div class="p-text-left p-ml-4 header">คอร์สเรียนจาก Udemy</div>
+
         <p-dataView
           [value]="courseList"
           layout="list"
@@ -15,20 +17,24 @@
           [paginator]="true"
         >
           <ng-template let-course pTemplate="listItem" let-i="index">
-            <div class="product-item">
+            <div class="learn-item" (click)="goToExternalWebsite('https://udemy.com' + course.url)">
               <div class="image-container">
                 <img
-                  [src]="course.image_480x270"
+                  [src]="
+                    course.image_480x270
+                      ? course.image_480x270
+                      : '../../../assets/gray.png'
+                  "
                   [alt]="course.title"
-                  class="product-image"
+                  class="learn-image"
                 />
               </div>
-              <div class="product-list-detail">
-                <h5 class="p-mb-2">{{ course.title }}</h5>
+              <div class="learn-list-detail">
+                <div class="p-mb-2">{{ course.title }}</div>
                 <small>{{ course.headline }}</small>
               </div>
-              <div class="product-list-action">
-                <h6 class="p-mb-2">{{ course.price }}</h6>
+              <div class="learn-list-action p-ml-2">
+                <small>{{ course.price }}</small>
               </div>
             </div>
           </ng-template>
@@ -36,22 +42,24 @@
       </p-card>
 
       <p-card *ngIf="activeItem.key === 'article'">
+        <div class="p-text-left p-ml-4 header">บทความจาก Medium</div>
+
         <p-dataView
           [value]="articleList"
           layout="list"
           [rows]="articleList.length"
         >
           <ng-template let-article pTemplate="listItem" let-i="index">
-            <div class="product-item">
+            <div class="learn-item" (click)="goToExternalWebsite(article.url)">
               <div class="image-container">
                 <img
-                  [src]="article.img"
+                  [src]="article.img ? article.img : '../../../assets/gray.png'"
                   [alt]="article.title"
-                  class="product-image"
+                  class="learn-image"
                 />
               </div>
-              <div class="product-list-detail">
-                <h5 class="p-mb-2">{{ article.title }}</h5>
+              <div class="learn-list-detail">
+                <div class="p-mb-2">{{ article.title }}</div>
               </div>
             </div>
           </ng-template>
@@ -60,3 +68,9 @@
     </div>
   </div>
 </div>
+
+<ng-template #loading>
+  <div class="p-grid p-jc-center">
+    <i class="pi pi-spin pi-spinner p-m-5" style="font-size: 2rem"></i>
+  </div>
+</ng-template>
