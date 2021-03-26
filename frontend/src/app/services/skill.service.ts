@@ -10,6 +10,10 @@ export class SkillService {
 
   allSkills: Array<Skill> = [];
 
+  getAllSkills(): any {
+    return this.http.get<Skill[]>(`/api/skill/all`);
+  }
+
   getSkillsByJob(id: string): any {
     return this.http.get<Skill[]>(`/api/skill/job?id=${id}`);
   }

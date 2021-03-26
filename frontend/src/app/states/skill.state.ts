@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Skill } from '../models/skill.model';
 import {
+  GetSkills,
   GetSkillsByJob,
   SearchSkills,
   SubmitSkill,
@@ -64,6 +65,19 @@ export class SkillState {
   @Selector()
   static getArticleList(state: SkillStateModel): any {
     return state.articles.data;
+  }
+
+  @Action(GetSkills)
+  getSkills({ getState, setState }: StateContext<SkillStateModel>): any {
+    return this.skillService.getAllSkills().pipe(
+      tap((result) => {
+        const state = getState();
+        setState({
+          ...state,
+          skills: result,
+        });
+      })
+    );
   }
 
   @Action(GetSkillsByJob)
