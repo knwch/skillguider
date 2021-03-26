@@ -1,5 +1,9 @@
 import { Skill } from '../models/skill.model';
 
+export class GetSkills {
+  static readonly type = '[Skill] Get';
+}
+
 export class SearchSkills {
   static readonly type = '[Skill] Search';
 
