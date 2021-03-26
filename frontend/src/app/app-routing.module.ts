@@ -7,6 +7,7 @@ import { MyskillPageComponent } from './pages/myskill-page/myskill-page.componen
 import { ResultPageComponent } from './pages/result-page/result-page.component';
 import { LearnPageComponent } from './pages/learn-page/learn-page.component';
 import { NotfoundPageComponent } from './pages/notfound-page/notfound-page.component';
+import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'category', pathMatch: 'full' },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'myskill', component: MyskillPageComponent },
   { path: 'result', component: ResultPageComponent },
   { path: 'learn', component: LearnPageComponent },
+  { path: 'admin', component: AdminPageComponent },
   { path: '**', component: NotfoundPageComponent },
 ];
 
