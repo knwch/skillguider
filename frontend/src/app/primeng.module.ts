@@ -10,6 +10,17 @@ import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
 import { CardModule } from 'primeng/card';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { CalendarModule } from 'primeng/calendar';
+import { SliderModule } from 'primeng/slider';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { DropdownModule } from 'primeng/dropdown';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { TooltipModule } from 'primeng/tooltip';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
 
 @NgModule({
   imports: [CommonModule],
@@ -24,6 +35,17 @@ import { TabMenuModule } from 'primeng/tabmenu';
     DividerModule,
     CardModule,
     TabMenuModule,
+    TableModule,
+    ToastModule,
+    CalendarModule,
+    SliderModule,
+    MultiSelectModule,
+    ContextMenuModule,
+    DropdownModule,
+    ProgressBarModule,
+    TooltipModule,
+    MessagesModule,
+    MessageModule,
   ],
 })
 export class PrimeNgModule {}
