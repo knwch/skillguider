@@ -17,6 +17,7 @@ import { MyskillPageComponent } from './pages/myskill-page/myskill-page.componen
 import { JobPageComponent } from './pages/job-page/job-page.component';
 import { ResultPageComponent } from './pages/result-page/result-page.component';
 import { LearnPageComponent } from './pages/learn-page/learn-page.component';
+import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
@@ -37,6 +38,7 @@ import { SkillState } from './states/skill.state';
     MyskillPageComponent,
     ResultPageComponent,
     LearnPageComponent,
+    AdminPageComponent,
   ],
   imports: [
     BrowserModule,
