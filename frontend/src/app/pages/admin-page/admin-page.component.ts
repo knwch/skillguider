@@ -1,20 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  Validators,
-  FormControl,
-  FormGroup,
-  FormBuilder,
-} from '@angular/forms';
-import { Select, Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
-import { Router, ActivatedRoute } from '@angular/router';
-import { CategoryState } from '../../states/category.state';
-import {
-  GetCategories,
-  SetSelectedCategory,
-} from '../../actions/category.action';
-import { SkillState } from '../../states/skill.state';
-import { GetSkills } from '../../actions/skill.action';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'app-admin-page',
@@ -22,72 +7,41 @@ import { GetSkills } from '../../actions/skill.action';
   styleUrls: ['./admin-page.component.scss'],
 })
 export class AdminPageComponent implements OnInit {
-  @Select(CategoryState.getCategoryList)
-  categories: Observable<any> | undefined | any;
+  items!: any[];
 
-  @Select(SkillState.getSkillList)
-  skills: Observable<any> | undefined | any;
+  activeItem!: any;
 
-  categoryform!: FormGroup;
-
-  categoryDialogOpen = false;
-
-  categoryList!: any[];
-
-  skillList!: any[];
-
-  allColumns: any;
-
-  skillDict: any = {};
-
-  constructor(
-    private store: Store,
-    private router: Router,
-    private fb: FormBuilder
-  ) {}
+  constructor(private store: Store) {}
 
   async ngOnInit(): Promise<void> {
-    await this.store.dispatch(new GetSkills()).toPromise();
-
-    await this.skills.subscribe((data: any) => {
-      if (data) {
-        this.skillList = data;
-
-        this.skillList.forEach((skill) => {
-          this.skillDict[skill._id] = skill.title;
-        });
-      }
-    });
-
-    await this.store.dispatch(new GetCategories()).toPromise();
-
-    await this.categories.subscribe((data: any) => {
-      if (data) {
-        this.categoryList = data;
-      }
-    });
-
-    this.allColumns = [
-      ...this.categoryList.reduce(
-        (set, object) => (
-          Object.keys(object).forEach((key) => set.add(key)), set
-        ),
-        new Set()
-      ),
+    this.items = [
+      {
+        key: 'category',
+        label: 'Category',
+        command: (event: any) => {
+          this.onChangeTab(event.item);
+        },
+      },
+      {
+        key: 'job',
+        label: 'Job',
+        command: (event: any) => {
+          this.onChangeTab(event.item);
+        },
+      },
+      {
+        key: 'skill',
+        label: 'Skill',
+        command: (event: any) => {
+          this.onChangeTab(event.item);
+        },
+      },
     ];
 
-    const warpColumns: any[] = [];
-    this.allColumns.forEach((element: any) => {
-      warpColumns.push({
-        field: element,
-        header: element[0].toUpperCase() + element.slice(1),
-      });
-    });
-    this.allColumns = warpColumns;
+    this.activeItem = this.items[0];
   }
 
-  editCategory(categoryData: any): any {
-    this.categoryDialogOpen = true;
-    console.log(categoryData);
+  async onChangeTab(item: any): Promise<void> {
+    this.activeItem = item;
   }
 }
