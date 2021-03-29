@@ -19,13 +19,13 @@ export class GetCategoryById {
 export class UpdateCategory {
   static readonly type = '[Category] Update';
 
-  constructor(public payload: Category, public id: number) {}
+  constructor(public payload: Category, public id: string) {}
 }
 
 export class DeleteCategory {
   static readonly type = '[Category] Delete';
 
-  constructor(public id: number) {}
+  constructor(public id: string) {}
 }
 
 export class SetSelectedCategory {
