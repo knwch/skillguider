@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Category } from '../models/category.model';
 
 @Injectable({
@@ -8,6 +8,13 @@ import { Category } from '../models/category.model';
 export class CategoryService {
   constructor(private http: HttpClient) {}
 
+  header = {
+    headers: new HttpHeaders().set(
+      'Authorization',
+      `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluQHRlc3QuY29tIiwiaWF0IjoxNjE3MDAzNDU5LCJleHAiOjE2MTcwMDcwNTl9.IwzvYRoFf-wsIJnzekPVKmx31ALCdT2x7RElTJs3yV8`
+    ),
+  };
+
   allCategories: Array<Category> = [];
 
   fetchCategories(): any {
@@ -15,26 +22,26 @@ export class CategoryService {
   }
 
   getCategoryById(id: string): any {
-    return this.http.get<Category[]>(
-      `/api/category/id?id=${id}`
-    );
+    return this.http.get<Category[]>(`/api/category/id?id=${id}`);
   }
 
-  deleteCategory(id: number): any {
-    return this.http.delete('https://jsonplaceholder.typicode.com/todos/' + id);
+  deleteCategory(id: string): any {
+    return this.http.delete(`/api/category/delete?id=${id}`, this.header);
   }
 
   addCategory(payload: Category): any {
     return this.http.post<Category>(
-      'https://jsonplaceholder.typicode.com/todos',
-      payload
+      `/api/category/create`,
+      payload,
+      this.header
     );
   }
 
-  updateCategory(payload: Category, id: number): any {
+  updateCategory(payload: Category, id: string): any {
     return this.http.put<Category>(
-      'https://jsonplaceholder.typicode.com/todos/' + id,
-      payload
+      `/api/category/update?id=${id}`,
+      payload,
+      this.header
     );
   }
 }

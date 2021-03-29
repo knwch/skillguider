@@ -67,56 +67,58 @@ export class CategoryState {
     );
   }
 
-  //   @Action(AddCategory)
-  //   addCategory(
-  //     { getState, patchState }: StateContext<TodoStateModel>,
-  //     { payload }: AddTodo
-  //   ) {
-  //     return this.todoService.addTodo(payload).pipe(
-  //       tap((result) => {
-  //         const state = getState();
-  //         patchState({
-  //           todos: [...state.todos, result],
-  //         });
-  //       })
-  //     );
-  //   }
+  @Action(AddCategory)
+  addCategory(
+    { getState, patchState }: StateContext<CategoryStateModel>,
+    { payload }: AddCategory
+  ): any {
+    return this.categoryService.addCategory(payload).pipe(
+      tap((result: any) => {
+        const state = getState();
+        patchState({
+          categories: [...state.categories.data, result?.data],
+        });
+      })
+    );
+  }
 
-  //   @Action(UpdateTodo)
-  //   updateTodo(
-  //     { getState, setState }: StateContext<TodoStateModel>,
-  //     { payload, id }: UpdateTodo
-  //   ) {
-  //     return this.todoService.updateTodo(payload, id).pipe(
-  //       tap((result) => {
-  //         const state = getState();
-  //         const todoList = [...state.todos];
-  //         const todoIndex = todoList.findIndex((item) => item.id === id);
-  //         todoList[todoIndex] = result;
-  //         setState({
-  //           ...state,
-  //           todos: todoList,
-  //         });
-  //       })
-  //     );
-  //   }
+  @Action(UpdateCategory)
+  updateCategory(
+    { getState, setState }: StateContext<CategoryStateModel>,
+    { payload, id }: UpdateCategory
+  ): any {
+    return this.categoryService.updateCategory(payload, id).pipe(
+      tap((result: any) => {
+        const state = getState();
+        const categoryList = [...state.categories.data];
+        const categoryIndex = categoryList.findIndex((item) => item._id === id);
+        categoryList[categoryIndex] = result?.data;
+        setState({
+          ...state,
+          categories: categoryList,
+        });
+      })
+    );
+  }
 
-  //   @Action(DeleteTodo)
-  //   deleteTodo(
-  //     { getState, setState }: StateContext<TodoStateModel>,
-  //     { id }: DeleteTodo
-  //   ) {
-  //     return this.todoService.deleteTodo(id).pipe(
-  //       tap(() => {
-  //         const state = getState();
-  //         const filteredArray = state.todos.filter((item) => item.id !== id);
-  //         setState({
-  //           ...state,
-  //           todos: filteredArray,
-  //         });
-  //       })
-  //     );
-  //   }
+  @Action(DeleteCategory)
+  deleteCategory(
+    { getState, setState }: StateContext<CategoryStateModel>,
+    { id }: DeleteCategory
+  ): any {
+    return this.categoryService.deleteCategory(id).pipe(
+      tap(() => {
+        const state = getState();
+        const filteredArray = state.categories.data.filter(
+          (item: any) => item._id !== id
+        );
+        setState({
+          ...state,
+          categories: filteredArray,
+        });
+      })
+    );
+  }
 
   @Action(SetSelectedCategory)
   setSelectedCategory(
