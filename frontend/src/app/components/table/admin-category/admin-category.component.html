@@ -95,6 +95,10 @@
 
     <p-divider></p-divider>
 
+    <small *ngIf="selectedSkillSet.length === 0">
+      Selected skills will be displayed here.
+    </small>
+
     <div>
       <span *ngFor="let skill of selectedSkillSet; index as i">
         <p-chip
