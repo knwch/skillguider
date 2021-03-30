@@ -25,6 +25,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ChipModule } from 'primeng/chip';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { PasswordModule } from 'primeng/password';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   imports: [CommonModule],
@@ -54,6 +55,7 @@ import { PasswordModule } from 'primeng/password';
     ChipModule,
     ConfirmDialogModule,
     PasswordModule,
+    InputTextareaModule,
   ],
 })
 export class PrimeNgModule {}
