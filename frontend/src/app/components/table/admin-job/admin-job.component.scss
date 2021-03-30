@@ -1,0 +1,17 @@
+::ng-deep .p-chip.chip-priority-high {
+  background-color: #f55f20;
+  color: white;
+}
+
+::ng-deep .p-chip.chip-priority-normal {
+  background-color: #fbb124;
+  color: white;
+}
+
+.dot-priority-high {
+  color: #f55f20;
+}
+
+.dot-priority-normal {
+  color: #fbb124;
+}
