@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
-import { SkillState } from '../../states/skill.state';
-import { GetCourses, GetArticles } from '../../actions/skill.action';
+import { SkillState } from '../../skill/skill.state';
+import { GetCourses, GetArticles } from '../../skill/skill.action';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 

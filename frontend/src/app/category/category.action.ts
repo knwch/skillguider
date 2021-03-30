@@ -1,4 +1,4 @@
-import { Category } from '../models/category.model';
+import { Category } from './category.model';
 
 export class AddCategory {
   static readonly type = '[Category] Add';

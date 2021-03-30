@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { JobState } from '../../states/job.state';
-import { GetJobById } from '../../actions/job.action';
-import { SkillState } from '../../states/skill.state';
-import { Skill } from '../../models/skill.model';
+import { JobState } from '../../job/job.state';
+import { GetJobById } from '../../job/job.action';
+import { SkillState } from '../../skill/skill.state';
+import { Skill } from '../../skill/skill.model';
 import {
   SearchSkills,
   GetSkillsByJob,
   SubmitSkill,
-} from '../../actions/skill.action';
+} from '../../skill/skill.action';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({

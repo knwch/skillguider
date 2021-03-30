@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { Job } from '../models/job.model';
+import { Job } from './job.model';
 import {
   GetJobs,
   GetJobById,
   GetJobsByCategory,
   SearchJobs,
   SetSelectedJob,
-} from '../actions/job.action';
-import { JobService } from '../services/job.service';
+} from './job.action';
+import { JobService } from './job.service';
 import { tap } from 'rxjs/operators';
 
 export class JobStateModel {

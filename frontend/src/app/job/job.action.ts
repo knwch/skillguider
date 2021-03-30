@@ -1,4 +1,4 @@
-import { Job } from '../models/job.model';
+import { Job } from './job.model';
 
 export class GetJobs {
   static readonly type = '[Job] Get';
