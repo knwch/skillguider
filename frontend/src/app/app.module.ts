@@ -18,6 +18,7 @@ import { MyskillPageComponent } from './pages/myskill-page/myskill-page.componen
 import { JobPageComponent } from './pages/job-page/job-page.component';
 import { ResultPageComponent } from './pages/result-page/result-page.component';
 import { LearnPageComponent } from './pages/learn-page/learn-page.component';
+import { AuthPageComponent } from './pages/auth-page/auth-page.component';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { AdminCategoryComponent } from './components/table/admin-category/admin-category.component';
 import { AdminJobComponent } from './components/table/admin-job/admin-job.component';
@@ -25,6 +26,7 @@ import { AdminSkillComponent } from './components/table/admin-skill/admin-skill.
 
 // NGXS
 import { NgxsModule } from '@ngxs/store';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 
@@ -32,7 +34,7 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { CategoryState } from './category/category.state';
 import { JobState } from './job/job.state';
 import { SkillState } from './skill/skill.state';
-
+import { AuthState } from './auth/auth.state';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import { SkillState } from './skill/skill.state';
     MyskillPageComponent,
     ResultPageComponent,
     LearnPageComponent,
+    AuthPageComponent,
     AdminPageComponent,
     AdminCategoryComponent,
     AdminJobComponent,
@@ -55,7 +58,10 @@ import { SkillState } from './skill/skill.state';
     PrimeNgModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    NgxsModule.forRoot([CategoryState, JobState, SkillState]),
+    NgxsModule.forRoot([CategoryState, JobState, SkillState, AuthState]),
+    NgxsStoragePluginModule.forRoot({
+      key: 'auth.token',
+    }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     FormsModule,
