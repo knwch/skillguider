@@ -24,6 +24,7 @@ import { MessageModule } from 'primeng/message';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ChipModule } from 'primeng/chip';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { PasswordModule } from 'primeng/password';
 
 @NgModule({
   imports: [CommonModule],
@@ -52,6 +53,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     ToolbarModule,
     ChipModule,
     ConfirmDialogModule,
+    PasswordModule,
   ],
 })
 export class PrimeNgModule {}
