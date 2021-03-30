@@ -15,5 +15,13 @@
       label="About"
       class="p-button-text p-button-plain"
     ></button>
+    <button
+      *ngIf="isAuthenticated | async"
+      pButton
+      pRipple
+      label="Signout"
+      class="p-ml-2 p-button-text p-button-plain"
+      (click)="signout()"
+    ></button>
   </ng-template>
 </p-menubar>
