@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { CategoryState } from '../../../category/category.state';
 import {
   GetCategories,
-  SetSelectedCategory,
   AddCategory,
   DeleteCategory,
   UpdateCategory,
@@ -33,7 +32,7 @@ export class AdminCategoryComponent implements OnInit {
 
   category: any;
 
-  isOpenCreateNew = false;
+  isOpenCreateCategory = false;
 
   selectedSkillSet: any;
 
@@ -77,7 +76,7 @@ export class AdminCategoryComponent implements OnInit {
     this.category = {};
     this.selectedSkillSet = [];
     this.categoryDialogOpen = true;
-    this.isOpenCreateNew = true;
+    this.isOpenCreateCategory = true;
   }
 
   editCategory(categoryData: any): any {
@@ -86,7 +85,7 @@ export class AdminCategoryComponent implements OnInit {
       return skill.skill_id;
     });
     this.categoryDialogOpen = true;
-    this.isOpenCreateNew = false;
+    this.isOpenCreateCategory = false;
   }
 
   async saveCategory(): Promise<any> {
@@ -101,9 +100,7 @@ export class AdminCategoryComponent implements OnInit {
       skillset: selectedSkillSetObjectArray,
     };
 
-    console.log(data);
-
-    this.isOpenCreateNew
+    this.isOpenCreateCategory
       ? // create method
         await this.store
           .dispatch(new AddCategory(data))
@@ -116,6 +113,7 @@ export class AdminCategoryComponent implements OnInit {
                 life: 3000,
               });
               this.getCategories();
+              this.closeDialog();
             }),
             catchError(async (error) =>
               this.messageService.add({
@@ -138,6 +136,7 @@ export class AdminCategoryComponent implements OnInit {
                 life: 3000,
               });
               this.getCategories();
+              this.closeDialog();
             }),
             catchError(async (error) =>
               this.messageService.add({
@@ -148,10 +147,6 @@ export class AdminCategoryComponent implements OnInit {
             )
           )
           .toPromise();
-
-    this.category = {};
-    this.selectedSkillSet = [];
-    this.categoryDialogOpen = false;
   }
 
   async deleteCategory(categoryData: any): Promise<any> {
@@ -181,12 +176,13 @@ export class AdminCategoryComponent implements OnInit {
             )
           )
           .toPromise();
-        this.getCategories();
       },
     });
   }
 
-  hideDialog(): any {
+  closeDialog(): any {
+    this.category = {};
+    this.selectedSkillSet = [];
     this.categoryDialogOpen = false;
   }
 }
