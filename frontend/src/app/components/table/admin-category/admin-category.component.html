@@ -22,7 +22,9 @@
   </ng-template>
   <ng-template pTemplate="header">
     <tr>
-      <th>Title</th>
+      <th pSortableColumn="title">
+        Title <p-sortIcon field="title"></p-sortIcon>
+      </th>
       <th>Skill Set</th>
       <th style="width: 8rem"></th>
     </tr>
@@ -80,10 +82,10 @@
       />
     </div>
     <div class="p-field">
-      <label for="name">Skill</label>
+      <label for="name">Category's Skill</label>
       <p-multiSelect
         [options]="skillList"
-        defaultLabel="Select skills"
+        defaultLabel="Select"
         optionLabel="title"
         optionValue="_id"
         [(ngModel)]="selectedSkillSet"
@@ -116,7 +118,7 @@
       label="Cancel"
       icon="pi pi-times"
       class="p-button-text p-button-plain"
-      (click)="hideDialog()"
+      (click)="closeDialog()"
     ></button>
 
     <button
