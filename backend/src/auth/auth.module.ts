@@ -16,7 +16,7 @@ import { JWT_SECRET } from '../config';
     JwtModule.register({
       secret: JWT_SECRET,
       signOptions: {
-        expiresIn: 3600,
+        expiresIn: '3h',
       },
     }),
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
