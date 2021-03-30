@@ -36,7 +36,7 @@ import { JobState } from './job/job.state';
 import { SkillState } from './skill/skill.state';
 import { AuthState } from './auth/auth.state';
 
-import { HeaderInterceptor } from './config/header.interceptor';
+import { TokenInterceptor } from './auth/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -71,7 +71,7 @@ import { HeaderInterceptor } from './config/header.interceptor';
     HttpClientModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })
