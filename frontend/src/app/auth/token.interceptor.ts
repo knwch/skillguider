@@ -8,10 +8,10 @@ import {
   HttpHandler,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthState } from '../auth/auth.state';
+import { AuthState } from './auth.state';
 
 @Injectable()
-export class HeaderInterceptor implements HttpInterceptor {
+export class TokenInterceptor implements HttpInterceptor {
   constructor(private store: Store) {}
 
   intercept(
