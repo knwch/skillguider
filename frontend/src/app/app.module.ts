@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // PrimeNG Modules
 import { PrimeNgModule } from './primeng.module';
@@ -35,6 +35,8 @@ import { CategoryState } from './category/category.state';
 import { JobState } from './job/job.state';
 import { SkillState } from './skill/skill.state';
 import { AuthState } from './auth/auth.state';
+
+import { HeaderInterceptor } from './config/header.interceptor';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,9 @@ import { AuthState } from './auth/auth.state';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
