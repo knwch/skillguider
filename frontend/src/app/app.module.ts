@@ -19,9 +19,9 @@ import { JobPageComponent } from './pages/job-page/job-page.component';
 import { ResultPageComponent } from './pages/result-page/result-page.component';
 import { LearnPageComponent } from './pages/learn-page/learn-page.component';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
-import { AdminCategoryComponent } from './components/layout/admin-category/admin-category.component';
-import { AdminJobComponent } from './components/layout/admin-job/admin-job.component';
-import { AdminSkillComponent } from './components/layout/admin-skill/admin-skill.component';
+import { AdminCategoryComponent } from './components/table/admin-category/admin-category.component';
+import { AdminJobComponent } from './components/table/admin-job/admin-job.component';
+import { AdminSkillComponent } from './components/table/admin-skill/admin-skill.component';
 
 // NGXS
 import { NgxsModule } from '@ngxs/store';
