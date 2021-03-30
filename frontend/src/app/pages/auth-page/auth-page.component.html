@@ -1,0 +1,53 @@
+<p-toast></p-toast>
+
+<div class="p-grid p-jc-center">
+  <div class="p-col-11 p-sm-8 p-md-6 p-lg-4">
+    <p-card styleClass="p-p-2">
+      <form [formGroup]="authForm" (ngSubmit)="onSubmit(authForm)">
+        <div class="p-grid p-fluid">
+          <div class="p-col-12">
+            <label> Username </label>
+            <input type="text" pInputText formControlName="username" />
+            <small class="p-error">
+              <span
+                *ngIf="
+                  !authForm.controls['username'].valid &&
+                  authForm.controls['username'].dirty
+                "
+              >
+              </span>
+            </small>
+          </div>
+
+          <div class="p-col-12">
+            <label> Password </label>
+            <input
+              type="password"
+              pPassword
+              [feedback]="false"
+              formControlName="password"
+            />
+            <small class="p-error">
+              <span
+                *ngIf="
+                  !authForm.controls['password'].valid &&
+                  authForm.controls['password'].dirty
+                "
+              >
+              </span>
+            </small>
+          </div>
+
+          <div class="p-col-12">
+            <p-button
+              pRipple
+              styleClass="p-button-sm"
+              type="submit"
+              label="Sign in"
+            ></p-button>
+          </div>
+        </div>
+      </form>
+    </p-card>
+  </div>
+</div>
