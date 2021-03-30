@@ -1,7 +1,7 @@
 <p-toast></p-toast>
 
 <p-table
-  #categoryDataTable
+  #jobDataTable
   [value]="jobList"
   [rows]="jobList.length"
   [autoLayout]="true"
@@ -16,13 +16,18 @@
         label="New Job"
         icon="pi pi-plus"
         class="p-ml-3 p-button-sm"
+        (click)="newJob()"
       ></button>
     </div>
   </ng-template>
   <ng-template pTemplate="header">
     <tr>
-      <th>Title</th>
-      <th>Category</th>
+      <th pSortableColumn="title">
+        Title <p-sortIcon field="title"></p-sortIcon>
+      </th>
+      <th pSortableColumn="category_id">
+        Category <p-sortIcon field="category_id"></p-sortIcon>
+      </th>
       <th>Skill Set</th>
       <th style="width: 8rem"></th>
     </tr>
@@ -48,46 +53,92 @@
           pRipple
           icon="pi pi-pencil"
           class="p-button-rounded p-button-success p-mr-2"
+          (click)="editJob(rowData)"
         ></button>
         <button
           pButton
           pRipple
           icon="pi pi-trash"
           class="p-button-rounded p-button-warning"
+          (click)="deleteJob(rowData)"
         ></button>
       </td>
     </tr>
   </ng-template>
 </p-table>
 
-<!-- <p-dialog
-  [(visible)]="categoryDialogOpen"
+<p-dialog
+  [(visible)]="jobDialogOpen"
   [style]="{ width: '450px' }"
-  header="Category Details"
+  header="Job Details"
   [modal]="true"
-  [contentStyle]="{ overflow: 'visible' }"
+  [maximizable]="true"
   styleClass="p-fluid"
 >
   <ng-template pTemplate="content">
     <div class="p-field">
-      <label for="name">Title</label>
-      <input
-        type="text"
-        pInputText
-        id="title"
-        [(ngModel)]="category.title"
-        required
-        autofocus
-      />
+      <label for="title">Title</label>
+      <input type="text" pInputText [(ngModel)]="job.title" autofocus />
     </div>
+
     <div class="p-field">
-      <label for="name">Skill</label>
-      <p-multiSelect
-        [options]="skillList"
-        defaultLabel="Select skills"
+      <label for="category">Category</label>
+      <p-dropdown
+        [options]="categoryList"
+        [(ngModel)]="job.category_id"
+        placeholder="Select"
         optionLabel="title"
         optionValue="_id"
-        [(ngModel)]="selectedSkillSet"
+      ></p-dropdown>
+    </div>
+
+    <div class="p-field">
+      <label for="description">Description</label>
+      <textarea
+        [(ngModel)]="job.description"
+        rows="5"
+        cols="30"
+        pInputTextarea
+        [autoResize]="true"
+      ></textarea>
+    </div>
+
+    <div class="p-field">
+      <label for="high-skill">
+        <i
+          class="pi pi-circle-on p-pr-2 dot-priority-high"
+          style="font-size: 0.5rem"
+        >
+        </i>
+        High Priority Skill
+      </label>
+      <p-multiSelect
+        [options]="skillList"
+        defaultLabel="Select"
+        optionLabel="title"
+        optionValue="_id"
+        [(ngModel)]="selectedHighSkillSet"
+        [virtualScroll]="true"
+        [itemSize]="37"
+        [showToggleAll]="false"
+      ></p-multiSelect>
+    </div>
+
+    <div class="p-field">
+      <label for="normal-skill">
+        <i
+          class="pi pi-circle-on p-pr-2 dot-priority-normal"
+          style="font-size: 0.5rem"
+        >
+        </i>
+        Normal Priority Skill
+      </label>
+      <p-multiSelect
+        [options]="skillList"
+        defaultLabel="Select"
+        optionLabel="title"
+        optionValue="_id"
+        [(ngModel)]="selectedNormalSkillSet"
         [virtualScroll]="true"
         [itemSize]="37"
         [showToggleAll]="false"
@@ -96,14 +147,33 @@
 
     <p-divider></p-divider>
 
+    <small
+      *ngIf="selectedHighSkillSet.length + selectedNormalSkillSet.length === 0"
+    >
+      Selected skills will be displayed here.
+    </small>
+
     <div>
-      <span *ngFor="let skill of selectedSkillSet; index as i">
+      <span *ngFor="let skill of selectedHighSkillSet; index as i">
         <p-chip
           [label]="skillDict[skill]"
-          styleClass="p-button-sm p-m-1"
+          styleClass="p-button-sm p-m-1 chip-priority-high"
+        ></p-chip>
+      </span>
+      <span *ngFor="let skill of selectedNormalSkillSet; index as i">
+        <p-chip
+          [label]="skillDict[skill]"
+          styleClass="p-button-sm p-m-1 chip-priority-normal"
         ></p-chip>
       </span>
     </div>
+
+    <small
+      *ngIf="selectedHighSkillSet.length + selectedNormalSkillSet.length > 0"
+    >
+      * We will keep a HIGH priority skill, if there were duplicated between
+      normal skill and high skill.
+    </small>
   </ng-template>
 
   <ng-template pTemplate="footer">
@@ -113,7 +183,7 @@
       label="Cancel"
       icon="pi pi-times"
       class="p-button-text p-button-plain"
-      (click)="hideDialog()"
+      (click)="closeDialog()"
     ></button>
 
     <button
@@ -121,10 +191,10 @@
       pRipple
       label="Save"
       icon="pi pi-check"
-      (click)="saveCategory()"
+      (click)="saveJob()"
     ></button>
   </ng-template>
-</p-dialog> -->
+</p-dialog>
 
 <p-confirmDialog
   defaultFocus="none"
