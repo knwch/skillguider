@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Select, Store } from '@ngxs/store';
 import { MenuItem } from 'primeng/api';
+import { AuthState } from '../../auth/auth.state';
+import { Signout } from '../../auth/auth.action';
 
 @Component({
   selector: 'app-topbar',
@@ -7,28 +11,25 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./topbar.component.scss'],
 })
 export class TopbarComponent implements OnInit {
+  @Select(AuthState.isAuthenticated)
+  isAuthenticated: any;
+
   items: MenuItem[] = [];
 
-  ngOnInit(): any {
+  constructor(private store: Store, private router: Router) {}
+
+  async ngOnInit(): Promise<any> {
     this.items = [
       {
         label: 'Home',
         routerLink: '/',
       },
-      // {
-      //   icon: 'pi pi-fw pi-user',
-      //   items: [
-      //     {
-      //       label: 'Profile',
-      //       icon: 'my-margin-left pi pi-fw pi-user',
-      //     },
-      //     {
-      //       label: 'Logout',
-      //       styleClass: 'p-ml-6',
-      //       icon: 'my-margin-left pi pi-fw pi-sign-out',
-      //     },
-      //   ],
-      // },
     ];
+  }
+
+  signout(): void {
+    this.store.dispatch(new Signout()).subscribe(() => {
+      this.router.navigate(['/auth']);
+    });
   }
 }
