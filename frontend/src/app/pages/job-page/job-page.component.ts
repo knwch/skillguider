@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryState } from '../../states/category.state';
-import { GetCategoryById } from '../../actions/category.action';
-import { JobState } from '../../states/job.state';
-import { GetJobsByCategory, SetSelectedJob } from '../../actions/job.action';
+import { CategoryState } from '../../category/category.state';
+import { GetCategoryById } from '../../category/category.action';
+import { JobState } from '../../job/job.state';
+import { GetJobsByCategory, SetSelectedJob } from '../../job/job.action';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Router, ActivatedRoute, Params } from '@angular/router';

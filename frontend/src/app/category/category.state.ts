@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { Category } from '../models/category.model';
+import { Category } from './category.model';
 import {
   AddCategory,
   GetCategories,
@@ -8,8 +8,8 @@ import {
   DeleteCategory,
   SetSelectedCategory,
   GetCategoryById,
-} from '../actions/category.action';
-import { CategoryService } from '../services/category.service';
+} from './category.action';
+import { CategoryService } from './category.service';
 import { tap } from 'rxjs/operators';
 
 export class CategoryStateModel {

@@ -1,4 +1,4 @@
-import { Skill } from '../models/skill.model';
+import { Skill } from './skill.model';
 
 export class GetSkills {
   static readonly type = '[Skill] Get';

@@ -29,9 +29,9 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 
 // State
-import { CategoryState } from './states/category.state';
-import { JobState } from './states/job.state';
-import { SkillState } from './states/skill.state';
+import { CategoryState } from './category/category.state';
+import { JobState } from './job/job.state';
+import { SkillState } from './skill/skill.state';
 
 
 @NgModule({

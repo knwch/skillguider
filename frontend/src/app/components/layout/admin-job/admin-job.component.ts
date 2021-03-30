@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { JobState } from '../../../states/job.state';
-import { GetJobs } from '../../../actions/job.action';
-import { CategoryState } from '../../../states/category.state';
-import { GetCategories } from '../../../actions/category.action';
-import { SkillState } from '../../../states/skill.state';
-import { GetSkills } from '../../../actions/skill.action';
+import { JobState } from '../../../job/job.state';
+import { GetJobs } from '../../../job/job.action';
+import { CategoryState } from '../../../category/category.state';
+import { GetCategories } from '../../../category/category.action';
+import { SkillState } from '../../../skill/skill.state';
+import { GetSkills } from '../../../skill/skill.action';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { catchError, map } from 'rxjs/operators';
 

@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { CategoryState } from '../../../states/category.state';
+import { CategoryState } from '../../../category/category.state';
 import {
   GetCategories,
   SetSelectedCategory,
   AddCategory,
   DeleteCategory,
   UpdateCategory,
-} from '../../../actions/category.action';
-import { SkillState } from '../../../states/skill.state';
-import { GetSkills } from '../../../actions/skill.action';
+} from '../../../category/category.action';
+import { SkillState } from '../../../skill/skill.state';
+import { GetSkills } from '../../../skill/skill.action';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { catchError, map } from 'rxjs/operators';
 

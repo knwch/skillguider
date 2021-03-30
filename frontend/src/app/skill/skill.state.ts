@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { Skill } from '../models/skill.model';
+import { Skill } from './skill.model';
 import {
   GetSkills,
   GetSkillsByJob,
@@ -9,8 +9,8 @@ import {
   SetSelectedSkill,
   GetCourses,
   GetArticles,
-} from '../actions/skill.action';
-import { SkillService } from '../services/skill.service';
+} from './skill.action';
+import { SkillService } from './skill.service';
 import { tap } from 'rxjs/operators';
 
 export class SkillStateModel {
