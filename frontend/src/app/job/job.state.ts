@@ -6,6 +6,9 @@ import {
   GetJobById,
   GetJobsByCategory,
   SearchJobs,
+  AddJob,
+  UpdateJob,
+  DeleteJob,
   SetSelectedJob,
 } from './job.action';
 import { JobService } from './job.service';
@@ -69,9 +72,9 @@ export class JobState {
   @Action(GetJobsByCategory)
   getJobsByCategory(
     { getState, setState }: StateContext<JobStateModel>,
-    { query }: GetJobsByCategory
+    { id }: GetJobsByCategory
   ): any {
-    return this.jobService.getJobsByCategory(query).pipe(
+    return this.jobService.getJobsByCategory(id).pipe(
       tap((result) => {
         const state = getState();
         setState({
@@ -98,56 +101,58 @@ export class JobState {
     );
   }
 
-  //   @Action(AddCategory)
-  //   addCategory(
-  //     { getState, patchState }: StateContext<TodoStateModel>,
-  //     { payload }: AddTodo
-  //   ) {
-  //     return this.todoService.addTodo(payload).pipe(
-  //       tap((result) => {
-  //         const state = getState();
-  //         patchState({
-  //           todos: [...state.todos, result],
-  //         });
-  //       })
-  //     );
-  //   }
+  @Action(AddJob)
+  addJob(
+    { getState, patchState }: StateContext<JobStateModel>,
+    { payload }: AddJob
+  ): any {
+    return this.jobService.addJob(payload).pipe(
+      tap((result: any) => {
+        const state = getState();
+        patchState({
+          jobs: [...state.jobs.data, result?.data],
+        });
+      })
+    );
+  }
 
-  //   @Action(UpdateTodo)
-  //   updateTodo(
-  //     { getState, setState }: StateContext<TodoStateModel>,
-  //     { payload, id }: UpdateTodo
-  //   ) {
-  //     return this.todoService.updateTodo(payload, id).pipe(
-  //       tap((result) => {
-  //         const state = getState();
-  //         const todoList = [...state.todos];
-  //         const todoIndex = todoList.findIndex((item) => item.id === id);
-  //         todoList[todoIndex] = result;
-  //         setState({
-  //           ...state,
-  //           todos: todoList,
-  //         });
-  //       })
-  //     );
-  //   }
+  @Action(UpdateJob)
+  updateJob(
+    { getState, setState }: StateContext<JobStateModel>,
+    { payload, id }: UpdateJob
+  ): any {
+    return this.jobService.updateJob(payload, id).pipe(
+      tap((result: any) => {
+        const state = getState();
+        const jobList = [...state.jobs.data];
+        const categoryIndex = jobList.findIndex((item) => item._id === id);
+        jobList[categoryIndex] = result?.data;
+        setState({
+          ...state,
+          jobs: jobList,
+        });
+      })
+    );
+  }
 
-  //   @Action(DeleteTodo)
-  //   deleteTodo(
-  //     { getState, setState }: StateContext<TodoStateModel>,
-  //     { id }: DeleteTodo
-  //   ) {
-  //     return this.todoService.deleteTodo(id).pipe(
-  //       tap(() => {
-  //         const state = getState();
-  //         const filteredArray = state.todos.filter((item) => item.id !== id);
-  //         setState({
-  //           ...state,
-  //           todos: filteredArray,
-  //         });
-  //       })
-  //     );
-  //   }
+  @Action(DeleteJob)
+  deleteJob(
+    { getState, setState }: StateContext<JobStateModel>,
+    { id }: DeleteJob
+  ): any {
+    return this.jobService.deleteJob(id).pipe(
+      tap(() => {
+        const state = getState();
+        const filteredArray = state.jobs.data.filter(
+          (item: any) => item._id !== id
+        );
+        setState({
+          ...state,
+          jobs: filteredArray,
+        });
+      })
+    );
+  }
 
   @Action(SetSelectedJob)
   setSelectedJob(
