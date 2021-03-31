@@ -18,6 +18,18 @@ export class SkillService {
     return this.http.get<Skill[]>(`/api/skill/job?id=${id}`);
   }
 
+  addSkill(payload: Skill): any {
+    return this.http.post<Skill>(`/api/skill/create`, payload);
+  }
+
+  deleteSkill(id: string): any {
+    return this.http.delete(`/api/skill/delete?id=${id}`);
+  }
+
+  updateSkill(payload: Skill, id: string): any {
+    return this.http.put<Skill>(`/api/skill/update?id=${id}`, payload);
+  }
+
   searchSkills(query: string): any {
     return this.http.get<Skill[]>(`/api/skill/search?query=${query}`);
   }

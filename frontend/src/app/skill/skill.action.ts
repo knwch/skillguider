@@ -4,6 +4,24 @@ export class GetSkills {
   static readonly type = '[Skill] Get';
 }
 
+export class AddSkill {
+  static readonly type = '[Skill] Add';
+
+  constructor(public payload: Skill) {}
+}
+
+export class UpdateSkill {
+  static readonly type = '[Skill] Update';
+
+  constructor(public payload: Skill, public id: string) {}
+}
+
+export class DeleteSkill {
+  static readonly type = '[Skill] Delete';
+
+  constructor(public id: string) {}
+}
+
 export class SearchSkills {
   static readonly type = '[Skill] Search';
 

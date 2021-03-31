@@ -4,6 +4,9 @@ import { Skill } from './skill.model';
 import {
   GetSkills,
   GetSkillsByJob,
+  AddSkill,
+  UpdateSkill,
+  DeleteSkill,
   SearchSkills,
   SubmitSkill,
   SetSelectedSkill,
@@ -160,41 +163,58 @@ export class SkillState {
     );
   }
 
-  //   @Action(UpdateTodo)
-  //   updateTodo(
-  //     { getState, setState }: StateContext<TodoStateModel>,
-  //     { payload, id }: UpdateTodo
-  //   ) {
-  //     return this.todoService.updateTodo(payload, id).pipe(
-  //       tap((result) => {
-  //         const state = getState();
-  //         const todoList = [...state.todos];
-  //         const todoIndex = todoList.findIndex((item) => item.id === id);
-  //         todoList[todoIndex] = result;
-  //         setState({
-  //           ...state,
-  //           todos: todoList,
-  //         });
-  //       })
-  //     );
-  //   }
+  @Action(AddSkill)
+  addSkill(
+    { getState, patchState }: StateContext<SkillStateModel>,
+    { payload }: AddSkill
+  ): any {
+    return this.skillService.addSkill(payload).pipe(
+      tap((result: any) => {
+        const state = getState();
+        patchState({
+          skills: [...state.skills.data, result?.data],
+        });
+      })
+    );
+  }
 
-  //   @Action(DeleteTodo)
-  //   deleteTodo(
-  //     { getState, setState }: StateContext<TodoStateModel>,
-  //     { id }: DeleteTodo
-  //   ) {
-  //     return this.todoService.deleteTodo(id).pipe(
-  //       tap(() => {
-  //         const state = getState();
-  //         const filteredArray = state.todos.filter((item) => item.id !== id);
-  //         setState({
-  //           ...state,
-  //           todos: filteredArray,
-  //         });
-  //       })
-  //     );
-  //   }
+  @Action(UpdateSkill)
+  updateSkill(
+    { getState, setState }: StateContext<SkillStateModel>,
+    { payload, id }: UpdateSkill
+  ): any {
+    return this.skillService.updateSkill(payload, id).pipe(
+      tap((result: any) => {
+        const state = getState();
+        const skillList = [...state.skills.data];
+        const skillIndex = skillList.findIndex((item) => item._id === id);
+        skillList[skillIndex] = result?.data;
+        setState({
+          ...state,
+          skills: skillList,
+        });
+      })
+    );
+  }
+
+  @Action(DeleteSkill)
+  deleteSkill(
+    { getState, setState }: StateContext<SkillStateModel>,
+    { id }: DeleteSkill
+  ): any {
+    return this.skillService.deleteSkill(id).pipe(
+      tap(() => {
+        const state = getState();
+        const filteredArray = state.skills.data.filter(
+          (item: any) => item._id !== id
+        );
+        setState({
+          ...state,
+          skills: filteredArray,
+        });
+      })
+    );
+  }
 
   @Action(SetSelectedSkill)
   setSelectedSkill(
