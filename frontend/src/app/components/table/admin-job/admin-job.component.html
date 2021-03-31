@@ -3,9 +3,14 @@
 <p-table
   #jobDataTable
   [value]="jobList"
-  [rows]="jobList.length"
   [autoLayout]="true"
   styleClass="p-datatable-striped"
+  [rowHover]="true"
+  [rows]="10"
+  [showCurrentPageReport]="true"
+  [rowsPerPageOptions]="[10, 25, 50]"
+  [paginator]="true"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
 >
   <ng-template pTemplate="caption">
     <div class="p-d-flex p-ai-center">
