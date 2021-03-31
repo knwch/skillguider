@@ -1,8 +1,12 @@
-<p-tabMenu
-  styleClass="p-mb-2"
-  [model]="items"
-  [activeItem]="activeItem"
-></p-tabMenu>
+<div class="p-grid p-jc-center">
+  <div class="p-col-11 p-sm-9 p-md-7 p-lg-5">
+    <p-tabMenu
+      styleClass="p-mb-2"
+      [model]="items"
+      [activeItem]="activeItem"
+    ></p-tabMenu>
+  </div>
+</div>
 
 <span *ngIf="activeItem.key === 'category'">
   <app-admin-category></app-admin-category>
