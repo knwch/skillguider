@@ -1,1 +1,124 @@
-<p>admin-skill works!</p>
+<p-toast></p-toast>
+
+<p-table
+  #skillDataTable
+  [value]="skillList"
+  [rows]="skillList.length"
+  [autoLayout]="true"
+  styleClass="p-datatable-striped"
+>
+  <ng-template pTemplate="caption">
+    <div class="p-d-flex p-ai-center">
+      <h2 class="p-m-0">Skills Management</h2>
+      <button
+        pButton
+        pRipple
+        label="New Skill"
+        icon="pi pi-plus"
+        class="p-ml-3 p-button-sm"
+        (click)="newSkill()"
+      ></button>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="title">
+        Title <p-sortIcon field="title"></p-sortIcon>
+      </th>
+      <th pSortableColumn="keyword_suffix">
+        Suffix Keyword <p-sortIcon field="keyword_suffix"></p-sortIcon>
+      </th>
+      <th style="width: 8rem"></th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-rowData>
+    <tr>
+      <td>
+        {{ rowData.title }}
+      </td>
+      <td>
+        {{ rowData.keyword_suffix }}
+      </td>
+      <td>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-pencil"
+          class="p-button-rounded p-button-success p-mr-2"
+          (click)="editSkill(rowData)"
+        ></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-warning"
+          (click)="deleteSkill(rowData)"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog
+  [(visible)]="skillDialogOpen"
+  [style]="{ width: '450px' }"
+  header="Skill Details"
+  [modal]="true"
+  [contentStyle]="{ overflow: 'visible' }"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="name">Title</label>
+      <input
+        type="text"
+        pInputText
+        id="title"
+        [(ngModel)]="skill.title"
+        autofocus
+      />
+    </div>
+    <div class="p-field">
+      <label for="name">Suffix keyword</label>
+      <input
+        type="text"
+        pInputText
+        id="keyword_suffix"
+        [(ngModel)]="skill.keyword_suffix"
+      />
+    </div>
+
+    <p-divider></p-divider>
+
+    <!-- <small *ngIf="selectedSkillSet.length === 0">
+      Selected skills will be displayed here.
+    </small> -->
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text p-button-plain"
+      (click)="closeDialog()"
+    ></button>
+
+    <button
+      pButton
+      pRipple
+      label="Save"
+      icon="pi pi-check"
+      (click)="saveSkill()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog
+  defaultFocus="none"
+  acceptButtonStyleClass="p-button-danger"
+  rejectButtonStyleClass="p-button-text p-button-plain"
+  [style]="{ width: '450px' }"
+></p-confirmDialog>
