@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import { ConfigService } from '@nestjs/config';
 import { Skill, SkillDocument } from './schema/skill.schema';
 import { JobDocument } from '../job/schema/job.schema';
 import { CategoryDocument } from '../category/schema/category.schema';
@@ -25,6 +26,7 @@ export class SkillService {
     @InjectModel('Category')
     private readonly CategoryModel: Model<CategoryDocument>,
     private httpService: HttpService,
+    private configService: ConfigService,
   ) {}
 
   async createSkill(skillData: CreateSkillDto): Promise<Skill> {
@@ -283,8 +285,8 @@ export class SkillService {
 
   async fetchUdemyCourses(query: string): Promise<any> {
     const results = [] as any;
-    const clientId = process.env.UDEMY_CLIENT_ID;
-    const clientSecret = process.env.UDEMY_CLIENT_SECRET;
+    const clientId = this.configService.get('UDEMY_CLIENT_ID');
+    const clientSecret = this.configService.get('UDEMY_CLIENT_SECRET');
     const basicAuth =
       'Basic ' + Buffer.from(clientId + ':' + clientSecret).toString('base64');
 
