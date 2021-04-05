@@ -12,7 +12,6 @@ import { JobDocument } from '../job/schema/job.schema';
 import { CategoryDocument } from '../category/schema/category.schema';
 import { CreateSkillDto } from './dto/create-skill.dto';
 import { SubmitSkillDto } from './dto/submit-skill.dto';
-import { UDEMY_SECRET } from '../config';
 import JSSoup from 'jssoup';
 import Fuse from 'fuse.js';
 
@@ -284,8 +283,8 @@ export class SkillService {
 
   async fetchUdemyCourses(query: string): Promise<any> {
     const results = [] as any;
-    const clientId = UDEMY_SECRET.clientId;
-    const clientSecret = UDEMY_SECRET.clientSecret;
+    const clientId = process.env.UDEMY_CLIENT_ID;
+    const clientSecret = process.env.UDEMY_CLIENT_SECRET;
     const basicAuth =
       'Basic ' + Buffer.from(clientId + ':' + clientSecret).toString('base64');
 
