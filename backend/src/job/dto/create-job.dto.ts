@@ -35,7 +35,6 @@ export class CreateJobDto {
   readonly title: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsString()
   readonly description: string;
 
