@@ -9,8 +9,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
-mongoose.set('useFindAndModify', false);
-mongoose.set('useCreateIndex', true);
+// mongoose.set('useFindAndModify', false);
+// mongoose.set('useCreateIndex', true);
 
 @Module({
   imports: [
@@ -23,6 +23,10 @@ mongoose.set('useCreateIndex', true);
         )}:${configService.get(
           'CLUSTER_PASSWORD',
         )}@cluster1412.whx5x.mongodb.net/skillguider?retryWrites=true&w=majority`,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+        useCreateIndex: true,
       }),
       inject: [ConfigService],
     }),
