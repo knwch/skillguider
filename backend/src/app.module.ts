@@ -6,6 +6,8 @@ import { CategoryModule } from './category/category.module';
 import { JobModule } from './job/job.module';
 import { SkillModule } from './skill/skill.module';
 import { CLUSTER_SECRET } from './config';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
@@ -16,6 +18,9 @@ mongoose.set('useCreateIndex', true);
     MongooseModule.forRoot(
       `mongodb+srv://${CLUSTER_SECRET?.username}:${CLUSTER_SECRET?.password}@cluster1412.whx5x.mongodb.net/skillguider?retryWrites=true&w=majority`,
     ),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'front'),
+    }),
     AuthModule,
     CategoryModule,
     JobModule,
