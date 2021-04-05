@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Auth } from './auth.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -9,14 +10,20 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   signin(payload: Auth): any {
-    return this.http.post<Auth>(`/api/auth/signin`, payload);
+    return this.http.post<Auth>(
+      `${environment.backendUrl}/auth/signin`,
+      payload
+    );
   }
 
   signup(payload: Auth): any {
-    return this.http.post<Auth>(`/api/auth/signup`, payload);
+    return this.http.post<Auth>(
+      `${environment.backendUrl}/auth/signup`,
+      payload
+    );
   }
 
   signout(token: string): any {
-    return this.http.get<Auth>(`/api/auth/signout`);
+    return this.http.get<Auth>(`${environment.backendUrl}/auth/signout`);
   }
 }
