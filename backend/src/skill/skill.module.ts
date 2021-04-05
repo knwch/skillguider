@@ -6,11 +6,9 @@ import { SkillSchema } from './schema/skill.schema';
 import { AuthModule } from '../auth/auth.module';
 import { CategorySchema } from '../category/schema/category.schema';
 import { JobSchema } from '../job/schema/job.schema';
-import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    ConfigModule,
     MongooseModule.forFeature([
       { name: 'Skill', schema: SkillSchema },
       { name: 'Job', schema: JobSchema },
