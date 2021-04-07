@@ -273,7 +273,7 @@ export class SkillService {
       const img = container.find('img')?.attrs.src;
       const data = { title: title, url: url, img: img };
 
-      if (Object.keys(data).length === 3) {
+      if (Object.keys(data).length === 3 && data?.title != null) {
         results.push(data);
       }
     });
