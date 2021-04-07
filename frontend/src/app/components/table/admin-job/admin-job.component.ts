@@ -134,7 +134,7 @@ export class AdminJobComponent implements OnInit {
     const data = {
       title: this.job.title,
       category_id: this.job.category_id,
-      description: this.job.description,
+      description: this.job.description ? this.job.description : '',
       skillset: skillSetObjectArray,
     };
 
