@@ -6,13 +6,26 @@
   }
 }
 
+::ng-deep .p-tabmenu-ink-bar {
+  width: 50% !important;
+}
+
 ::ng-deep .p-dataview .p-paginator-bottom {
   border-width: 0 0 0 0;
+}
+
+.header-skill {
+  font-size: 2rem;
+  font-weight: 500;
 }
 
 .header {
   font-size: 1.5rem;
   font-weight: 400;
+}
+
+.text-course {
+  font-weight: 500;
 }
 
 .learn-item {

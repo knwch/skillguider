@@ -1,5 +1,10 @@
 <div class="p-grid p-jc-center">
   <div class="p-col-11 p-sm-9 p-md-7 p-lg-5">
+    <div class="p-text-center p-mb-4 header-skill">
+      <span *ngIf="skill; else paramTitle">{{ skill.title }}</span>
+      <ng-template #paramTitle>{{ skillTitle }}</ng-template>
+    </div>
+
     <p-tabMenu
       styleClass="p-mb-2"
       [model]="items"
@@ -17,7 +22,10 @@
           [paginator]="true"
         >
           <ng-template let-course pTemplate="listItem" let-i="index">
-            <div class="learn-item" (click)="goToExternalWebsite('https://udemy.com' + course.url)">
+            <div
+              class="learn-item"
+              (click)="goToExternalWebsite('https://udemy.com' + course.url)"
+            >
               <div class="image-container">
                 <img
                   [src]="
@@ -30,7 +38,7 @@
                 />
               </div>
               <div class="learn-list-detail">
-                <div class="p-mb-2">{{ course.title }}</div>
+                <div class="p-mb-2 text-course">{{ course.title }}</div>
                 <small>{{ course.headline }}</small>
               </div>
               <div class="learn-list-action p-ml-2">
