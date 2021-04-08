@@ -98,9 +98,9 @@ export class AdminJobComponent implements OnInit {
     this.isOpenCreateJob = true;
   }
 
-  editJob(jobData: any): any {
-    this.job = { ...jobData };
-    this.job.skillset.map((skill: any) => {
+  async editJob(jobData: any): Promise<any> {
+    this.job = await { ...jobData };
+    await this.job.skillset.map((skill: any) => {
       if (skill.priority === 'High') {
         this.selectedHighSkillSet.push(skill.skill_id);
       } else if (skill.priority === 'Normal') {
@@ -120,8 +120,6 @@ export class AdminJobComponent implements OnInit {
         this.selectedNormalSkillSet.splice(index, 1);
       }
     });
-
-    console.log(this.selectedHighSkillSet);
 
     this.selectedHighSkillSet.forEach((id: any) => {
       skillSetObjectArray.push({ skill_id: id, priority: 'High' });
