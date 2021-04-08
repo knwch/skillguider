@@ -79,9 +79,9 @@ export class AdminCategoryComponent implements OnInit {
     this.isOpenCreateCategory = true;
   }
 
-  editCategory(categoryData: any): any {
-    this.category = { ...categoryData };
-    this.selectedSkillSet = this.category.skillset.map((skill: any) => {
+  async editCategory(categoryData: any): Promise<any> {
+    this.category = await { ...categoryData };
+    this.selectedSkillSet = await this.category.skillset.map((skill: any) => {
       return skill.skill_id;
     });
     this.categoryDialogOpen = true;
