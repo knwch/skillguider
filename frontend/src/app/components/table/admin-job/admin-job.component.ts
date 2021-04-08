@@ -65,8 +65,6 @@ export class AdminJobComponent implements OnInit {
       }
     });
 
-    console.log(this.skillList);
-
     await this.store.dispatch(new GetCategories()).toPromise();
 
     await this.categories.subscribe((data: any) => {
@@ -123,6 +121,8 @@ export class AdminJobComponent implements OnInit {
       }
     });
 
+    console.log(this.selectedHighSkillSet);
+
     this.selectedHighSkillSet.forEach((id: any) => {
       skillSetObjectArray.push({ skill_id: id, priority: 'High' });
     });
@@ -151,7 +151,6 @@ export class AdminJobComponent implements OnInit {
                 life: 3000,
               });
               this.getJobs();
-              this.closeDialog();
             }),
             catchError(async (error) =>
               this.messageService.add({
@@ -174,7 +173,6 @@ export class AdminJobComponent implements OnInit {
                 life: 3000,
               });
               this.getJobs();
-              this.closeDialog();
             }),
             catchError(async (error) =>
               this.messageService.add({
@@ -185,6 +183,8 @@ export class AdminJobComponent implements OnInit {
             )
           )
           .toPromise();
+
+    this.closeDialog();
   }
 
   async deleteJob(jobData: any): Promise<any> {
