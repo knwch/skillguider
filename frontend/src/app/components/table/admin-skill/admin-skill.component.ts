@@ -80,7 +80,6 @@ export class AdminSkillComponent implements OnInit {
                 life: 3000,
               });
               this.getSkills();
-              this.closeDialog();
             }),
             catchError(async (error) =>
               this.messageService.add({
@@ -103,7 +102,6 @@ export class AdminSkillComponent implements OnInit {
                 life: 3000,
               });
               this.getSkills();
-              this.closeDialog();
             }),
             catchError(async (error) =>
               this.messageService.add({
@@ -114,6 +112,8 @@ export class AdminSkillComponent implements OnInit {
             )
           )
           .toPromise();
+
+    this.closeDialog();
   }
 
   async deleteSkill(skillData: any): Promise<any> {

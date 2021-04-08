@@ -113,7 +113,6 @@ export class AdminCategoryComponent implements OnInit {
                 life: 3000,
               });
               this.getCategories();
-              this.closeDialog();
             }),
             catchError(async (error) =>
               this.messageService.add({
@@ -136,7 +135,6 @@ export class AdminCategoryComponent implements OnInit {
                 life: 3000,
               });
               this.getCategories();
-              this.closeDialog();
             }),
             catchError(async (error) =>
               this.messageService.add({
@@ -147,6 +145,8 @@ export class AdminCategoryComponent implements OnInit {
             )
           )
           .toPromise();
+
+    this.closeDialog();
   }
 
   async deleteCategory(categoryData: any): Promise<any> {
