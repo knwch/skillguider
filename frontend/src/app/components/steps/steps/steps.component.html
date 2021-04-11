@@ -1,0 +1,18 @@
+<span
+  *ngIf="
+    href.includes('/category') ||
+    href.includes('/myskill?job=') ||
+    href.includes('/result?job=') ||
+    href.includes('/learn?skill=')
+  "
+>
+  <div class="p-grid p-jc-center">
+    <div class="p-col-12 p-sm-10 p-md-8 p-lg-6 steps-area">
+      <p-steps
+        [model]="items"
+        [readonly]="true"
+        [activeIndex]="activeIndex"
+      ></p-steps>
+    </div>
+  </div>
+</span>

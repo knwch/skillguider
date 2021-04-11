@@ -1,0 +1,28 @@
+.steps-area {
+  margin-top: -1rem;
+}
+
+::ng-deep .p-steps {
+  .p-steps-item.p-highlight {
+    .p-steps-title {
+      font-weight: 500;
+      color: #1d2530;
+    }
+
+    .p-steps-number {
+      color: #ffffff;
+    }
+  }
+
+  .p-steps-item.p-disabled .p-menuitem-link {
+    .p-steps-number {
+      background: rgba(255, 255, 255, 0);
+      border-color: rgba(0, 0, 0, 0.28);
+      color: rgba(0, 0, 0, 0.28);
+    }
+
+    .p-steps-title {
+      color: rgba(0, 0, 0, 0.38);
+    }
+  }
+}
