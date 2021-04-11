@@ -10,9 +10,11 @@ import { LearnPageComponent } from './pages/learn-page/learn-page.component';
 import { NotfoundPageComponent } from './pages/notfound-page/notfound-page.component';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { AuthPageComponent } from './pages/auth-page/auth-page.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'category', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomePageComponent },
   {
     path: 'category',
     children: [
