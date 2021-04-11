@@ -38,6 +38,7 @@ import { SkillState } from './skill/skill.state';
 import { AuthState } from './auth/auth.state';
 
 import { TokenInterceptor } from './auth/token.interceptor';
+import { StepComponent } from './components/step/step/step.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { TokenInterceptor } from './auth/token.interceptor';
     AdminJobComponent,
     AdminSkillComponent,
     HomePageComponent,
+    StepComponent,
   ],
   imports: [
     BrowserModule,

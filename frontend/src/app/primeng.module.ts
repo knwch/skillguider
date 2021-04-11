@@ -28,6 +28,7 @@ import { PasswordModule } from 'primeng/password';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TagModule } from 'primeng/tag';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { StepsModule } from 'primeng/steps';
 
 @NgModule({
   imports: [CommonModule],
@@ -60,6 +61,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     InputTextareaModule,
     TagModule,
     ProgressSpinnerModule,
+    StepsModule,
   ],
 })
 export class PrimeNgModule {}
