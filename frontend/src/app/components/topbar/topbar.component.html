@@ -1,5 +1,18 @@
 <p-menubar styleClass="p-px-4 p-px-sm-6 p-mb-4">
   <ng-template pTemplate="start">
+    <button
+      *ngIf="
+        href.includes('/category/') ||
+        href.includes('/myskill?job=') ||
+        href.includes('/result?job=') ||
+        href.includes('/learn?skill=')
+      "
+      pButton
+      pRipple
+      icon="pi pi-chevron-left"
+      class="p-button-lg p-button-rounded p-button-text p-mr-4"
+      (click)="goBack()"
+    ></button>
     <img
       src="../../../assets/witch-hat.png"
       height="40"
