@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { MenuItem } from 'primeng/api';
 import { AuthState } from '../../auth/auth.state';
@@ -16,15 +16,27 @@ export class TopbarComponent implements OnInit {
 
   items: MenuItem[] = [];
 
+  href: any;
+
   constructor(private store: Store, private router: Router) {}
 
   async ngOnInit(): Promise<any> {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.href = event.url;
+      }
+    });
+
     this.items = [
       {
         label: 'Home',
         routerLink: '/',
       },
     ];
+  }
+
+  startAppRoute(): void {
+    this.router.navigate(['/category']);
   }
 
   signout(): void {

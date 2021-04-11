@@ -1,7 +1,14 @@
 <div class="p-grid p-jc-center">
   <div class="p-col-11 p-sm-9 p-md-7 p-lg-5">
+    <p-card styleClass="p-mb-3 card-background">
+      <div class="p-text-center header-first">สำรวจสกิลตัวเอง</div>
+    </p-card>
+
     <p-card styleClass="p-mb-3 p-px-4 p-pb-4 p-pt-2">
-      <div class="p-text-left header">เพิ่มสกิลของคุณ</div>
+      <!-- <div class="p-text-left p-mb-2 header-first">สำรวจสกิลตัวเอง</div> -->
+
+      <div class="p-text-left p-mb-1 header">เพิ่มสกิลของคุณ</div>
+      <span>เพื่อทำการ Match กับอาชีพ {{job.title}}</span>
 
       <div class="p-fluid p-my-3">
         <p-autoComplete
@@ -33,7 +40,8 @@
 
       <p-divider></p-divider>
 
-      <div class="p-text-left header">สกิลแนะนำ {{ job.title }}</div>
+      <div class="p-text-left header">สกิลแนะนำ</div>
+      <div class="p-mb-2">สำหรับอาชีพ {{ job.title }}</div>
 
       <div>
         <span *ngFor="let skill of suggestSkillArray; index as i">

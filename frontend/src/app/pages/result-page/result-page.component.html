@@ -1,11 +1,42 @@
 <div class="p-grid p-jc-center">
   <div class="p-col-11 p-sm-9 p-md-7 p-lg-5">
-    <div class="p-text-center p-mb-4 header">
-      <span *ngIf="job">สกิลสำหรับ {{ job.title }}</span>
-    </div>
+    <p-card styleClass="p-mb-3 card-background">
+      <div class="p-text-center header-job">
+        <span *ngIf="job">{{ job.title }}</span>
+      </div>
+    </p-card>
 
     <p-card>
-      <div class="p-text-left p-ml-4 header">สกิลที่จำเป็น</div>
+      <div class="p-text-left p-ml-4 header">
+        สกิลที่ควรพัฒนา
+        <i
+          class="pi pi-question-circle p-ml-1"
+          pTooltip="สกิลที่อาชีพ {{
+            job.title
+          }} ในแต่ละองค์กรต้องการเหมือนกัน โดยแบ่งระดับจากจำนวนสกิลที่พบในอาชีพ {{
+            job.title
+          }}"
+          style="font-size: 0.9rem"
+        ></i>
+      </div>
+
+      <div class="p-ml-4 p-mb-2">
+        <small>เลือกสกิลเพื่อสำรวจคอร์สเรียน และบทความที่เกี่ยวข้อง</small>
+      </div>
+
+      <div class="p-ml-4">
+        <p-tag
+          styleClass="p-mr-2 tag-priority-high"
+          value="สำคัญมาก"
+          [rounded]="true"
+        ></p-tag>
+
+        <p-tag
+          styleClass="p-mr-2 tag-priority-normal"
+          value="สำคัญรองลงมา"
+          [rounded]="true"
+        ></p-tag>
+      </div>
 
       <p-dataView [value]="jobSkills" layout="list">
         <ng-template let-skill pTemplate="listItem">
@@ -44,7 +75,14 @@
     </p-card>
 
     <p-card styleClass="p-mt-3">
-      <div class="p-text-left p-ml-4 header">สกิลอื่น ๆ ในสายงาน</div>
+      <div class="p-text-left p-ml-4 header">
+        สกิลอื่น ๆ ในสายงาน {{ category.title }}
+        <i
+          class="pi pi-question-circle p-ml-1"
+          pTooltip="สกิลที่ทุก ๆ อาชีพในสายงาน {{ category.title }} มีเหมือนกัน"
+          style="font-size: 0.9rem"
+        ></i>
+      </div>
 
       <p-dataView [value]="categorySkills" layout="list">
         <ng-template let-skill pTemplate="listItem">

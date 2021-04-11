@@ -5,6 +5,8 @@ import { SkillState } from '../../skill/skill.state';
 import { SetSelectedSkill, SubmitSkill } from '../../skill/skill.action';
 import { JobState } from '../../job/job.state';
 import { GetJobById } from '../../job/job.action';
+import { CategoryState } from '../../category/category.state';
+import { GetCategoryById } from '../../category/category.action';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -19,6 +21,9 @@ export class ResultPageComponent implements OnInit {
   @Select(JobState.getSelectedJob)
   selectedJob: Observable<any> | undefined | any;
 
+  @Select(CategoryState.getSelectedCategory)
+  selectedCategory: Observable<any> | undefined | any;
+
   job: any;
 
   jobId: any;
@@ -26,6 +31,8 @@ export class ResultPageComponent implements OnInit {
   jobSkills: any;
 
   categorySkills: any;
+
+  category: any;
 
   constructor(
     private store: Store,
@@ -59,6 +66,18 @@ export class ResultPageComponent implements OnInit {
         }
       });
     }
+
+    await this.store
+      .dispatch(new GetCategoryById(this.job.category_id))
+      .toPromise();
+
+    await this.selectedCategory.subscribe((data: any) => {
+      if (data) {
+        this.category = data;
+      } else {
+        this.router.navigate(['']);
+      }
+    });
 
     await this.skills.subscribe(async (data: any) => {
       if (!data) {

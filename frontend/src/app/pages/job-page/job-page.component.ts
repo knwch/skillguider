@@ -31,8 +31,8 @@ export class JobPageComponent implements OnInit {
 
   sliceOptions: any = {
     start: 0,
-    end: 100,
-    default: 100,
+    end: 80,
+    default: 80,
   };
 
   details = {

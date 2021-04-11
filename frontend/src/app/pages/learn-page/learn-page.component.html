@@ -1,15 +1,25 @@
 <div class="p-grid p-jc-center">
   <div class="p-col-11 p-sm-9 p-md-7 p-lg-5">
-    <div class="p-text-center p-mb-4 header-skill">
-      <span *ngIf="skill; else paramTitle">{{ skill.title }}</span>
-      <ng-template #paramTitle>{{ skillTitle }}</ng-template>
-    </div>
+    <p-card styleClass="card-background">
+      <div class="p-text-center header-skill">
+        <span *ngIf="skill; else paramTitle">{{ skill.title }}</span>
+        <ng-template #paramTitle>{{ skillTitle }}</ng-template>
+      </div>
+    </p-card>
+
+    <div style="margin-bottom: 0.9rem"></div>
 
     <p-tabMenu
       styleClass="p-mb-2"
       [model]="items"
       [activeItem]="activeItem"
     ></p-tabMenu>
+
+    <ng-template #loading>
+      <div class="p-grid p-jc-center p-mt-4">
+        <p-progressSpinner></p-progressSpinner>
+      </div>
+    </ng-template>
 
     <div *ngIf="isLoaded === false; else loading" class="p-fluid">
       <p-card *ngIf="activeItem.key === 'course'">
@@ -76,9 +86,3 @@
     </div>
   </div>
 </div>
-
-<ng-template #loading>
-  <div class="p-grid p-jc-center">
-    <i class="pi pi-spin pi-spinner p-m-5" style="font-size: 2rem"></i>
-  </div>
-</ng-template>

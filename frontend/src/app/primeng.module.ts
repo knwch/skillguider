@@ -26,6 +26,8 @@ import { ChipModule } from 'primeng/chip';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { PasswordModule } from 'primeng/password';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { TagModule } from 'primeng/tag';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
   imports: [CommonModule],
@@ -56,6 +58,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     ConfirmDialogModule,
     PasswordModule,
     InputTextareaModule,
+    TagModule,
+    ProgressSpinnerModule,
   ],
 })
 export class PrimeNgModule {}

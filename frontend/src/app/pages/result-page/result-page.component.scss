@@ -1,5 +1,10 @@
 .header {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
+  font-weight: 500;
+}
+
+.header-job {
+  font-size: 2rem;
   font-weight: 500;
 }
 
@@ -28,6 +33,16 @@
   }
 }
 
+::ng-deep p-tag .tag-priority-high {
+  background-color: #f55f20;
+  font-weight: 500;
+}
+
+::ng-deep p-tag .tag-priority-normal {
+  background-color: #fbb124;
+  font-weight: 500;
+}
+
 .dot-priority-high {
   color: #f55f20;
 }
@@ -37,9 +52,9 @@
 }
 
 ::ng-deep .p-button.checked-button {
-    color: #46ab44 !important;
-  
-    &:hover {
-      color: #3f9e3e !important;
-    }
+  color: #46ab44 !important;
+
+  &:hover {
+    color: #3f9e3e !important;
   }
+}

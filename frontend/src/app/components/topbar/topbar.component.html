@@ -16,6 +16,14 @@
       class="p-button-text p-button-plain"
     ></button>
     <button
+      *ngIf="href === '/' || href === '/home' || href === '/about'"
+      pButton
+      pRipple
+      label="Launch App"
+      class="p-button-raised p-ml-3"
+      (click)="startAppRoute()"
+    ></button>
+    <button
       *ngIf="isAuthenticated | async"
       pButton
       pRipple
