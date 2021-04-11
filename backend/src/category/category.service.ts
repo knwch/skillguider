@@ -50,7 +50,22 @@ export class CategoryService {
 
   async getAllCategories(): Promise<any> {
     const categoriesData = await this.CategoryModel.find();
-    return categoriesData;
+
+    const sortedCategories = categoriesData.sort((a: any, b: any) => {
+      const titleA = a.title.toUpperCase(); // ignore upper and lowercase
+      const titleB = b.title.toUpperCase(); // ignore upper and lowercase
+      if (titleA < titleB) {
+        return -1;
+      }
+      if (titleA > titleB) {
+        return 1;
+      }
+
+      // names must be equal
+      return 0;
+    });
+
+    return sortedCategories;
   }
 
   async getCategoryById(id: string): Promise<Category> {
