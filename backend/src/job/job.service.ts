@@ -85,7 +85,21 @@ export class JobService {
 
     const jobs = await this.JobModel.find({ category_id: category_id });
 
-    return jobs;
+    const sortedJobs = jobs.sort((a: any, b: any) => {
+      const titleA = a.title.toUpperCase(); // ignore upper and lowercase
+      const titleB = b.title.toUpperCase(); // ignore upper and lowercase
+      if (titleA < titleB) {
+        return -1;
+      }
+      if (titleA > titleB) {
+        return 1;
+      }
+
+      // names must be equal
+      return 0;
+    });
+
+    return sortedJobs;
   }
 
   async updateJob(id: string, jobData: CreateJobDto): Promise<Job> {
