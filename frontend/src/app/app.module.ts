@@ -23,6 +23,7 @@ import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { AdminCategoryComponent } from './components/table/admin-category/admin-category.component';
 import { AdminJobComponent } from './components/table/admin-job/admin-job.component';
 import { AdminSkillComponent } from './components/table/admin-skill/admin-skill.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 
 // NGXS
 import { NgxsModule } from '@ngxs/store';
@@ -54,6 +55,7 @@ import { TokenInterceptor } from './auth/token.interceptor';
     AdminCategoryComponent,
     AdminJobComponent,
     AdminSkillComponent,
+    HomePageComponent,
   ],
   imports: [
     BrowserModule,
