@@ -24,6 +24,8 @@ import { AdminCategoryComponent } from './components/table/admin-category/admin-
 import { AdminJobComponent } from './components/table/admin-job/admin-job.component';
 import { AdminSkillComponent } from './components/table/admin-skill/admin-skill.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { StepsComponent } from './components/steps/steps/steps.component';
+
 
 // NGXS
 import { NgxsModule } from '@ngxs/store';
@@ -38,7 +40,6 @@ import { SkillState } from './skill/skill.state';
 import { AuthState } from './auth/auth.state';
 
 import { TokenInterceptor } from './auth/token.interceptor';
-import { StepComponent } from './components/step/step/step.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,7 @@ import { StepComponent } from './components/step/step/step.component';
     AdminJobComponent,
     AdminSkillComponent,
     HomePageComponent,
-    StepComponent,
+    StepsComponent,
   ],
   imports: [
     BrowserModule,
