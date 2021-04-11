@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { NavigationStart, Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { MenuItem } from 'primeng/api';
@@ -18,7 +19,11 @@ export class TopbarComponent implements OnInit {
 
   href: any;
 
-  constructor(private store: Store, private router: Router) {}
+  constructor(
+    private store: Store,
+    private router: Router,
+    private location: Location
+  ) {}
 
   async ngOnInit(): Promise<any> {
     this.router.events.subscribe((event) => {
@@ -37,6 +42,10 @@ export class TopbarComponent implements OnInit {
 
   startAppRoute(): void {
     this.router.navigate(['/category']);
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   signout(): void {
