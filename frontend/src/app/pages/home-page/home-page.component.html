@@ -3,15 +3,152 @@
 
   <div class="p-grid p-jc-center">
     <div class="context-position p-text-center">
-      <div class="header">สำรวจสกิลที่ควรพัฒนา</div>
-      <div class="sub-header">ในสายงานเทคโนโลยี</div>
+      <div class="header">Skill Guider</div>
+      <div class="sub-header">สำรวจสกิลที่สำคัญของอาชีพต่าง ๆ ในสายงานเทคโนโลยี</div>
       <button
         pButton
         pRipple
+        icon="pi pi-chevron-right"
+        iconPos="right"
         label="เริ่มต้นใช้งาน"
         class="p-button-raised p-mt-3"
         (click)="startAppRoute()"
       ></button>
+    </div>
+  </div>
+
+  <div class="p-grid p-jc-center section-one">
+    <div class="p-col-9 p-sm-7 p-md-6 p-lg-8">
+      <div class="p-grid p-jc-center">
+        <div class="p-col-12 p-sm-11 p-md-9 p-lg-4">
+          <p-card class="p-text-center card-area">
+            <img
+              class="card-image p-mt-5 p-mb-5"
+              src="../../../assets/brain.png"
+            />
+            <div class="card-text p-mb-5">
+              วิเคราะห์สกิล
+              <br />
+              จาก Job board
+            </div>
+          </p-card>
+        </div>
+
+        <div class="p-col-12 p-sm-11 p-md-9 p-lg-4">
+          <p-card class="p-text-center card-area">
+            <img
+              class="card-image p-mt-5 p-mb-5"
+              src="../../../assets/smiley.png"
+            />
+            <div class="card-text p-mb-5">
+              ช่วยเป็นจุดเริ่มต้น
+              <br />
+              ในการพัฒนาสกิลใหม่
+            </div>
+          </p-card>
+        </div>
+
+        <div class="p-col-12 p-sm-11 p-md-9 p-lg-4">
+          <p-card class="p-text-center card-area">
+            <img
+              class="card-image p-mt-5 p-mb-5"
+              src="../../../assets/star.png"
+            />
+            <div class="card-text p-mb-5">
+              เสนอแหล่งเรียนรู้
+              <br />
+              ที่เกี่ยวข้องกับสกิล
+            </div>
+          </p-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="p-grid p-jc-center section-two">
+    <div class="p-col-10 p-sm-8 p-md-7 p-lg-9">
+      <div class="p-text-center p-mb-6 header">แหล่งข้อมูลของ Skill Guider</div>
+
+      <div class="p-grid p-jc-center">
+        <div class="p-col-12 p-sm-10 p-md-6 p-lg-3">
+          <p-card
+            class="p-text-center card-area"
+            styleClass="card-link"
+            (click)="
+              goToExternalWebsite(
+                'https://www.kaggle.com/promptcloud/jobs-on-naukricom'
+              )
+            "
+          >
+            <img
+              class="card-image p-mt-5 p-mb-3"
+              src="../../../assets/kaggle.png"
+            />
+            <div class="card-text p-mb-1">Kaggle</div>
+            <div class="card-subtext p-mb-5">
+              ชุดข้อมูล
+              <br />
+              Job on Naukri.com
+            </div>
+          </p-card>
+        </div>
+
+        <div class="p-col-12 p-sm-10 p-md-6 p-lg-3">
+          <p-card
+            class="p-text-center card-area"
+            styleClass="card-link"
+            (click)="goToExternalWebsite('https://www.udemy.com/')"
+          >
+            <img
+              class="card-image p-mt-5 p-mb-3"
+              src="../../../assets/udemy.png"
+            />
+            <div class="card-text p-mb-1">Udemy</div>
+            <div class="card-subtext p-mb-5">
+              เสนอคอร์สเรียน
+              <br />
+              ที่เกี่ยวข้องกับสกิล
+            </div>
+          </p-card>
+        </div>
+
+        <div class="p-col-12 p-sm-10 p-md-6 p-lg-3">
+          <p-card class="p-text-center card-area" styleClass="card-link">
+            <img
+              class="card-image p-mt-5 p-mb-3"
+              src="../../../assets/medium.png"
+              (click)="goToExternalWebsite('https://medium.com/')"
+            />
+            <div class="card-text p-mb-1">Medium</div>
+            <div class="card-subtext p-mb-5">
+              เสนอบทความ
+              <br />
+              ที่เกี่ยวข้องกับสกิล
+            </div>
+          </p-card>
+        </div>
+
+        <div class="p-col-12 p-sm-10 p-md-6 p-lg-3">
+          <p-card
+            class="p-text-center card-area"
+            styleClass="card-link"
+            (click)="
+              goToExternalWebsite('https://github.com/knwch/skillguider')
+            "
+          >
+            <img
+              class="card-image p-mt-5 p-mb-3"
+              src="../../../assets/github.png"
+            />
+            <div class="card-text p-mb-1">Github</div>
+            <div class="card-subtext p-mb-5">
+              Review code
+              <br />
+              <br />
+            </div>
+          </p-card>
+        </div>
+      </div>
     </div>
   </div>
 </div>
