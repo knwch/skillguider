@@ -20,4 +20,8 @@ export class HomePageComponent implements OnInit {
   startAppRoute(): void {
     this.router.navigate(['/category']);
   }
+
+  goToExternalWebsite(url: any): void {
+    window.open(url, '_blank');
+  }
 }
