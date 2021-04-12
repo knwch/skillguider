@@ -9,6 +9,10 @@
   }
 }
 
+::ng-deep .p-menubar.menubar-height {
+  height: 75px;
+}
+
 .logo-link {
   &:hover {
     cursor: pointer;
