@@ -14,3 +14,9 @@
     cursor: pointer;
   }
 }
+
+@media screen and (max-width: 576px) {
+  .launch-button {
+    display: none;
+  }
+}
