@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { JobState } from '../../job/job.state';
 import { GetJobById } from '../../job/job.action';
 import { SkillState } from '../../skill/skill.state';
-import { Skill } from '../../skill/skill.model';
 import {
   SearchSkills,
   GetSkillsByJob,
