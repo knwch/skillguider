@@ -4,7 +4,9 @@
   <div class="p-grid p-jc-center">
     <div class="context-position p-text-center">
       <div class="header">Skill Guider</div>
-      <div class="sub-header">สำรวจสกิลที่สำคัญของอาชีพต่าง ๆ ในสายงานเทคโนโลยี</div>
+      <div class="sub-header">
+        สำรวจสกิลที่สำคัญของอาชีพต่าง ๆ ในสายงานเทคโนโลยี
+      </div>
       <button
         pButton
         pRipple
@@ -24,6 +26,7 @@
           <p-card class="p-text-center card-area">
             <img
               class="card-image p-mt-5 p-mb-5"
+              alt="วิเคราะห์สกิลจาก Job board"
               src="../../../assets/brain.png"
             />
             <div class="card-text p-mb-5">
@@ -38,6 +41,7 @@
           <p-card class="p-text-center card-area">
             <img
               class="card-image p-mt-5 p-mb-5"
+              alt="ช่วยเป็นจุดเริ่มต้นในการพัฒนาสกิลใหม่"
               src="../../../assets/smiley.png"
             />
             <div class="card-text p-mb-5">
@@ -52,6 +56,7 @@
           <p-card class="p-text-center card-area">
             <img
               class="card-image p-mt-5 p-mb-5"
+              alt="เสนอแหล่งเรียนรู้ที่เกี่ยวข้องกับสกิล"
               src="../../../assets/star.png"
             />
             <div class="card-text p-mb-5">
@@ -82,6 +87,7 @@
           >
             <img
               class="card-image p-mt-5 p-mb-3"
+              alt="ชุดข้อมูล Job on Naukri.com"
               src="../../../assets/kaggle.png"
             />
             <div class="card-text p-mb-1">Kaggle</div>
@@ -101,6 +107,7 @@
           >
             <img
               class="card-image p-mt-5 p-mb-3"
+              alt="เสนอคอร์สเรียนที่เกี่ยวข้องกับสกิล"
               src="../../../assets/udemy.png"
             />
             <div class="card-text p-mb-1">Udemy</div>
@@ -113,11 +120,15 @@
         </div>
 
         <div class="p-col-12 p-sm-10 p-md-6 p-lg-3">
-          <p-card class="p-text-center card-area" styleClass="card-link">
+          <p-card
+            class="p-text-center card-area"
+            styleClass="card-link"
+            (click)="goToExternalWebsite('https://medium.com/')"
+          >
             <img
               class="card-image p-mt-5 p-mb-3"
+              alt="เสนอบทความที่เกี่ยวข้องกับสกิล"
               src="../../../assets/medium.png"
-              (click)="goToExternalWebsite('https://medium.com/')"
             />
             <div class="card-text p-mb-1">Medium</div>
             <div class="card-subtext p-mb-5">
@@ -138,6 +149,7 @@
           >
             <img
               class="card-image p-mt-5 p-mb-3"
+              alt="github"
               src="../../../assets/github.png"
             />
             <div class="card-text p-mb-1">Github</div>
