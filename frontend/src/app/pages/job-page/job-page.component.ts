@@ -5,7 +5,7 @@ import { JobState } from '../../job/job.state';
 import { GetJobsByCategory, SetSelectedJob } from '../../job/job.action';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-job-page',

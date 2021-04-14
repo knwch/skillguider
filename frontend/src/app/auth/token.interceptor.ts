@@ -4,13 +4,12 @@ import { Store } from '@ngxs/store';
 import {
   HttpInterceptor,
   HttpEvent,
-  HttpResponse,
   HttpRequest,
   HttpHandler,
 } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { AuthState } from './auth.state';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { Signout } from './auth.action';
 
 @Injectable()

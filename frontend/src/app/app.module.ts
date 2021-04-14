@@ -26,7 +26,6 @@ import { AdminSkillComponent } from './components/table/admin-skill/admin-skill.
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { StepsComponent } from './components/steps/steps/steps.component';
 
-
 // NGXS
 import { NgxsModule } from '@ngxs/store';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';

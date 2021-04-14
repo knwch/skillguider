@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryState } from '../../category/category.state';
 import { JobState } from '../../job/job.state';
-import { Category } from '../../category/category.model';
 import {
   GetCategories,
   SetSelectedCategory,
@@ -9,7 +8,7 @@ import {
 import { SearchJobs, SetSelectedJob } from '../../job/job.action';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-category-page',

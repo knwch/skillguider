@@ -4,7 +4,6 @@ import { Select, Store } from '@ngxs/store';
 import { SkillState } from '../../skill/skill.state';
 import { GetCourses, GetArticles } from '../../skill/skill.action';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-learn-page',
